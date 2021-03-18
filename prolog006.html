@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog 6</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-programozás-6">Prolog programozás 6</h1>
+<h2 id="különbség-listák">Különbség-listák</h2>
+<p>Listákat lehet két lista különbségeként ábrázolni, így pl. az <code>[1,2,3]</code> lista leírható úgy, mint az <code>[1,2,3,8]</code> és <code>[8]</code> listák különbsége, vagy az <code>[1,2,3]</code> és <code>[]</code> listáké, vagy általánosan az <code>[1,2,3|M]</code> és <code>M</code> különbségeként. A két tagot összekapcsolhatjuk pl. a <code>-</code> operátorral: <code>[1,2,3|M]-M</code>.</p>
+<p>Ennek az ábrázolásnak nagy előnye, hogy közvetlenül tudunk hivatkozni a lista végére, ezért bizonyos műveleteket sokkal hatékonyabban meg lehet valósítani a segítségükkel, mint ha csak sima listákat használnánk.</p>
+<p>Egy egyszerű példa erre a hozzáfűzés:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hozzáfűz_kl(<span class="dt">X</span><span class="fu">-</span><span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span><span class="dt">Z</span><span class="kw">,</span> <span class="dt">X</span><span class="fu">-</span><span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ehhez persze az kell, hogy argumentumként különbség-listákat kapjon:</p>
+<pre><code>?- hozzáfűz_kl([a,b,c|M]-M, [1,2]-[], X-[]).
+M = [1, 2],
+X = [a, b, c, 1, 2]</code></pre>
+<p>Ennek a változatnak az összefüggését - mivel annyira egyszerű - a programba közvetlenül be szokás építeni, ahogy azt mindjárt látni fogjuk a gyorsrendezésnél.</p>
+<h3 id="gyorsrendezés">Gyorsrendezés</h3>
+<p>Az előző leckében látott gyorsrendezés is sokkal hatékonyabbá tehető ezzel a technikával. Eredetileg így nézett ki:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rendez2([]<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rendez2([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    szétoszt(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">Kicsi</span><span class="kw">,</span> <span class="dt">Nagy</span>)<span class="kw">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    rendez2(<span class="dt">Kicsi</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    rendez2(<span class="dt">Nagy</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    hozzáfűz(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">N</span>]<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Írjuk át különbség-listák használatával!</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rendez2(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> rendez2_kl(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span>[])<span class="kw">.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>rendez2_kl([]<span class="kw">,</span> <span class="dt">X</span><span class="fu">-</span><span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>rendez2_kl([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span><span class="dt">Z</span>) <span class="kw">:-</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    szétoszt(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">Kicsi</span><span class="kw">,</span> <span class="dt">Nagy</span>)<span class="kw">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    rendez2_kl(<span class="dt">Kicsi</span><span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span>[<span class="dt">X</span><span class="fu">|</span><span class="dt">Y1</span>])<span class="kw">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    rendez2_kl(<span class="dt">Nagy</span><span class="kw">,</span> <span class="dt">Y1</span><span class="fu">-</span><span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Látszik, hogy itt már nincsen szükség hozzáfűzésre, a két rekurzív hívás eleve “jó helyre” készíti a megoldásait. Ezért a varázslatért a változók egyesítése a felelős.</p>
+<h3 id="lista-megfordítása">Lista megfordítása</h3>
+<p>A <code>fordított</code> szabállyal már találkoztunk a 3. lecke 5. feladatában. Egy lehetséges megoldás a következő:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fordított([]<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fordított([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span>  fordított(<span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">,</span> hozzáfűz(<span class="dt">M1</span><span class="kw">,</span> [<span class="dt">X</span>]<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez így nem túl hatékony. Ezt is megpróbálhatjuk vég-rekurziós formára hozni egy plusz (ún. <em>akkumulátor</em>) argumentum segítségével:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fordított(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> fordított(<span class="dt">X</span><span class="kw">,</span> []<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>fordított([]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>fordított([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">F</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> fordított(<span class="dt">M</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">F</span>]<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span> </span></code></pre></div>
+<p>Egy másik lehetőség, hogy különbség-listákat használunk:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fordított(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> fordított_kl(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span>[])<span class="kw">.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fordított_kl([]<span class="kw">,</span> <span class="dt">X</span><span class="fu">-</span><span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>fordított_kl([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span><span class="dt">Z</span>) <span class="kw">:-</span> fordított_kl(<span class="dt">M</span><span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span>[<span class="dt">X</span><span class="fu">|</span><span class="dt">Z</span>])<span class="kw">.</span></span></code></pre></div>
+<p>Ha most összehasonlítjuk a két megoldást, látszik, hogy a kettő lényegében megegyezik, csak a vég-rekurziós változat harmadik és második paraméterét összevontuk egy különbség-listává.</p>
+<h3 id="feladatok">Feladatok</h3>
+<ol>
+<li><p>Írjátok át a 3. lecke 10. feladatában szereplő <code>lapít</code> szabályt hatékonyabbra különbség-listák használatával!</p></li>
+<li><p>Oldjátok meg Dijkstra <em>holland zászló</em> problémáját: piros, fehér és kék színű elemek listáját rendezzétek át úgy, hogy a piros elemek után jöjjenek a fehérek, és végül a kékek, de ezen belül a sorrendjük ne változzon! Például:</p>
+<pre><code>?- holland([piros(alma),fehér(fal),kék(tenger),
+            piros(paprika),fehér(holló)], X).
+X = [piros(alma), piros(paprika), fehér(fal),
+     fehér(holló), kék(tenger)]</code></pre>
+<p>A megoldáshoz használjatok különbség-listákat!</p></li>
+</ol>
+<h2 id="kifejezések-vizsgálata-struktúrák-készítése-és-szétszedése">Kifejezések vizsgálata, struktúrák készítése és szétszedése</h2>
+<p>Egy kifejezés típusának (ld. 2. lecke) megvizsgálására a következő beépített szabályok adottak:</p>
+<ul>
+<li><code>var(X)</code> : <code>X</code> változó (és nincs értéke)</li>
+<li><code>nonvar(X)</code> : <code>X</code> nem változó vagy van értéke</li>
+<li><code>atom(X)</code> : <code>X</code> atom</li>
+<li><code>number(X)</code> : <code>X</code> szám
+<ul>
+<li><code>integer(X)</code> : <code>X</code> egész szám</li>
+<li><code>float(X)</code> : <code>X</code> valós szám</li>
+</ul></li>
+<li><code>atomic(X)</code> : <code>X</code> atom vagy szám</li>
+<li><code>compound(X)</code> : <code>X</code> összetett struktúra</li>
+</ul>
+<p>Egy struktúra ezen kívül szétszedhető az elemeinek listájára (fej + argumentumok), illetve visszaépíthető ezekből az <code>=..</code> segítségével:</p>
+<pre><code>?- f(a,b,c) =.. X.
+X = [f, a, b, c]
+?- X =.. [f, a, b, c].
+X = f(a,b,c)</code></pre>
+<p>A funktort és aritást, illetve az egyes argumentumokat külön is le lehet kérdezni a <code>functor</code> ill. <code>arg</code> használatával:</p>
+<pre><code>?- functor(f(a,b,c), F, N).
+F = f,
+N = 3
+?- arg(1, f(a,b,c), X).
+X = a
+?- arg(2, f(a,b,c), X).
+X = b</code></pre>
+<p>Ezeknek a segítségével a struktúrákat tudjuk fix hosszú <em>tömbökként</em> kezelni, tehát olyan adattárolókként, amelyeknek tetszőleges eleme hatékonyan elérhető (ellentétben a listákkal, ahol az <em>n</em>-edik elem eléréséhez előbb végig kell mennünk az összes előtte levőn). Például a</p>
+<pre><code>?- functor(T, t, 10), arg(5, T, 42)</code></pre>
+<p>hatására a <code>T</code> egy olyan 10-elemű tömb lesz, aminek az 5. eleme a 42.</p>
+<h3 id="csere">Csere</h3>
+<p>Hogyan lehetne ezek segítségével megoldani a következő feladatot: egy kifejezésben egy másik (al)kifejezés minden előfordulását le akarjuk cserélni valami másra. Például:</p>
+<pre><code>?- lecserél(sin(x), t, 2*sin(x)*f(sin(x)), F).
+F = 2*t*f(t)</code></pre>
+<p>Itt az “előfordulás” egyesíthetőséget jelent, tehát</p>
+<pre><code>?- lecserél(a+b, v, f(a,A+B), F).
+A = a,
+B = b,
+F = f(a, v)</code></pre>
+<p>Három eset van:</p>
+<ol>
+<li>A kifejezés és a lecserélendő alkifejezés megegyezik - az egészet cseréljük.</li>
+<li>A kifejezés atom/szám - nincs mit csinálni.</li>
+<li>A kifejezés egy struktúra; az argumentumaira kell elvégezni a cserét.</li>
+</ol>
+<p>Ez alapján a három szabály:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lecserél(<span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Z</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> <span class="dt">atomic</span>(<span class="dt">Z</span>)<span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span><span class="kw">,</span> <span class="dt">Z1</span>) <span class="kw">:-</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Z</span> <span class="fu">=..</span> [<span class="dt">F</span><span class="fu">|</span><span class="dt">Arg</span>]<span class="kw">,</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    mindent_lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Arg</span><span class="kw">,</span> <span class="dt">Arg1</span>)<span class="kw">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Z1</span> <span class="fu">=..</span> [<span class="dt">F</span><span class="fu">|</span><span class="dt">Arg1</span>]<span class="kw">.</span></span></code></pre></div>
+<p>A <code>mindent_lecserél</code> szabály egy lista minden elemére elvégzi a cserét:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mindent_lecserél(<span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> []<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mindent_lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> [<span class="dt">Z</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">Z1</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span><span class="kw">,</span> <span class="dt">Z1</span>)<span class="kw">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    mindent_lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ennek segítségével készíthetünk függvénykiértékelőt:</p>
+<pre><code>?- kiértékel(x*sin((x+y)/2), [x=1,y=2.14], X).
+X = 0.9999996829318346</code></pre>
+<p>A második argumentumban <code>Szimbólum = szám</code> alakban vannak megadva a helyettesítési értékek.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>kiértékel(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> behelyettesít(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">K1</span>)<span class="kw">,</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dt">K1</span><span class="kw">.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>behelyettesít(<span class="dt">K</span><span class="kw">,</span> []<span class="kw">,</span> <span class="dt">K</span>)<span class="kw">.</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>behelyettesít(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">A</span><span class="kw">=</span><span class="dt">N</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">K2</span>) <span class="kw">:-</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    lecserél(<span class="dt">A</span><span class="kw">,</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">K1</span>)<span class="kw">,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    behelyettesít(<span class="dt">K1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">K2</span>)<span class="kw">.</span></span></code></pre></div>
+<h3 id="feladatok-1">Feladatok</h3>
+<ol>
+<li><p>Írjatok szabályt, ami egy összeadásokat tartalmazó kifejezést egyszerűsít úgy, hogy az ismeretleneket (ha lehet) összevonja és előre rakja, a többi összeadást pedig elvégzi!</p>
+<pre><code>?- egyszerűsít(1+1+a, E).
+E = a+2
+?- egyszerűsít(1+a+4+2+b+c, E).
+E = a+b+c+7
+?- egyszerűsít(3+x+x, E).
+E = 2*x+3</code></pre></li>
+<li><p>Írjatok szabályt, ami eldönti, hogy egy kifejezés általánosabb-e egy másiknál!</p>
+<pre><code>?- általánosabb(X, c).
+true
+?- általánosabb(g(X), g(t(Y))).
+true
+?- általánosabb(f(X,X), f(a,b)).
+false</code></pre>
+<p>(Feltehetjük, hogy a két kifejezés nem tartalmazza ugyanazt a változót.)</p></li>
+</ol>
+<h2 id="magasabb-rendű-szabályok">Magasabb rendű szabályok</h2>
+<p>Vannak olyan szabályok, amelyek argumentumként egy másik szabályt (célt, kérdést) várnak. Ilyen volt például a tagadás, de van még néhány másik is.</p>
+<h3 id="listakezelés">Listakezelés</h3>
+<p>Egy nagyon hasznos szabály a <code>maplist</code>, ami egy lista összes elemére megnézi, hogy teljesít-e egy adott szabályt, pl.</p>
+<pre><code>?- maplist(number, [3,4,5]).
+true
+?- maplist(number, [3,a,5]).
+false</code></pre>
+<p>A szabály lehet többargumentumú is, ilyenkor több listát kell megadni, egyet minden argumentumhoz. A <code>mindent_lecserél</code> például megfogalmazható így:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mindent_lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span><span class="kw">,</span> <span class="dt">Z1</span>) <span class="kw">:-</span> maplist(lecserél(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> <span class="dt">Z</span><span class="kw">,</span> <span class="dt">Z1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt a <code>lecserél</code> első két argumentumát előre megadtuk, a maradék kettőt a <code>Z</code> és <code>Z1</code> listákból veszi ki.</p>
+<h3 id="összes-megoldás">Összes megoldás</h3>
+<p>Gyakran előfordul, hogy az összes megoldásra kíváncsiak vagyunk. Ilyenkor ezeket egy listában le lehet kérni a <code>bagof</code> (“zsákja”), <code>setof</code> (“halmaza”) vagy <code>findall</code> (“összeset keres”) segítségével. Nézzük meg sorban őket!</p>
+<p>A <code>bagof(X, P, L)</code> megkeresi az összes olyan <code>X</code>-et, amire <code>P</code> igaz, és <code>L</code> ezeknek a listája. Például:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>életkor(lica<span class="kw">,</span> <span class="dv">11</span>)<span class="kw">.</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>életkor(mimi<span class="kw">,</span> <span class="dv">10</span>)<span class="kw">.</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>életkor(dusa<span class="kw">,</span> <span class="dv">5</span>)<span class="kw">.</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>életkor(zsófi<span class="kw">,</span> <span class="dv">5</span>)<span class="kw">.</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>életkor(juli<span class="kw">,</span> <span class="dv">2</span>)<span class="kw">.</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> bagof(<span class="dt">X</span><span class="kw">,</span> életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dv">5</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [dusa, zsófi]</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> bagof(<span class="dt">X</span><span class="kw">,</span> életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [juli]</span></code></pre></div>
+<p>További megoldásokként megkapjuk életkorok szerint csoportosítva a többi gyereket is. Ha azt szeretnénk, hogy egyszerre az összes gyereket megkapjuk, akinek ismert az életkora (és nem csak azokat, akiknek azonos), akkor erre egy speciális jelölést kell használni:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> bagof(<span class="dt">X</span><span class="kw">,</span> <span class="dt">N</span><span class="fu">^</span>életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [lica, mimi, dusa, zsófi, juli]</span></code></pre></div>
+<p>Az <code>N^</code> itt azt jelenti, hogy “van olyan <code>N</code>, amire igaz, hogy …”.</p>
+<p>A <code>setof</code> nagyon hasonló ehhez, de az azonos elemekből csak egyet tart meg, például:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> bagof(<span class="dt">N</span><span class="kw">,</span> <span class="dt">X</span><span class="fu">^</span>életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [<span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">2</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> setof(<span class="dt">N</span><span class="kw">,</span> <span class="dt">X</span><span class="fu">^</span>életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">11</span>]</span></code></pre></div>
+<p>Végül a <code>findall</code> olyan, mint a <code>bagof</code>, amikor a kifejezés egy változójának értéke sincs lekötve, tehát mintha minden (nem keresett) <code>V</code> változóhoz oda lenne írva a <code>V^</code>. Például:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> bagof(<span class="dt">X</span><span class="kw">,</span> <span class="dt">N</span><span class="fu">^</span>életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [lica, mimi, dusa, zsófi, juli]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> findall(<span class="dt">X</span><span class="kw">,</span> életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [lica, mimi, dusa, zsófi, juli]</span></code></pre></div>
+<h3 id="feladat">Feladat</h3>
+<p>Írjatok szabályt, ami a <code>bagof</code> segítségével megkeresi egy halmaz (lista) összes részhalmazát!</p>
+<h2 id="dinamikus-szabályok">Dinamikus szabályok</h2>
+<p>Szabályokat a program futása közben automatikusan is hozzá lehet adni az adatbázishoz, illetve ki lehet venni belőle. Ha a szabály már létezik, akkor ehhez az kell, hogy <em>dinamikusnak</em> legyen beállítva, pl.:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="kw">dynamic</span> foo<span class="fu">/</span><span class="dv">2</span><span class="kw">.</span> <span class="co">% 2 aritású</span></span></code></pre></div>
+<p>Ezután az alábbi módon lehet a <code>foo</code> szabályait módosítani:</p>
+<ul>
+<li><code>asserta(foo([], _))</code> : az adatbázis elejére teszi a <code>foo([], _).</code> tényt.</li>
+<li><code>assertz(foo(X, Y) :- X &gt; Y)</code> : az adatbázis végére teszi a <code>foo(X, Y) :- X &gt; Y.</code> szabályt.</li>
+<li><code>retract(foo([], _))</code> : törli a <code>foo([], _).</code> tényt.</li>
+<li><code>retractall(foo(_,_))</code> : törli az összes szabályt, aminek a feje egyesíthető a <code>foo(_,_)</code>-val.</li>
+</ul>
+<p>Ezek segítségével például definiálhatjuk magunk is a <code>findall</code> szabályt:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>összes(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Cél</span><span class="kw">,</span> <span class="dt">L</span>) <span class="kw">:-</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Cél</span><span class="kw">,</span> <span class="kw">assertz</span>(tároló(<span class="dt">X</span>))<span class="kw">,</span> <span class="kw">fail</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span> <span class="kw">assertz</span>(tároló(nincs_több))<span class="kw">,</span> összegyűjt(<span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>összegyűjt(<span class="dt">L</span>) <span class="kw">:-</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">retract</span>(tároló(<span class="dt">X</span>))<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    ( <span class="dt">X</span> <span class="kw">=</span> nincs_több<span class="kw">,</span> <span class="kw">!,</span> <span class="dt">L</span> <span class="kw">=</span> []</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span> <span class="dt">L</span> <span class="kw">=</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> összegyűjt(<span class="dt">M</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    )<span class="kw">.</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> összes(<span class="dt">X</span><span class="kw">,</span> életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [lica, mimi, dusa, zsófi, juli]</span></code></pre></div>
+<p>Ez a megoldás feltételezi, hogy a <code>tároló</code> szabály még nem létezett, és hogy a keresett értékek közt nem szerepelhet a <code>nincs_több</code> atom. Ezt elkerülendő, ezeket a <code>$</code> prefix operátorral szokás megkülönböztetni, tehát <code>tároló(X)</code> helyett <code>$tároló(X)</code> és <code>nincs_több</code> helyett <code>$nincs_több</code> (vagy a zárójelet kiírva<code>$(tároló(X))</code> és <code>$(nincs_több)</code>).</p>
+<p>Az önmagát módosító programok megértése nehéz, ezért az ilyen jellegű technikákat csak jól elkülönített programrészekben ajánlott alkalmazni.</p>
+<h2 id="vezérlés">Vezérlés</h2>
+<p>A program folyásának vezérlésére már láttunk néhány módszert, mint a vágás (<code>!</code>) vagy a mindig igaz ill. hamis célok (<code>true</code>, <code>false</code> / <code>fail</code>). Itt van néhány további:</p>
+<ol>
+<li><p>Ha egy szabály több megoldást is vissza tud adni, de mi csak az elsőt szeretnénk, a vágással le tudjuk tiltani a továbbiakat. Ez elég gyakori ahhoz, hogy van rá egy beépített szabály, a <code>once</code> (“egyszer”):</p>
+<pre><code>once(P) :- P, !.</code></pre></li>
+<li><p>Amikor egy <code>P</code> változót célként használunk, mint a <code>once</code> vagy a tagadás definíciójában, akkor valójában a háttérben a <code>call(P)</code> (“hív”) hívódik meg; ezt időnként ki is írják, hogy egyértelműbb legyen, mi történik.</p></li>
+<li><p>A <code>(P -&gt; Q; R)</code> jelentése: ha <code>P</code>, akkor <code>Q</code>, különben <code>R</code>. Tehát pl. az alábbi kettő ekvivalens:</p>
+<pre><code>implikáció(X) :- foo(X) -&gt; bar(X); baz(X).</code></pre>
+<p>és</p>
+<pre><code>implikáció(X) :- foo(X), !, bar(X).
+implikáció(X) :- baz(X).</code></pre></li>
+<li><p>A felhasználóval való kommunikációhoz gyakran van szükség végtelen ciklusra, ezt segíti a <code>repeat</code> (“ismétel”), amit így lehet definiálni:</p>
+<pre><code>repeat.
+repeat :- repeat.</code></pre>
+<p>Ez tehát mindig igaz, akárcsak a <code>true</code>, de ezt az igaz értéket végtelenszer generálja. Egy példa a használatára az alábbi program, ami a <code>read</code> segítségével kér be a felhasználótól számokat, és kiírja a négyzetüket, egészen amíg <code>stop</code>-ot nem kap:</p>
+<pre><code>négyzetes :-
+    repeat, read(X),
+    ( X = stop, !
+    ; Y is X * X, write(Y), fail
+    ).</code></pre></li>
+</ol>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Ez a dokumentum az alábbi könyv 6. és 8.5. fejezete alapján készült:</p>
+<p>I. Bratko: <em>Prolog Programming for Artificial Intelligence</em>, 4th Ed., Pearson, 2011.</p>
+<p>A különbség-listák tárgyalása részben az alábbi könyv 15.1. fejezete alapján készült:</p>
+<p>L. Sterling, E. Shapiro: <em>The Art of Prolog</em>, 2nd Ed., MIT Press, 1994.</p>
+<p>Edsger W. Dijkstra (1930-2002) nevét legtöbben a <em>Dijkstra-algoritmus</em> kapcsán ismerik. Ez egy úthálózatban (súlyozott gráfban) megkeresi két pont között a legrövidebb utat.</p>
+</body>
+</html>

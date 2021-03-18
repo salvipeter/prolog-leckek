@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog 3</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-programozás-3">Prolog programozás 3</h1>
+<p>Ezúttal csak egy témánk van, de az nagyon fontos, és lesz hozzá sok feladat :)</p>
+<h2 id="listák">Listák</h2>
+<p>Ahogy a múltkor láttuk, egy Prolog kifejezés vagy egyszerű (konstans vagy változó), vagy egy fix aritású összetett struktúra. Gyakran előfordul azonban, hogy nem tudjuk előre, hogy hány adattal akarunk foglalkozni. Hogyan tudnánk dolgoknak egy listáját egy struktúrával kifejezni? Természetesen rekurzívan! Kezdjük először csak két dologgal:</p>
+<pre><code>lista(a, b)</code></pre>
+<p>Ha hármat akarunk beletenni egy listába, akkor megtehetnénk, hogy eggyel több argumentumot veszünk bele:</p>
+<pre><code>lista(a, b, c)</code></pre>
+<p>… de ez több okból sem igazán jó megoldás. Egyrészt ez így egy másik funktor lesz (hiszen más az aritása), másrészt ezzel még mindig csak <em>ismert</em> hosszúságú listákat tudnánk készíteni. Helyette csinálhatjuk viszont a következőt:</p>
+<pre><code>lista(a, lista(b, c))</code></pre>
+<p>Ezt tetszőlegesen lehet folytatni, pl.</p>
+<pre><code>lista(a, lista(b, lista(c, lista(d, e))))</code></pre>
+<p>Ez egyrészt azért jó, mert így mindig egy 2-aritású <code>lista</code> funktorunk van, másrészt ezzel tudunk olyat írni, hogy</p>
+<pre><code>lista(a, Maradék)</code></pre>
+<p>ami egy tetszőleges lista, aminek az első eleme <code>a</code>, vagy</p>
+<pre><code>lista(a, lista(b, Maradék))</code></pre>
+<p>ami egy olyan tetszőleges lista, aminek az első két eleme <code>a</code> és <code>b</code>.</p>
+<p>Ennek így egy szépséghibája van: az utolsó elem kezelése kicsit más, mint a többié, és emiatt pl. az előző példákban a “tetszőleges” lista mégsem teljesen tetszőleges, mert nem lehet egy- ill. kételemű. Ezt azzal tudjuk megoldani, hogy bevezetünk egy olyan konstanst, amivel a lista végét jelöljük. Pl. az <code>a</code>, <code>b</code> és <code>c</code> elemeket tartalmazó lista ekkor így néz ki:</p>
+<pre><code>lista(a, lista(b, lista(c, vége)))</code></pre>
+<p>A szokásos Prolog jelölés a <code>lista</code> helyett a pont (<code>.</code>) funktor, a <code>vége</code> helyett pedig a szögletes zárójelpár (<code>[]</code>) atom. Az SWI-Prolog azonban a pontot lecserélte a kicsit furcsán kinéző <code>'[|]'</code> funktorra. Az előző listát tehát erre átírva ilyet kapunk:</p>
+<pre><code>&#39;[|]&#39;(a, &#39;[|]&#39;(b, &#39;[|]&#39;(c, [])))</code></pre>
+<p>Hát ez elég szörnyen néz ki. Szerencsére van rá egy egyszerűsített jelölés (ami kicsit magyarázza a funktor névválasztását):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="st">&#39;[|]&#39;</span>(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">=</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">Y</span>]<span class="kw">.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Sőt, nem csak</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="st">&#39;[|]&#39;</span>(a<span class="kw">,</span> <span class="st">&#39;[|]&#39;</span>(b<span class="kw">,</span> <span class="st">&#39;[|]&#39;</span>(c<span class="kw">,</span> []))) <span class="kw">=</span> [a <span class="fu">|</span> [b <span class="fu">|</span> [c <span class="fu">|</span> []]]]<span class="kw">.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>teljesül, hanem az egymásba ágyazást vesszővel lehet helyettesíteni:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> [a <span class="fu">|</span> [b <span class="fu">|</span> [c <span class="fu">|</span> []]]] <span class="kw">=</span> [a, b, c <span class="fu">|</span> []]<span class="kw">.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>És végül van még egy utolsó “egyszerűsítés” (a szakszó erre a <em>syntactic sugar</em> avagy szintaktikus cukor): ha a függőleges vonal jobboldalán a <code>[]</code> van, akkor ezt el lehet hagyni:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> [a, b, c <span class="fu">|</span> []] <span class="kw">=</span> [a, b, c]<span class="kw">.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Ez tehát a Prolog <em>láncolt lista</em> struktúrája; a <code>[]</code> neve “üres lista”, és egy <code>[X|Y]</code> listában az <code>X</code> a lista <em>eleje</em> (angolul <em>head</em>, fej), az <code>Y</code> pedig a lista <em>maradéka</em> (angolul <em>tail</em>, farok). A maradék mindig vagy egy lista, vagy az üres lista atom.</p>
+<p>A gyakorlatban mindig ezt az egyszerű formát használjuk, de fontos érteni, hogy ez valójában egymásba ágyazott funktorokból áll, és ezért pl. <code>[a, b, c] = [a | [b, c]] = [a, b | [c]] = [a, b, c | []]</code>.</p>
+<h2 id="műveletek-listákon">Műveletek listákon</h2>
+<h3 id="tartalmazás">Tartalmazás</h3>
+<p>Az egyik legfontosabb kérdés, amit listákkal kapcsolatban feltehetünk, az az, hogy valami benne van-e:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tartalmaz(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>])<span class="kw">.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tartalmaz(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">Maradék</span>]) <span class="kw">:-</span> tartalmaz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Maradék</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Szavakban megfogalmazva, egy lista akkor tartalmaz valamit, (i) ha az az eleje, vagy (ii) ha a maradéka tartalmazza azt. Ezzel</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> tartalmaz(b<span class="kw">,</span> [a, b, c])<span class="kw">.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> tartalmaz(b<span class="kw">,</span> [a, [b, c]])<span class="kw">.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">false</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> tartalmaz([b, c]<span class="kw">,</span> [a, [b, c]])<span class="kw">.</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Emellett a</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> tartalmaz(<span class="dt">X</span><span class="kw">,</span> [a, b, c])<span class="kw">.</span></span></code></pre></div>
+<p>kérdésre megkapjuk az <code>X = a</code>, <code>X = b</code> és <code>X = c</code> megoldásokat, sőt, meg is fordíthatjuk, és feltehetjük a kérdést, hogy “Milyen listák tartalmazzák <code>a</code>-t?”</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> tartalmaz(a<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Erre a következő (jellegű) megoldásokat kapjuk:</p>
+<pre><code>L = [a | Maradék]
+L = [X, a | Maradék]
+L = [X1, X2, a | Maradék]
+L = [X1, X2, X3, a | Maradék]
+...</code></pre>
+<p>Az első egy tetszőleges lista, aminek az első eleme <code>a</code>; a második egy olyan, aminek a második eleme <code>a</code> és így tovább.</p>
+<p>Feltehetünk összetett kérdéseket is, pl. milyen háromelemű listák vannak, amelyek tartalmazzák az <code>a</code>, <code>b</code> és <code>c</code> elemeket?</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">L</span> <span class="kw">=</span> [<span class="dt">_</span>, <span class="dt">_</span>, <span class="dt">_</span>]<span class="kw">,</span> tartalmaz(a<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span> tartalmaz(b<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span> tartalmaz(c<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [a, b, c]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [a, c, b]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [b, a, c]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [c, a, b]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [b, c, a]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [c, b, a]</span></code></pre></div>
+<h3 id="összefűzés">Összefűzés</h3>
+<p>Két listát össze is tudunk csatolni. Legyen <code>hozzáfűz(L1, L2, L3)</code> igaz akkor, ha <code>L1</code> és <code>L2</code> egymás után rakva <code>L3</code>-at adja, pl.</p>
+<pre><code>?- hozzáfűz([a, b, c], [d, e], [a, b, c, d, e]).
+true</code></pre>
+<p>Ha <code>L1</code> üres, akkor <code>L2</code> és <code>L3</code> megegyezik:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>hozzáfűz([]<span class="kw">,</span> <span class="dt">L2</span><span class="kw">,</span> <span class="dt">L2</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Egyébként <code>L1</code> első eleme az <code>L3</code> első eleme lesz; az <code>L3</code> maradéka pedig az <code>L1</code> maradékának és az <code>L2</code>-nek az összefűzéséből adódik:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hozzáfűz([<span class="dt">X</span><span class="fu">|</span><span class="dt">M1</span>]<span class="kw">,</span> <span class="dt">L2</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M3</span>]) <span class="kw">:-</span> hozzáfűz(<span class="dt">M1</span><span class="kw">,</span> <span class="dt">L2</span><span class="kw">,</span> <span class="dt">M3</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Annak ellenére, hogy onnan indultunk, hogy hogyan lehet két listát összefűzni, a kérdés ismét megfordítható, pl. “Hogyan lehet egy listát két listára osztani?”</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> hozzáfűz(<span class="dt">L1</span><span class="kw">,</span> <span class="dt">L2</span><span class="kw">,</span> [a, b, c])<span class="kw">.</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dt">L1</span> <span class="kw">=</span> []<span class="kw">,</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="dt">L2</span> <span class="kw">=</span> [a, b, c]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dt">L1</span> <span class="kw">=</span> [a]<span class="kw">,</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="dt">L2</span> <span class="kw">=</span> [b, c]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="dt">L1</span> <span class="kw">=</span> [a, b]<span class="kw">,</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="dt">L2</span> <span class="kw">=</span> [c]</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="dt">L1</span> <span class="kw">=</span> [a, b, c]<span class="kw">,</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="dt">L2</span> <span class="kw">=</span> []</span></code></pre></div>
+<p>Vagy: “Igaz-e, hogy az <code>[a, b]</code> listával kezdődik az <code>[a, b, c]</code> lista?”</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> hozzáfűz([a, b]<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> [a, b, c])<span class="kw">.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Megkereshetjük vele egy listában az előző és következő elemet:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> hozzáfűz(<span class="dt">_</span><span class="kw">,</span> [<span class="dt">Előző</span>, már, <span class="dt">Következő</span> <span class="fu">|</span> <span class="dt">_</span>]<span class="kw">,</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>   [jan, feb, már, ápr, máj, jún, júl, aug, szep, okt, nov, dec])<span class="kw">.</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="dt">Előző</span> <span class="kw">=</span> feb<span class="kw">,</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="dt">Következő</span> <span class="kw">=</span> ápr</span></code></pre></div>
+<p>A <code>tartalmaz</code> szabályt is leírhatjuk a segítségével:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tartalmaz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span>) <span class="kw">:-</span> hozzáfűz(<span class="dt">_</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Szavakban: egy <code>L</code> lista akkor tartalmaz egy <code>X</code> elemet, ha szétválasztható két listára, amiből a másodiknak az első eleme <code>X</code>. (Az első lista ill. a második maradéka is lehet üres.)</p>
+<h3 id="hozzáadás-és-törlés">Hozzáadás és törlés</h3>
+<p>Új elemet egy lista elejéhez olyan könnyű hozzáadni, hogy erre nem is szokás külön szabályt írni, de ha akarunk, itt van:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>hozzáad(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">L</span>])<span class="kw">.</span></span></code></pre></div>
+<p>A listák végére (hatékonyan!) beszúrni kicsit bonyolultabb, majd később lesz róla szó.</p>
+<p>Hogyan kell törölni egy elem egy előfordulását egy listából?</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>töröl(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>töröl(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span> töröl(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Tehát: ha <code>X</code> a lista első eleme, akkor a törlés után a lista maradékát kapjuk. Egyébként a lista első eleme és az eredmény első eleme megegyezik, és az eredmény maradéka pedig ugyanaz, mint az eredeti lista maradéka, amiből kitöröltük az <code>X</code>-et.</p>
+<p>Egy példa a használatára:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> töröl(a<span class="kw">,</span> [a, b, a, a]<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [b, a, a]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [a, b, a]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [a, b, a]</span></code></pre></div>
+<p>Itt a második és harmadik megoldás azonosnak tűnik, de valójában az egyik az eredeti listából az <code>a</code> elem második, a másik pedig a harmadik előfordulását törölte.</p>
+<p>Mi történik, ha az “eredeti” listát vesszük ismeretlennek?</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> töröl(a<span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])<span class="kw">.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [a, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [<span class="dv">1</span>, a, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, a, <span class="dv">3</span>]</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, a]</span></code></pre></div>
+<p>Ahogy látszik, a “Mi az a lista, amiből ha kitörlünk egy <code>a</code>-t, akkor <code>[1, 2, 3]</code>-at kapunk?” kérdés egyszerűbben úgy fogalmazható meg, hogy “Mit kapunk, ha az <code>[1, 2, 3]</code> listába beleteszünk egy <code>a</code>-t?”</p>
+<p>Ez van annyira hasznos, hogy adhatunk neki egy új nevet:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>betesz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L1</span>) <span class="kw">:-</span> töröl(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L1</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A törlés használható kiválasztásra is:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> töröl(<span class="dt">X</span><span class="kw">,</span> [a, b, c]<span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> a</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> b</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> c</span></code></pre></div>
+<p>Ha a törölni kívánt elem nem szerepel a listában, az eredmény <code>false</code> lesz. Ezt kihasználva ezzel is definiálhatjuk a <code>tartalmaz</code> szabályt:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tartalmaz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span>) <span class="kw">:-</span> töröl(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span></code></pre></div>
+<h3 id="részlisták">Részlisták</h3>
+<p>Következőnek nézzük meg, hogy mikor része egy lista egy másiknak:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> részlista([c, d, e]<span class="kw">,</span> [a, b, c, d, e, f])<span class="kw">.</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> részlista([c, e]<span class="kw">,</span> [a, b, c, d, e, f])<span class="kw">.</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="kw">false</span></span></code></pre></div>
+<p>Ahogy a második példából látszik, itt a “részét” nem úgy értelmezzük, hogy az első lista minden elemét tartalmazza a második (mint egy halmaznál), hanem hogy pontosan ugyanolyan sorrendben, más elemek közbeékelődése nélkül szerepelnek.</p>
+<p>Ez a szabály könnyen megadható a <code>hozzáfűz</code> segítségével:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>részlista(<span class="dt">R</span><span class="kw">,</span> <span class="dt">L</span>) <span class="kw">:-</span> hozzáfűz(<span class="dt">_</span><span class="kw">,</span> <span class="dt">L1</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span> hozzáfűz(<span class="dt">R</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">L1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Tehát <code>R</code> akkor része <code>L</code>-nek, ha valamilyen listát elé- és utánafűzve megkapjuk <code>L</code>-et. A definíció ezt két részletben írja le: az első tag azt mondja, hogy az <code>L</code> az <code>L1</code> listára végződik; a második pedig azt, hogy ez az <code>L1</code> lista az <code>R</code>-el kezdődik. A vég kezdete pedig épp azt jelenti, hogy <code>R</code> valahol belül van <code>L</code>-ben (vagy valamelyik szélén, ha az itt alsóvonással jelölt listák egyike az üres lista).</p>
+<p>Szokás szerint nézzük meg, mit kapunk a “fordított” felhasználásban:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> részlista(<span class="dt">R</span><span class="kw">,</span> [a, b, c])<span class="kw">.</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> []</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> [a]</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> [a, b]</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> [a, b, c]</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> []</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> [b]</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> [b, c]</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> []</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> [c]</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="dt">R</span> <span class="kw">=</span> []</span></code></pre></div>
+<p>Ahogy várható volt, ezzel megkapjuk az <code>[a, b, c]</code> lista összes részlistáját - az üreset többször is (miért? Tipp: nézzétek meg a <code>hozzáfűz(X, _, [a, b, c])</code> kimenetét).</p>
+<h3 id="permutációk">Permutációk</h3>
+<p>Két lista akkor <em>permutációja</em> vagy átrendezése egymásnak, ha ugyanazokat az elemeket tartalmazzák. Az üres listának csak az üres lista a permutációja:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>permutáció([]<span class="kw">,</span> [])<span class="kw">.</span></span></code></pre></div>
+<p>Ha az első lista nem üres, akkor visszavezethetjük a feladatot az eggyel rövidebb listákra:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>permutáció([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">P</span>) <span class="kw">:-</span> permutáció(<span class="dt">M</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span> betesz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Tehát úgy kapjuk az első lista permutációját, hogy vesszük a maradék (<code>M</code>) egy permutációját (<code>L</code>), és ebbe betesszük az <code>X</code>-et.</p>
+<p>Egy másik logika az lehet, hogy kiválasztunk (kitörlünk) egy elemet, a maradéknak vesszük egy permutációját, és az elejáre beszúrjuk a kitörölt elemet:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>permutáció(<span class="dt">L</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">P</span>]) <span class="kw">:-</span> töröl(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">,</span> permutáció(<span class="dt">M</span><span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ellenőrizzük, hogy működik-e! A</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> permutáció([piros, zöld, kék]<span class="kw">,</span> <span class="dt">P</span>)<span class="kw">.</span></span></code></pre></div>
+<p>kérdésre mindkettő visszaadja mind a 6 jó megoldást (bár különböző sorrendben) és közli, hogy nincs több. Viszont a fordított</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> permutáció(<span class="dt">P</span><span class="kw">,</span> [piros, zöld, kék])<span class="kw">.</span></span></code></pre></div>
+<p>esetben az első verzió a 6 megoldás után végtelen rekurzióba kerül, a másodiknál pedig már az első után beragad. Meg lehet oldani, hogy mindig jó legyen, csak kicsit ki kell egészíteni, de mivel szimmetrikus, nincs rá igazán szükség.</p>
+<h3 id="feladatok">Feladatok</h3>
+<ol>
+<li><p>Írjatok egy szabályt, amivel ki lehet venni egy listából az utolsó 3 elemet!</p>
+<pre><code>?- kivesz3([a, b, c, d, e], [a, b]).
+true</code></pre></li>
+<li><p>Írjatok egy szabályt, amivel ki lehet venni egy listából az első és utolsó 3 elemet!</p>
+<pre><code>?- kivesz33([a, b, c, d, e, f, g], [d]).
+true</code></pre></li>
+<li><p>Írjatok egy szabályt, amivel megkaphatjuk egy lista utolsó elemét! Készítsetek két verziót, egyet <code>hozzáfűz</code>-zel, egyet anélkül!</p>
+<pre><code>?- utolsó([a, b, c], c).
+true</code></pre></li>
+<li><p>Írjátok meg a <code>páros_hosszú(L)</code> és <code>páratlan_hosszú(L)</code> szabályokat! Ezek akkor igazak, amikor az <code>L</code> lista páros- ill. páratlan számú elemből áll (nincs szükség számokra hozzá).</p></li>
+<li><p>Írjatok egy szabályt, ami megállapítja, hogy két lista megfordítottja-e egymásnak!</p>
+<pre><code>?- fordított([a, b, c], X).
+X = [c, b, a]</code></pre></li>
+<li><p>Írjatok egy szabályt, ami megállapítja, hogy egy szó <em>palindróma</em>-e, azaz visszafele is ugyanaz-e!</p>
+<pre><code>?- palindróma([g,ö,r,ö,g]).
+true</code></pre></li>
+<li><p>Írjatok egy szabályt, amivel egy listát eggyel “elforgathatunk” úgy, hogy az első lista első eleme a második végére kerül!</p>
+<pre><code>?- forgat([a, b, c, d], [b, c, d, a]).
+true</code></pre></li>
+<li><p>Írjatok egy szabályt, ami a részhalmazságot vizsgálja! Le is lehessen vele generálni az összes részhalmazt! (A halmaz itt egy olyan rendezett lista, amiben minden elem egyszer fordul elő.)</p>
+<pre><code>?- részhalmaz([a, b, c], R). % az eredmény lehet más sorrendben
+R = [a, b, c]
+R = [a, b]
+R = [a, c]
+R = [a]
+R = [b, c]
+R = [b]
+R = [c]
+R = []</code></pre></li>
+<li><p>Írjatok egy szabályt, amivel ellenőrizhető, hogy két lista ugyanolyan hosszú!</p>
+<pre><code>?- ugyanolyan_hosszú([1, 2, 3], [a, b, c]).
+true</code></pre></li>
+<li><p>Írjatok egy szabályt, amivel ki lehet “lapítani” egy listát, tehát a belső listák elemeit kiviszi a legkülső szintre:</p>
+<pre><code>?- lapít([a, b, [c, d], [], [[[e]]], f], L).
+L = [a, b, c, d, e, f]</code></pre></li>
+</ol>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Ez a dokumentum az alábbi könyv 3.1-3.2 fejezete alapján készült:</p>
+<p>I. Bratko: <em>Prolog Programming for Artificial Intelligence</em>, 4th Ed., Pearson, 2011.</p>
+<p>A Prolog beépítve tartalmaz néhány hasznos szabályt, amit most elkészítettünk:</p>
+<ul>
+<li><code>tartalmaz</code> → <code>member</code></li>
+<li><code>hozzáfűz</code> → <code>append</code> (és <code>prefix(P, L) = append(P, _, L)</code>)</li>
+<li><code>töröl</code> → <code>select</code></li>
+<li><code>permutáció</code> → <code>permutation</code> (de ez mindig jól működik)</li>
+<li><code>utolsó</code> → <code>last</code></li>
+<li><code>fordított</code> → <code>reverse</code></li>
+<li><code>ugyanolyan_hosszú</code> → <code>same_length</code>˛</li>
+<li><code>lapít</code> → <code>flatten</code></li>
+</ul>
+</body>
+</html>

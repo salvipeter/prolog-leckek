@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog 6 - Projekt</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-programozás-6---projekt">Prolog programozás 6 - Projekt</h1>
+<h2 id="kalah">Kalah</h2>
+<p>Készítsünk mesterséges intelligenciát a <em>Kalah</em> mankala-játékhoz!</p>
+<p><img src="./kalah.jpg" title="Kalah" alt="image" /></p>
+<p>A játéknak számos variánsa létezik, itt most egy egyszerű változatot fogunk megvalósítani. A táblán 12 kisebb és 2 nagyobb lyuk található; az egyes játékosokhoz a hozzájuk közelebb levő 6 lyuk és a jobb kéz felőli nagyobb lyuk (a <em>kalah</em>) tartozik. Kezdetben minden (kis) lyukban 6 kő van, bár szokás 4-4 kővel is játszani.</p>
+<p>A játékosok felváltva lépnek. Egy lépés abból áll, hogy választanak egy saját lyukat, amiben van kő, és a benne levő köveket óramutató járásával ellenkező irányban egyesével beleszórják a következő lyukakba - amikor elfogynak a sajátok, akkor egy kerül a saját kalahba, utána az ellenfél lyukaiba, és ha azok elfogytak, akkor megint a sajátokba (az ellenfél kalahját ki kell hagyni).</p>
+<p>Ha az utolsó kő a (saját) kalahba esik, akkor még egyszer lehet lépni (ez bárhányszor ismételhető). Ha az utolsó kő egy olyan saját lyukba kerül, ami előtte üres volt, és a szemben levő lyukban van kő, akkor a szóró játékos mindkét lyuk tartalmát megkapja és a kalahjába teszi.</p>
+<p>A játékot az nyeri meg, aki megszerzi a köveknek több, mint a felét. A játéknak akkor is vége van, ha egy lépés végeztével az egyik térfél teljesen kiürül - ilyenkor a másik játékos megkapja a saját oldalán levő köveket.</p>
+<h3 id="keretprogram">Keretprogram</h3>
+<p>Ez már egy elég komplex program lesz, amit apránként fogunk felépíteni <em>top-down</em> módon, tehát először egy magas szinten fogalmazzuk meg, és utána kitöltjük a részleteket.</p>
+<p>A Kalah az absztrakt táblajátékok általános sémáját követi; erre írhatunk egy olyan keretprogramot, ami később akár más hasonló jellegű játékokra is használható lesz:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>kalah <span class="kw">:-</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    alapbeállítás(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>)<span class="kw">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    kirajzol(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>)<span class="kw">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    játék(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>)<span class="kw">.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>játék(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>) <span class="kw">:-</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    játék_vége(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Eredmény</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    bejelent(<span class="dt">Eredmény</span>)<span class="kw">.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>játék(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>) <span class="kw">:-</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    lépést_választ(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Lépés</span>)<span class="kw">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    lép(<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    következő_játékos(<span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Játékos1</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    kirajzol(<span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Játékos1</span>)<span class="kw">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    játék(<span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Játékos1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az <code>alapbeállítás</code> felállítja a tábla kezdő állapotát, és meghatározza a kezdő játékost. Ezt kirajzoljuk, és utána kezdődik a tényleges <code>játék/2</code>. Ez először ellenőrzi, hogy vége van-e a játéknak, és ha igen, közli az eredményt. Egyébként a soron következő játékos választ egy lépést, ezt a lépést le is játsza, majd a következő játékos számára kirajzolja a (módosult) állást és a játék megy tovább.</p>
+<p>A két játékosunk lehet az <code>ember</code> és a <code>számítógép</code>, és ezek váltakoznak, tehát</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>következő_játékos(ember<span class="kw">,</span> számítógép)<span class="kw">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>következő_játékos(számítógép<span class="kw">,</span> ember)<span class="kw">.</span></span></code></pre></div>
+<p>Az eredmény lehet egyszerűen a nyertes megnevezése, vagy a <code>döntetlen</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bejelent(ember) <span class="kw">:-</span> writeln(<span class="st">&#39;Nyertél, gratulálok!&#39;</span>)<span class="kw">.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>bejelent(számítógép) <span class="kw">:-</span> writeln(<span class="st">&#39;Nyertem.&#39;</span>)<span class="kw">.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>bejelent(döntetlen) <span class="kw">:-</span> writeln(<span class="st">&#39;Döntetlen lett!&#39;</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt a <code>writeln</code> a <code>write</code> olyan változata, ami utána még egy újsort is kiír (<code>nl</code>).</p>
+<h3 id="reprezentáció">Reprezentáció</h3>
+<p>A legfontosabb feladat itt is, mint mindig, a <em>reprezentáció</em> (adatábrázolás) ügyes megválasztása. Hogyan érdemes eltárolnunk az állást? A cél, hogy később kényelmesen le tudjuk írni a lépéseket.</p>
+<p>Számozzuk be a lyukakat mindkét játékosnak balról jobbra 1-6-ig. A lépés tehát mindkét játékos számára egy 1 és 6 közötti szám lesz, vagyis pontosabban ezeknek egy listája, ugyanis ha az utolsó kő a kalahba kerül, akkor a játékos újra léphet, és így egy lépést a kiválasztott lyukak listájával lehet definiálni.</p>
+<p>Az állást tehát a 2x6 lyukban, valamint a kalahokban levő kövek számával tudjuk leírni. A belső ábrázolásunk <code>tábla(La,Na,Lb,Nb)</code> alakú lesz, ahol <code>La</code> és <code>Lb</code> számok 6-elemű listája (a lyukakban levő kövek), <code>Na</code> és <code>Nb</code> sima számok (a kalahokban levő kövek). Az <code>a</code>-végűek az éppen soron következő játékoshoz tartozó adatok, a <code>b</code>-végűek az ellenfélhez tartozóak.</p>
+<p>A játékot kezdje mindig az emberi játékos:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alapbeállítás(<span class="dt">Állás</span><span class="kw">,</span> ember) <span class="kw">:-</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Állás</span> <span class="kw">=</span> tábla([<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>]<span class="kw">,</span><span class="dv">0</span><span class="kw">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                  [<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>]<span class="kw">,</span><span class="dv">0</span>)<span class="kw">.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>kövek_száma(<span class="dv">6</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A kövek számát érdemes a fent látható módon kivenni külön ténybe, hogy később kényelmesen változtatható legyen.</p>
+<h3 id="a-kalah-szabályai">A Kalah szabályai</h3>
+<p>Mikor van vége a játéknak? Itt azt az egyszerűsítést alkalmazhatjuk, hogy ha az egyik térfél a lépés végére kiürül, akkor a másik térfélen levő kövek - még a lépés részeként - bekerülnek a megfelelő kalahba. Elég tehát azt a feltételt megnéznünk, hogy valamelyik játékos elvitte már a köveknek több, mint a felét.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>játék_vége(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">N</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">N</span>)<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> döntetlen) <span class="kw">:-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span> <span class="dt">N</span> <span class="dt">=:=</span> <span class="dv">6</span> <span class="dt">*</span> <span class="dt">K</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>játék_vége(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">N1</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Játékos</span>) <span class="kw">:-</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span> <span class="dt">N1</span> <span class="dt">&gt;</span> <span class="dv">6</span> <span class="dt">*</span> <span class="dt">K</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>játék_vége(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">N2</span>)<span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Másik</span>) <span class="kw">:-</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span> <span class="dt">N2</span> <span class="dt">&gt;</span> <span class="dv">6</span> <span class="dt">*</span> <span class="dt">K</span><span class="kw">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    következő_játékos(<span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Másik</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Következik a lépések leírása. Ahogy láttuk, a lépés lyukak listájával van megadva. Ha a lista végére értünk, akkor a másik játékos következik, ezért meg kell “fordítani” a táblát:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lép([]<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>) <span class="kw">:-</span> megfordít(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>megfordít(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> tábla(<span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span><span class="kw">,</span><span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span>))<span class="kw">.</span></span></code></pre></div>
+<p>Egyébként pedig körbeszórjuk (<em>vetjük</em>) a köveket:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lép([<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás2</span>) <span class="kw">:-</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    kövek(<span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    vet(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    lép(<span class="dt">M</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Állás2</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt a <code>kövek</code> megadja, hogy egy adott lyukban hány kő van:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>kövek(<span class="dt">I</span><span class="kw">,</span> tábla(<span class="dt">L</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">K</span>) <span class="kw">:-</span> n_edik(<span class="dt">I</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span> <span class="dt">K</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n_edik(<span class="dt">N</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">1</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    n_edik(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>n_edik(<span class="dv">1</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A vetés a játék lelke, és egyben a legbonyolultabb része. Ezt két részre szedjük, a saját oldalon és az ellenfél oldalon való vetésre (utóbbi szükség szerint újra hivatkozik majd a <code>vet</code>-re):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vet(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás2</span>) <span class="kw">:-</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    vet_saját(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Kövek1</span>)<span class="kw">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    vet_ellenfél(<span class="dt">Kövek1</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Állás2</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez tehát azt mondja, hogy a <code>Luk</code> lyukból indulva vetünk <code>Kövek</code> darab követ, és így jutunk a kezdeti <code>Állás</code>-ból a végső <code>Állás2</code>-be. A saját oldali vetés végeztekor egy közbülső <code>Állás1</code>-be jutunk, ahol még további <code>Kövek1</code> darab követ kell vetnünk az ellenfél oldalára.</p>
+<p>Ha a kövek száma nagyobb, mint 7 - <code>Luk</code>, akkor átjutunk az ellenfél oldalára (tehát az 1-es lyukból legalább 7 kő kell, a 2-esből 6, …, a 6-osból legalább 2, hiszen az első a kalahba kerül):</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>vet_saját(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>          tábla(<span class="dt">La1</span><span class="kw">,</span><span class="dt">Na1</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Kövek1</span>) <span class="kw">:-</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">&gt;</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="kw">!,</span> <span class="co">% átmegy az ellenfélhez</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    felvesz_és_szór(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La1</span>)<span class="kw">,</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">Kövek1</span> <span class="dt">is</span> <span class="dt">Kövek</span> <span class="dt">+</span> <span class="dt">Luk</span> <span class="dt">-</span> <span class="dv">7</span><span class="kw">.</span></span></code></pre></div>
+<p>A lényeget a <code>felvesz_és_szór</code> végzi, amit kicsit későbbre hagyunk. Ha nem jutunk át a másik oldalra, akkor a megmaradó kövek száma 0:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vet_saját(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dv">0</span>) <span class="kw">:-</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=&lt;</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    felvesz_és_szór(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La1</span>)<span class="kw">,</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    elfogás(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La1</span><span class="kw">,</span> <span class="dt">La2</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    raktározás(<span class="dt">N</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na1</span>)<span class="kw">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    vetés_vége(tábla(<span class="dt">La2</span><span class="kw">,</span><span class="dt">Na1</span><span class="kw">,</span><span class="dt">Lb1</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az <code>elfogás</code> megnézi, hogy hány követ ejtettünk foglyul (<code>N</code>), és hogy ennek hatására hogyan változik a tábla (új <code>La2</code> és <code>Lb1</code> értékek). A <code>raktározás</code> frissíti a kalah értékét (<code>Na1</code>), egyrészt az elfogott kövek, másrészt az aktuális vetés során oda jutó kő figyelembe vételével. Végül a <code>vetés_vége</code> ellenőrzi, hogy kiürült-e az egyik térfél, és ha igen, akkor a fennmaradó köveket a megfelelő kalahba teszi.</p>
+<p>Nézzük meg ezeket sorban!</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>elfogás(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La1</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span><span class="kw">,</span> <span class="dt">N</span>) <span class="kw">:-</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Vége</span> <span class="dt">is</span> <span class="dt">Luk</span> <span class="dt">+</span> <span class="dt">Kövek</span><span class="kw">,</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    n_edik(<span class="dt">Vége</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">,</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Szemben</span> <span class="dt">is</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Vége</span><span class="kw">,</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    n_edik(<span class="dt">Szemben</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">K</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="kw">!,</span> <span class="co">% üresbe érkeztünk és van szemben kő</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    n_csere(<span class="dt">Vége</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">La1</span>)<span class="kw">,</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    n_csere(<span class="dt">Szemben</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">Lb1</span>)<span class="kw">,</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">is</span> <span class="dt">K</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>elfogás(<span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dv">0</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>n_csere(<span class="dv">1</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>n_csere(<span class="dt">N</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">1</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    n_csere(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A <code>Vége</code> adja meg, hogy melyik lyukba kerül az utolsó kő. Ha ebben 1 kő van, tehát a vetés előtt üres volt, akkor megvizsgáljuk, hogy szemben van-e kő (a szemben levő lyukak számozásának iránya fordított, ezért a megfelelő index a 7 - <code>Vége</code> lesz). Ha ez is teljesül, akkor kinullázzuk ezt a két lyukat az <code>n_csere(I, L, X, L1)</code> használatával, ami az <code>L</code> lista <code>I</code>-edik elemét <code>X</code>-re állítja. Végül a kapott kövek száma a szemben levő kövek száma + 1. Ellenkező esetben a tábla változatlan marad és a kapott kövek száma 0 lesz.</p>
+<p>Figyeljük meg, hogy itt az aránylag bonyolult feltételt nem ismételjük meg a második szabályban, hanem a procedurális olvasatra hagyatkozunk: az első szabályban levő vágás miatt a másodikba csak akkor jutunk, ha a feltétel nem teljesül. Ez a deklaratív olvasatot elrontja, de megengedhető, mivel tudjuk, hogy csak olyan környezetben használjuk, ahol az <code>La1</code>, <code>Lb1</code> és <code>N</code> változóknak nincsen értéke. A hatékonyság érdekében sok szabály használja itt ezt a módszert.</p>
+<p>A <code>raktározás</code> elég magától értetődő. Ha az elfogott kövek száma 0, akkor ellenőrzi, hogy az utolsó kő a kalahba került-e, egyébként csak hozzáadja az eddigiekhez az elfogott köveket:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>raktározás(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na</span>) <span class="kw">:-</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">&lt;</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>raktározás(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na1</span>) <span class="kw">:-</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=:=</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>raktározás(<span class="dt">N</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na1</span>) <span class="kw">:-</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dt">N</span><span class="kw">.</span></span></code></pre></div>
+<p>A kiürült térfelek kezelésekor a másik térfél köveit összeadjuk, és azt is kiürítjük:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>vetés_vége(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">La</span><span class="kw">,</span><span class="dt">Nb1</span>)) <span class="kw">:-</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    üres(<span class="dt">La</span>)<span class="kw">,</span> <span class="kw">!,</span> összeg(<span class="dt">Lb</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> <span class="dt">Nb1</span> <span class="dt">is</span> <span class="dt">Nb</span> <span class="dt">+</span> <span class="dt">X</span><span class="kw">.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>vetés_vége(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> tábla(<span class="dt">Lb</span><span class="kw">,</span><span class="dt">Na1</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)) <span class="kw">:-</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    üres(<span class="dt">Lb</span>)<span class="kw">,</span> <span class="kw">!,</span> összeg(<span class="dt">La</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dt">X</span><span class="kw">.</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>vetés_vége(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>üres([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>])<span class="kw">.</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>összeg(<span class="dt">L</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> összeg(<span class="dt">L</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>összeg([]<span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">A</span>)<span class="kw">.</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>összeg([<span class="dt">K</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">A1</span> <span class="dt">is</span> <span class="dt">A</span> <span class="dt">+</span> <span class="dt">K</span><span class="kw">,</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    összeg(<span class="dt">M</span><span class="kw">,</span> <span class="dt">A1</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A saját oldali vetéssel így már majdnem készen vagyunk, csak a <code>felvesz_és_szór</code> hiányzik:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>felvesz_és_szór(<span class="dv">0</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L1</span>) <span class="kw">:-</span> <span class="co">% szórás folytatása</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span> szór(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L1</span>)<span class="kw">.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>felvesz_és_szór(<span class="dv">1</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dv">0</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span> szór(<span class="dt">K</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>felvesz_és_szór(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Luk</span> <span class="dt">&gt;</span> <span class="dv">1</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">Luk1</span> <span class="dt">is</span> <span class="dt">Luk</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    felvesz_és_szór(<span class="dt">Luk1</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A <code>K</code> itt a szórandó kövek számát adja meg, a <code>Luk</code> pedig a lyuknak a száma, ahonnan szórunk. Ha a <code>Luk</code> értéke 0, az azt jelenti, hogy egy korábban elkezdődött vetés folytatódik, és az első kőnek az 1-es számú lyukba kell esnie. (A tényleges szórást a <code>szór</code> végzi.) Ha a <code>Luk</code> száma az 1-es, akkor a kapott lyuk-lista első elemét kinullázzuk (kivesszük belőle a köveket), a többit pedig a <code>szór</code> segítségével módosítjuk. Végül ha a <code>Luk</code> száma nagyobb, mint 1, akkor a lyuk-lista első eleme megmarad, a maradékot pedig rekurzív hívással tudjuk megadni.</p>
+<p>A szórásnál lyukanként haladunk, és mindegyikbe egy kerül, amíg vagy nincs több lyuk, vagy nincs több kő:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>szór(<span class="dv">0</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>szór(<span class="dt">N</span><span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">L1</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">L1</span> <span class="dt">is</span> <span class="dt">L</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    szór(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>szór(<span class="dt">_</span><span class="kw">,</span> []<span class="kw">,</span> []) <span class="kw">:-</span> <span class="kw">!.</span></span></code></pre></div>
+<p>Hátra van még a vetés az ellenfél oldalán. Itt 4 esetet különböztetünk meg:</p>
+<ol>
+<li>A vetni való kövek száma 0. Ilyenkor nincs teendő.</li>
+<li>A kövek száma 1 és 6 között van (tehát nem jön vissza hozzánk), és a mi térfelünk nem üres. Ilyenkor egyszerűn végig kell szórni ezeket a köveket.</li>
+<li>A kövek száma 1 és 6 között van, és a saját térfél üres. Ilyenkor az ellenfél kalahjába bekerülnek a szórandó kövek és az ellenfél térfelén levők is.</li>
+<li>A kövek száma több, mint 6. Ekkor a kövek végigszórása után 6-al kevesebb kővel egy újabb vetést kell indítani a saját térfél “0-dik” lyukából.</li>
+</ol>
+<p>Ennek megfelel az alábbi 4 szabály:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dt">Kövek</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>             tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb1</span><span class="kw">,</span><span class="dt">Nb</span>)) <span class="kw">:-</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="dt">=&lt;</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Kövek</span> <span class="dt">=&lt;</span> <span class="dv">6</span><span class="kw">,</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\+</span> üres(<span class="dt">La</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    szór(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span>)<span class="kw">.</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dt">Kövek</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>             tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">La</span><span class="kw">,</span><span class="dt">Nb1</span>)) <span class="kw">:-</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="dt">=&lt;</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Kövek</span> <span class="dt">=&lt;</span> <span class="dv">6</span><span class="kw">,</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    üres(<span class="dt">La</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    összeg(<span class="dt">Lb</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> <span class="dt">Nb1</span> <span class="dt">is</span> <span class="dt">Nb</span> <span class="dt">+</span> <span class="dt">Kövek</span> <span class="dt">+</span> <span class="dt">X</span><span class="kw">.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dt">Kövek</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span>) <span class="kw">:-</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">&gt;</span> <span class="dv">6</span><span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    szór(<span class="dv">6</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span>)<span class="kw">,</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek1</span> <span class="dt">is</span> <span class="dt">Kövek</span> <span class="dt">-</span> <span class="dv">6</span><span class="kw">,</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    vet(<span class="dt">Kövek1</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb1</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span>)<span class="kw">.</span></span></code></pre></div>
+<h3 id="kirajzolás">Kirajzolás</h3>
+<p>A nehezén túl vagyunk, de ahhoz, hogy játszani is tudjunk, meg is kell valahogy jeleníteni a táblát, és kommunikálni kell a játékossal.</p>
+<p>A tábla így fog kinézni:</p>
+<pre><code>     6    6    6    6    6    6
+0                                  0
+     6    6    6    6    6    6</code></pre>
+<p>A kirajzolásnál mindig a(z ember) játékos sora lesz alul, tehát a számítógép sorát kell elsőnek kiírni. Ezt úgy érjük el, hogy ha a játékos jön, akkor megfordítjuk a táblát a tényleges kirajzolás előtt:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>kirajzol(<span class="dt">Állás</span><span class="kw">,</span> számítógép) <span class="kw">:-</span> kirajzol(<span class="dt">Állás</span>)<span class="kw">.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>kirajzol(<span class="dt">Állás</span><span class="kw">,</span> ember) <span class="kw">:-</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    megfordít(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    kirajzol(<span class="dt">Állás1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A két sor kiírását a <code>sort_ír</code> végzi, a kalahokét a <code>kalahot_ír</code>. A felső sor számozása jobbról balra történik, tehát ezt a listát meg kell fordítani kiírás előtt:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kirajzol(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)) <span class="kw">:-</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nl</span><span class="kw">,</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    fordított(<span class="dt">La</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">,</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    sort_ír(<span class="dt">F</span>)<span class="kw">,</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    kalahot_ír(<span class="dt">Na</span><span class="kw">,</span> <span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    sort_ír(<span class="dt">Lb</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A sorokat 5 szóköznyi behúzással indítjuk, hogy legyen hely a baloldali kalahnak is. Ehhez a <code>tab</code> szabályt használjuk - ez az SWI Prolog netes verziójában nem használható (és a <code>write</code> is nagyon lassú), ezért érdemes a letölthető verzióban tesztelni.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sort_ír(<span class="dt">L</span>) <span class="kw">:-</span> tab(<span class="dv">5</span>)<span class="kw">,</span> lyukat_ír(<span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>lyukat_ír([]) <span class="kw">:-</span> <span class="fu">nl</span><span class="kw">.</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>lyukat_ír([<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> köveket_ír(<span class="dt">L</span>)<span class="kw">,</span> lyukat_ír(<span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>köveket_ír(<span class="dt">N</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">10</span><span class="kw">,</span> <span class="fu">write</span>(<span class="dt">N</span>)<span class="kw">,</span> tab(<span class="dv">4</span>)<span class="kw">.</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>köveket_ír(<span class="dt">N</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&gt;=</span> <span class="dv">10</span><span class="kw">,</span> <span class="fu">write</span>(<span class="dt">N</span>)<span class="kw">,</span> tab(<span class="dv">3</span>)<span class="kw">.</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>kalahot_ír(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">N2</span>) <span class="kw">:-</span> köveket_ír(<span class="dt">N1</span>)<span class="kw">,</span> tab(<span class="dv">30</span>)<span class="kw">,</span> <span class="fu">write</span>(<span class="dt">N2</span>)<span class="kw">,</span> <span class="fu">nl</span><span class="kw">.</span></span></code></pre></div>
+<p>A <code>köveket_ír</code> mindig 3 vagy 4 szóközt ír annak függvényében, hogy egy- vagy kétjegyű a kövek száma.</p>
+<h3 id="próba-2-játékosos-módban">Próba 2 játékosos módban</h3>
+<p>A mesterséges intelligencia még nincs meg, de a program már majdnem tesztelhető. Csak a <code>lépést_választ</code> hiányzik, amit egyelőre írjunk meg úgy, hogy mindig a játékost kérdezi:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lépést_választ(<span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Lépés</span>) <span class="kw">:-</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nl</span><span class="kw">,</span> writeln(<span class="st">&#39;Melyiket választod?&#39;</span>)<span class="kw">,</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read</span>(<span class="dt">Lépés</span>)<span class="kw">,</span> érvényes(<span class="dt">Lépés</span>)<span class="kw">.</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>érvényes([])<span class="kw">.</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>érvényes([<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="dv">0</span> <span class="dt">&lt;</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L</span> <span class="dt">&lt;</span> <span class="dv">7</span><span class="kw">,</span> érvényes(<span class="dt">M</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A lépés érvényességére csak egy minimális ellenőrzés van, azt sem ellenőrzi, hogy nem kéne-e folytatnunk a lépést vagy hogy nem léptünk-e túl sokszor (de ld. lejjebb az 2. feladatot).</p>
+<p>Itt egy pár lépés ízelítőnek:</p>
+<pre><code>?- kalah.
+
+     6    6    6    6    6    6
+0                                  0
+     6    6    6    6    6    6
+
+Melyiket választod?
+|: [1,5].
+
+     6    7    7    7    7    7
+0                                  2
+     0    7    7    7    0    8
+
+Melyiket választod?
+|: [3].
+
+     7    8    8    0    7    7
+1                                  2
+     1    8    8    7    0    8
+
+Melyiket választod?
+|: [2].
+
+     7    8    8    1    8    8
+1                                  3
+     1    0    9    8    1    9
+
+Melyiket választod?
+|: [1].
+
+     8    9    9    2    9    0
+2                                  3
+     2    1    9    8    1    9
+
+Melyiket választod?
+|: [6].
+
+     9    10   10   3    10   1
+2                                  4
+     3    2    9    8    1    0
+
+Melyiket választod?
+|: [3].
+
+     10   11   11   0    10   1
+2                                  4
+     3    2    9    8    1    0
+
+Melyiket választod?
+|: [5].
+
+     10   11   11   0    10   0
+2                                  6
+     3    2    9    8    0    0
+
+Melyiket választod?
+|: vége.
+
+false.</code></pre>
+<p>A program jelenleg tetszőleges hibás lépésre (pl. <code>vége</code>) leáll. Kipróbálhatjuk egy-egy speciális esetre is, mint például ez:</p>
+<pre><code>?- <span class="dt">Állás</span> = tábla([1,1,1,1,1,1],23,[16,3,1,1,3,3],16),
+   kirajzol(<span class="dt">Állás</span>, ember), játék(<span class="dt">Állás</span>, ember).
+
+     3    3    1    1    3    16
+16                                  23
+     1    1    1    1    1    1
+
+Melyiket választod?
+|: [6,5].
+
+     3    3    1    1    3    0
+16                                  41
+     1    1    1    1    0    0
+Nyertél, gratulálok!</code></pre>
+<h3 id="alfa-béta-nyírás-keretprogram">Alfa-béta nyírás keretprogram</h3>
+<p>A számítógép az ún. <em>alfa-béta nyírás</em> algoritmusa szerint fog működni. Ennek a lényege az, hogy minden játékálláshoz tudunk rendelni egy számot, ami minél magasabb, annál kedvezőbb nekünk. Ezután végiggondoljuk az összes lépési lehetőséget (az ellenfél lépéseit is természetesen) valahány lépésre előre, ezt a lépésszámot <em>mélységnek</em> szokás nevezni.</p>
+<p>Nézzünk egy nagyon egyszerű példát! Az alábbi ábra lépések <em>fáját</em> mutatja: a pontok és számok játékállásokat jelölnek, míg a köztük levő szakaszok a lépéseket.</p>
+<pre><code>       .        &lt;- mostani helyzet
+      / \
+     /   \
+    /     \
+   .       .    &lt;- mi lépésünk után
+  / \     / \
+ 1   2  -1   3  &lt;- ellenfél lépése után</code></pre>
+<p>Itt a mélység 2, tehát 2 lépésre előre gondolkodunk, és a legmélyebb szinten kiértékelünk minden állást. Két lépéslehetőségünk van, és ezekre az ellenfélnek 2-2 válasza. Feltesszük, hogy az ellenfelünk jól játszik, tehát ha a baloldali lépést választjuk, arra az ellenfél a saját baloldali (1-es értékelésű) lépését fogja válaszolni, nem pedig a jobboldalit, ami nekünk kedvezőbb állást (2) eredményez. Hasonlóan járunk el a jobboldali lépésnél: az ellenfél két válasza közül feltételezzük a kisebbet (-1). Azt láttuk tehát, hogy a baloldali lépés legrosszabb esetben 1-es, a jobboldali -1-es értékelésű. Mi nyilván a nagyobbat választjuk, tehát a mostani helyzetünk 1-es értékelésű lesz:</p>
+<pre><code>       1        &lt;- mostani helyzet
+      / \
+     /   \
+    /     \
+   1      -1    &lt;- mi lépésünk után
+  / \     / \
+ 1   2  -1   3  &lt;- ellenfél lépése után</code></pre>
+<p>Ha itt kell lépést választani, akkor a baloldali mellett döntünk. Ezt a gondolkodást <em>minimax</em> algoritmusnak hívják, mivel az ellenfél lépései közül a minimális értékűt, a saját lépések közül a maximális értékűt választjuk.</p>
+<p>Az alfa-béta nyírás ennek egy hatékonyabb változata. Itt mindig számon tartjuk azt, hogy mi az a minimum, amit biztosan el tudunk érni (<em>alfa</em>), és mi az a maximum, amit elérhetünk (<em>béta</em>). Nézzük meg az előbbi példa kiértékelését, amikor már megvizsgáltuk a teljes baloldali ágat!</p>
+<pre><code>       .        &lt;- mostani helyzet
+      / \
+     /   \
+    /     \
+   1       .    &lt;- mi lépésünk után
+  / \     / \
+ 1   2   .   .  &lt;- ellenfél lépése után</code></pre>
+<p>A jobboldali ággal még egyáltalán nem foglalkoztunk. Azt tudjuk, hogy ha a baloldali lépést választjuk, legrosszabb esetben 1-es (tehát alfa = 1). Hogyan módosul ez a jobboldali lépésre adott baloldali válasz megvizsgálása után?</p>
+<pre><code>       .        &lt;- mostani helyzet
+      / \
+     /   \
+    /     \
+   1       .    &lt;- mi lépésünk után
+  / \     / \
+ 1   2  -1   .  &lt;- ellenfél lépése után</code></pre>
+<p>Azt látjuk, hogy ha a jobboldali lépést választjuk, akkor legjobb esetben -1-re számíthatunk (béta = -1). Lehet, hogy az ellenfélnek van egy még erősebb lépése, és a tényleges maximum még kisebb, de nagyobb nem lehet. Viszont a baloldali ágon már van egy biztos 1-es, tehát ezt az ágat nem érdemes tovább vizsgálni, le lehet “nyírni”. Általában tehát ha egy ágon a béta érték kisebb vagy egyenlő, mint az eddigi legjobb alfa, akkor nem kell vele foglalkozni.</p>
+<p>Az algoritmust teljesen általánosan meg lehet fogalmazni, a konkrét játéktól függetlenül. Csak azt feltételezzük, hogy a következők adottak:</p>
+<ul>
+<li><code>lépés(Állás, Lépés)</code> : adott állásból lehetséges lépés</li>
+<li><code>lép(Lépés, Állás, Állás1)</code> : adott lépés lejátszása</li>
+<li><code>értékelés(Állás, Érték)</code> : adott állás kiértékelése</li>
+</ul>
+<p>Ebből egyelőre csak a második van meg, a maradék kettőt a következő részben fogjuk elkészíteni. Most azonban nézzük az általános algoritmust! Hogy ne kelljen külön kezelni a minimum- és maximumkereső eseteket, az értékeléseket minden szintváltáskor negáljuk. Ahhoz, hogy ez működjön, feltételezzük, hogy a keresési mélység kezdetben páros, tehát a 0-ás mélységen a pozitív szám jelenti a nekünk jó állást.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>alfa_béta(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> (<span class="dt">_</span><span class="kw">,</span> <span class="dt">Érték</span>)) <span class="kw">:-</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    értékelés(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">.</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>alfa_béta(<span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)) <span class="kw">:-</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Mélység</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">Mélység1</span> <span class="dt">is</span> <span class="dt">Mélység</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Alfa1</span> <span class="dt">is</span> <span class="dt">-Béta</span><span class="kw">,</span> <span class="dt">Béta1</span> <span class="dt">is</span> <span class="dt">-Alfa</span><span class="kw">,</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    findall(<span class="dt">L</span><span class="kw">,</span> lépés(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span> <span class="dt">Lépések</span>)<span class="kw">,</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    választ(<span class="dt">Lépések</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység1</span><span class="kw">,</span> <span class="dt">Alfa1</span><span class="kw">,</span> <span class="dt">Béta1</span><span class="kw">,</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>            nincs<span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>))<span class="kw">.</span></span></code></pre></div>
+<p>Ha az előrelátás mélysége 0, akkor az aktuális állást egyszerűen kiértékeljük. (Ilyenkor a legjobb lépést jelölő <code>Lépés</code> nem kap értéket.) Ha a mélység legalább 1, akkor eggyel csökkentjük, negáljuk és megcseréljük az alfát és bétát (hogy a másik játékos szemszögébe kerüljünk), és választunk az összes lehetséges lépés közül.</p>
+<p>(Megjegyzés: A <code>(Lépés, Érték)</code> egy <em>pár</em> - ez is egy struktúra, aminek a funktora a vessző, tehát ez valójában úgy is írható, hogy <code>','(Lépés, Érték)</code>, és általánosan az <code>(a,b) =.. [',',a,b].</code> teljesül.)</p>
+<p>A választást a <code>választ</code> végzi:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>választ([]<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Legjobb</span><span class="kw">,</span> (<span class="dt">Legjobb</span><span class="kw">,</span> <span class="dt">Alfa</span>))<span class="kw">.</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>választ([<span class="dt">Lépés</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Legjobb</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    lép(<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    alfa_béta(<span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> (<span class="dt">_</span><span class="kw">,</span> <span class="dt">Érték</span>))<span class="kw">,</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Érték1</span> <span class="dt">is</span> <span class="dt">-</span><span class="dt">Érték</span><span class="kw">,</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    nyír((<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték1</span>)<span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Legjobb</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az utolsóelőtti argumentum az eddigi legjobb lépés (kezdetben <code>nincs</code>), az utolsó pedig a végső megtalált legjobb lépés és a hozzá tartozó értékelés.</p>
+<p>Ha a lehetséges lépések listája üres, akkor az eddigi legjobb lépést adja vissza (<code>Legjobb</code>) és a hozzá tartozó érték az <code>Alfa</code> lesz. Ha nem üres, akkor kipróbálja az első lépést: lejátsza, és az így keletkező állást (rekurzívan) kiértékeli az <code>alfa_béta</code> szabállyal. Az így kapott <code>Érték</code>-et negálni kell, mert egy szinttel feljebb léptünk. Végül a <code>nyír</code> az eredeti <code>Állás</code> állapotból való lépések közül (rekurzívan) választ, miközben lenyírja azokat az ágakat, amelyeket felesleges kiértékelni:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>nyír((<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)) <span class="kw">:-</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Érték</span> <span class="dt">&gt;=</span> <span class="dt">Béta</span><span class="kw">.</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>nyír((<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Alfa</span> <span class="dt">&lt;</span> <span class="dt">Érték</span><span class="kw">,</span> <span class="dt">Érték</span> <span class="dt">&lt;</span> <span class="dt">Béta</span><span class="kw">,</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    választ(<span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Érték</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>nyír((<span class="dt">_</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Lépés1</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Érték</span> <span class="dt">=&lt;</span> <span class="dt">Alfa</span><span class="kw">,</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    választ(<span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Lépés1</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt három esetet különböztetünk meg, a megvizsgált lépés értékelésétől függően:</p>
+<ol>
+<li>Ha legalább béta, akkor nem kell tovább keresni, ennél jobb lépés nem változtat az értékelésen. (Ez megfelel annak, hogy a fenti példában megtaláltuk a -1-et, ami az ellenfél számára negálva 1-es, és ezért nem kell még jobb lépés után néznie, mert a béta - a mi negált alfánk - kisebb, -1 értékű.)</li>
+<li>Ha alfa és béta között van, akkor ez lesz az eddigi legjobb lépés és az értéke az új alfa, és keresünk egy esetleges jobbat a többi lépésből.</li>
+<li>Ha kisebb vagy egyenlő, mint alfa, akkor ez a lépés nem érdekes, a többiekben folytatjuk a keresést.</li>
+</ol>
+<h3 id="kalah-specifikus-részek">Kalah-specifikus részek</h3>
+<p>Hogyan tudjuk az összes lehetséges lépést leírni?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>lépés(tábla([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]<span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lépés(<span class="dt">Állás</span><span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    tartalmaz(<span class="dt">L</span><span class="kw">,</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>])<span class="kw">,</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    kövek(<span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    lépést_folytat(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ha a térfelünk üres, nincs lehetséges lépés. (Erre azért van szükség, mert a játékot be lehet fejezni úgy, hogy az utolsó követ a kalahba rakjuk.) Egyébként a lépés első eleme egy lyukat jelölő 1 és 6 közti szám; a <code>kövek</code> biztosítja, hogy van is benne kő. Azt kell csak ellenőrizni, hogy a kalahba kerül-e az utolsó, amire a feltétel a 13-al való osztási maradékkal számolható:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>lépést_folytat(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> []) <span class="kw">:-</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=\=</span> (<span class="dv">7</span> <span class="dt">-</span> <span class="dt">L</span>) <span class="dv">mod</span> <span class="dv">13</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>lépést_folytat(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Lépések</span>) <span class="kw">:-</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=:=</span> (<span class="dv">7</span> <span class="dt">-</span> <span class="dt">L</span>) <span class="dv">mod</span> <span class="dv">13</span><span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    vet(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    lépés(<span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Lépések</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ha a kalahba került, akkor a köveket végigszórjuk, és ebből az állásból rekurzívan további lépéseket keresünk.</p>
+<p>Egy állás értékelésére egy nagyon egyszerű definíció a kalahokban levő kövek különbsége:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>értékelés(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">-</span> <span class="dt">Nb</span><span class="kw">.</span></span></code></pre></div>
+<p>Már csak annyi van hátra, hogy átírjuk a <code>lépést_választ</code> szabályt. A régi verzió megmarad arra az esetre, amikor az emberi játékos van lépésen; a számítógép esetében pedig az alfa-béta nyírást használjuk:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>lépést_választ(<span class="dt">_</span><span class="kw">,</span> ember<span class="kw">,</span> <span class="dt">Lépés</span>) <span class="kw">:-</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nl</span><span class="kw">,</span> writeln(<span class="st">&#39;Melyiket választod?&#39;</span>)<span class="kw">,</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read</span>(<span class="dt">Lépés</span>)<span class="kw">,</span> érvényes(<span class="dt">Lépés</span>)<span class="kw">.</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>lépést_választ(<span class="dt">Állás</span><span class="kw">,</span> számítógép<span class="kw">,</span> <span class="dt">Lépés</span>) <span class="kw">:-</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    előrelátás(<span class="dt">Mélység</span>)<span class="kw">,</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    alfa_béta(<span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="fu">-</span><span class="dv">40</span><span class="kw">,</span> <span class="dv">40</span><span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">_</span>))<span class="kw">,</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nl</span><span class="kw">,</span> <span class="fu">write</span>(<span class="dt">Lépés</span>)<span class="kw">,</span> <span class="fu">nl</span><span class="kw">.</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>előrelátás(<span class="dv">4</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az alfa-béta intervallumot kezdetben jó nagyra állítjuk (-40, 40), az előrelátás mélységét pedig a könnyebb módosíthatóság kedvéért egy külön tényként tároljuk.</p>
+<h3 id="tesztjáték">Tesztjáték</h3>
+<p>Itt egy 6-os mélységű mesterséges intelligencia ellen játszott 4-köves játék, ahol a gép kezdett:</p>
+<pre><code>?- kalah.
+
+     4    4    4    4    4    4
+0                                  0
+     4    4    4    4    4    4
+
+[3,6]
+
+     0    5    5    0    4    4
+2                                  0
+     5    5    5    5    4    4
+
+Melyiket választod?
+|: [2,1].
+
+     0    5    5    0    4    4
+2                                  1
+     0    1    7    7    6    6
+
+[4]
+
+     1    6    0    0    4    4
+3                                  1
+     1    2    7    7    6    6
+
+Melyiket választod?
+|: [1].
+
+     1    6    0    0    4    4
+3                                  1
+     0    3    7    7    6    6
+
+[5]
+
+     2    0    0    0    4    4
+4                                  1
+     1    4    8    8    6    6
+
+Melyiket választod?
+|: [2].
+
+     2    0    0    0    4    4
+4                                  1
+     1    0    9    9    7    7
+
+[6]
+
+     0    0    0    0    4    4
+5                                  1
+     2    0    9    9    7    7
+
+Melyiket választod?
+|: [1].
+
+     0    0    0    0    4    4
+5                                  1
+     0    1    10   9    7    7
+
+[1]
+
+     0    0    1    1    5    0
+7                                  1
+     0    0    10   9    7    7
+
+Melyiket választod?
+|: [5].
+
+     0    1    2    2    6    1
+7                                  2
+     0    0    10   9    0    8
+
+[1]
+
+     0    1    2    2    7    0
+7                                  2
+     0    0    10   9    0    8
+
+Melyiket választod?
+|: [6].
+
+     0    2    3    3    8    1
+7                                  5
+     0    0    10   9    0    0
+
+[5,6,4,6,1]
+
+     0    1    0    3    9    0
+11                                 5
+     0    0    10   9    0    0
+
+Melyiket választod?
+|: [3].
+
+     1    2    1    4    10   1
+11                                 6
+     0    0    0    10   1    1
+
+[6,5,4]
+
+     1    1    0    4    10   1
+13                                 6
+     0    0    0    10   1    1
+
+Melyiket választod?
+|: [4].
+
+     0    2    1    5    11   2
+13                                 10
+     0    0    0    0    2    2
+
+[1]
+
+     0    2    1    6    12   0
+13                                 10
+     0    0    0    0    2    2
+
+Melyiket választod?
+|: [6].
+
+     0    2    1    6    12   1
+13                                 11
+     0    0    0    0    2    0
+
+[1]
+
+     0    2    1    6    13   0
+13                                 11
+     0    0    0    0    2    0
+
+Melyiket választod?
+|: [5,6].
+
+     0    0    0    0    0    0
+35                                 13
+     0    0    0    0    0    0
+Nyertem.</code></pre>
+<h3 id="feladatok">Feladatok</h3>
+<ol>
+<li><p>Írjátok át a játékos lépését, hogy hibás lépés esetén kérdezzen újra, és <code>kilépés</code>-re lépjen ki!</p></li>
+<li><p>Készítsetek szigorúbb ellenőrzést az emberi játékos lépéseihez, ami (i) nem enged üres lyukat választani, és (ii) akkor és csak akkor enged több lépést, ha az utolsó kő a kalahba kerül!</p></li>
+<li><p>Írjátok át a programot úgy, hogy a bonyolultabb (de izgalmasabb) <a href="https://boardgamegeek.com/boardgame/28302/oware">Oware</a> játék szabályait kövesse!</p></li>
+</ol>
+<h3 id="a-teljes-program">A teljes program</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Magas szintű keretprogram</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>kalah <span class="kw">:-</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    alapbeállítás(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>)<span class="kw">,</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    kirajzol(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>)<span class="kw">,</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    játék(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>)<span class="kw">.</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>játék(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>) <span class="kw">:-</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    játék_vége(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Eredmény</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    bejelent(<span class="dt">Eredmény</span>)<span class="kw">.</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>játék(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span>) <span class="kw">:-</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    lépést_választ(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Lépés</span>)<span class="kw">,</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    lép(<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    következő_játékos(<span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Játékos1</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    kirajzol(<span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Játékos1</span>)<span class="kw">,</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    játék(<span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Játékos1</span>)<span class="kw">.</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>következő_játékos(ember<span class="kw">,</span> számítógép)<span class="kw">.</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>következő_játékos(számítógép<span class="kw">,</span> ember)<span class="kw">.</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>bejelent(ember) <span class="kw">:-</span> writeln(<span class="st">&#39;Nyertél, gratulálok!&#39;</span>)<span class="kw">.</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>bejelent(számítógép) <span class="kw">:-</span> writeln(<span class="st">&#39;Nyertem.&#39;</span>)<span class="kw">.</span></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>bejelent(döntetlen) <span class="kw">:-</span> writeln(<span class="st">&#39;Döntetlen lett!&#39;</span>)<span class="kw">.</span></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a><span class="co">% Reprezentáció</span></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>alapbeállítás(<span class="dt">Állás</span><span class="kw">,</span> ember) <span class="kw">:-</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Állás</span> <span class="kw">=</span> tábla([<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>]<span class="kw">,</span><span class="dv">0</span><span class="kw">,</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>                  [<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>,<span class="dt">K</span>]<span class="kw">,</span><span class="dv">0</span>)<span class="kw">.</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a><span class="co">% Szabályok</span></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>játék_vége(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">N</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">N</span>)<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> döntetlen) <span class="kw">:-</span></span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span> <span class="dt">N</span> <span class="dt">=:=</span> <span class="dv">6</span> <span class="dt">*</span> <span class="dt">K</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a>játék_vége(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">N1</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Játékos</span>) <span class="kw">:-</span></span>
+<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span> <span class="dt">N1</span> <span class="dt">&gt;</span> <span class="dv">6</span> <span class="dt">*</span> <span class="dt">K</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a>játék_vége(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">N2</span>)<span class="kw">,</span> <span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Másik</span>) <span class="kw">:-</span></span>
+<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a>    kövek_száma(<span class="dt">K</span>)<span class="kw">,</span> <span class="dt">N2</span> <span class="dt">&gt;</span> <span class="dv">6</span> <span class="dt">*</span> <span class="dt">K</span><span class="kw">,</span></span>
+<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a>    következő_játékos(<span class="dt">Játékos</span><span class="kw">,</span> <span class="dt">Másik</span>)<span class="kw">.</span></span>
+<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a>lép([]<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>) <span class="kw">:-</span> megfordít(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">.</span></span>
+<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a>lép([<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás2</span>) <span class="kw">:-</span></span>
+<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a>    kövek(<span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a>    vet(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb37-46"><a href="#cb37-46" aria-hidden="true" tabindex="-1"></a>    lép(<span class="dt">M</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Állás2</span>)<span class="kw">.</span></span>
+<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a>megfordít(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> tábla(<span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span><span class="kw">,</span><span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span>))<span class="kw">.</span></span>
+<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a>kövek(<span class="dt">I</span><span class="kw">,</span> tábla(<span class="dt">L</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">K</span>) <span class="kw">:-</span> n_edik(<span class="dt">I</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span> <span class="dt">K</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">.</span></span>
+<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a>vet(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás2</span>) <span class="kw">:-</span></span>
+<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a>    vet_saját(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Kövek1</span>)<span class="kw">,</span></span>
+<span id="cb37-54"><a href="#cb37-54" aria-hidden="true" tabindex="-1"></a>    vet_ellenfél(<span class="dt">Kövek1</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Állás2</span>)<span class="kw">.</span></span>
+<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a>vet_saját(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a>          tábla(<span class="dt">La1</span><span class="kw">,</span><span class="dt">Na1</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Kövek1</span>) <span class="kw">:-</span></span>
+<span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">&gt;</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="kw">!,</span> <span class="co">% átmegy az ellenfélhez</span></span>
+<span id="cb37-59"><a href="#cb37-59" aria-hidden="true" tabindex="-1"></a>    felvesz_és_szór(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La1</span>)<span class="kw">,</span></span>
+<span id="cb37-60"><a href="#cb37-60" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">Kövek1</span> <span class="dt">is</span> <span class="dt">Kövek</span> <span class="dt">+</span> <span class="dt">Luk</span> <span class="dt">-</span> <span class="dv">7</span><span class="kw">.</span></span>
+<span id="cb37-61"><a href="#cb37-61" aria-hidden="true" tabindex="-1"></a>vet_saját(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dv">0</span>) <span class="kw">:-</span></span>
+<span id="cb37-62"><a href="#cb37-62" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=&lt;</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span></span>
+<span id="cb37-63"><a href="#cb37-63" aria-hidden="true" tabindex="-1"></a>    felvesz_és_szór(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La1</span>)<span class="kw">,</span></span>
+<span id="cb37-64"><a href="#cb37-64" aria-hidden="true" tabindex="-1"></a>    elfogás(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La1</span><span class="kw">,</span> <span class="dt">La2</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span></span>
+<span id="cb37-65"><a href="#cb37-65" aria-hidden="true" tabindex="-1"></a>    raktározás(<span class="dt">N</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na1</span>)<span class="kw">,</span></span>
+<span id="cb37-66"><a href="#cb37-66" aria-hidden="true" tabindex="-1"></a>    vetés_vége(tábla(<span class="dt">La2</span><span class="kw">,</span><span class="dt">Na1</span><span class="kw">,</span><span class="dt">Lb1</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span>)<span class="kw">.</span></span>
+<span id="cb37-67"><a href="#cb37-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-68"><a href="#cb37-68" aria-hidden="true" tabindex="-1"></a>felvesz_és_szór(<span class="dv">0</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L1</span>) <span class="kw">:-</span> <span class="co">% szórás folytatása</span></span>
+<span id="cb37-69"><a href="#cb37-69" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span> szór(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L1</span>)<span class="kw">.</span></span>
+<span id="cb37-70"><a href="#cb37-70" aria-hidden="true" tabindex="-1"></a>felvesz_és_szór(<span class="dv">1</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dv">0</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb37-71"><a href="#cb37-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span> szór(<span class="dt">K</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span>
+<span id="cb37-72"><a href="#cb37-72" aria-hidden="true" tabindex="-1"></a>felvesz_és_szór(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb37-73"><a href="#cb37-73" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Luk</span> <span class="dt">&gt;</span> <span class="dv">1</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">Luk1</span> <span class="dt">is</span> <span class="dt">Luk</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb37-74"><a href="#cb37-74" aria-hidden="true" tabindex="-1"></a>    felvesz_és_szór(<span class="dt">Luk1</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span>
+<span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-76"><a href="#cb37-76" aria-hidden="true" tabindex="-1"></a>szór(<span class="dv">0</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb37-77"><a href="#cb37-77" aria-hidden="true" tabindex="-1"></a>szór(<span class="dt">N</span><span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">L1</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb37-78"><a href="#cb37-78" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb37-79"><a href="#cb37-79" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">L1</span> <span class="dt">is</span> <span class="dt">L</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb37-80"><a href="#cb37-80" aria-hidden="true" tabindex="-1"></a>    szór(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span>
+<span id="cb37-81"><a href="#cb37-81" aria-hidden="true" tabindex="-1"></a>szór(<span class="dt">_</span><span class="kw">,</span> []<span class="kw">,</span> []) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb37-82"><a href="#cb37-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-83"><a href="#cb37-83" aria-hidden="true" tabindex="-1"></a>elfogás(<span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La1</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span><span class="kw">,</span> <span class="dt">N</span>) <span class="kw">:-</span></span>
+<span id="cb37-84"><a href="#cb37-84" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Vége</span> <span class="dt">is</span> <span class="dt">Luk</span> <span class="dt">+</span> <span class="dt">Kövek</span><span class="kw">,</span></span>
+<span id="cb37-85"><a href="#cb37-85" aria-hidden="true" tabindex="-1"></a>    n_edik(<span class="dt">Vége</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">,</span></span>
+<span id="cb37-86"><a href="#cb37-86" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Szemben</span> <span class="dt">is</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Vége</span><span class="kw">,</span></span>
+<span id="cb37-87"><a href="#cb37-87" aria-hidden="true" tabindex="-1"></a>    n_edik(<span class="dt">Szemben</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb37-88"><a href="#cb37-88" aria-hidden="true" tabindex="-1"></a>    <span class="dt">K</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="kw">!,</span> <span class="co">% üresbe érkeztünk és van szemben kő</span></span>
+<span id="cb37-89"><a href="#cb37-89" aria-hidden="true" tabindex="-1"></a>    n_csere(<span class="dt">Vége</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">La1</span>)<span class="kw">,</span></span>
+<span id="cb37-90"><a href="#cb37-90" aria-hidden="true" tabindex="-1"></a>    n_csere(<span class="dt">Szemben</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">Lb1</span>)<span class="kw">,</span></span>
+<span id="cb37-91"><a href="#cb37-91" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">is</span> <span class="dt">K</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb37-92"><a href="#cb37-92" aria-hidden="true" tabindex="-1"></a>elfogás(<span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">La</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dv">0</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb37-93"><a href="#cb37-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-94"><a href="#cb37-94" aria-hidden="true" tabindex="-1"></a>raktározás(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na</span>) <span class="kw">:-</span></span>
+<span id="cb37-95"><a href="#cb37-95" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">&lt;</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb37-96"><a href="#cb37-96" aria-hidden="true" tabindex="-1"></a>raktározás(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na1</span>) <span class="kw">:-</span></span>
+<span id="cb37-97"><a href="#cb37-97" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=:=</span> <span class="dv">7</span> <span class="dt">-</span> <span class="dt">Luk</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb37-98"><a href="#cb37-98" aria-hidden="true" tabindex="-1"></a>raktározás(<span class="dt">N</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Na</span><span class="kw">,</span> <span class="dt">Na1</span>) <span class="kw">:-</span></span>
+<span id="cb37-99"><a href="#cb37-99" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dt">N</span><span class="kw">.</span></span>
+<span id="cb37-100"><a href="#cb37-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-101"><a href="#cb37-101" aria-hidden="true" tabindex="-1"></a>vetés_vége(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">La</span><span class="kw">,</span><span class="dt">Nb1</span>)) <span class="kw">:-</span></span>
+<span id="cb37-102"><a href="#cb37-102" aria-hidden="true" tabindex="-1"></a>    üres(<span class="dt">La</span>)<span class="kw">,</span> <span class="kw">!,</span> összeg(<span class="dt">Lb</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> <span class="dt">Nb1</span> <span class="dt">is</span> <span class="dt">Nb</span> <span class="dt">+</span> <span class="dt">X</span><span class="kw">.</span></span>
+<span id="cb37-103"><a href="#cb37-103" aria-hidden="true" tabindex="-1"></a>vetés_vége(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> tábla(<span class="dt">Lb</span><span class="kw">,</span><span class="dt">Na1</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)) <span class="kw">:-</span></span>
+<span id="cb37-104"><a href="#cb37-104" aria-hidden="true" tabindex="-1"></a>    üres(<span class="dt">Lb</span>)<span class="kw">,</span> <span class="kw">!,</span> összeg(<span class="dt">La</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> <span class="dt">Na1</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">+</span> <span class="dt">X</span><span class="kw">.</span></span>
+<span id="cb37-105"><a href="#cb37-105" aria-hidden="true" tabindex="-1"></a>vetés_vége(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb37-106"><a href="#cb37-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-107"><a href="#cb37-107" aria-hidden="true" tabindex="-1"></a>üres([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>])<span class="kw">.</span></span>
+<span id="cb37-108"><a href="#cb37-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-109"><a href="#cb37-109" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb37-110"><a href="#cb37-110" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dt">Kövek</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb37-111"><a href="#cb37-111" aria-hidden="true" tabindex="-1"></a>             tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb1</span><span class="kw">,</span><span class="dt">Nb</span>)) <span class="kw">:-</span></span>
+<span id="cb37-112"><a href="#cb37-112" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="dt">=&lt;</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Kövek</span> <span class="dt">=&lt;</span> <span class="dv">6</span><span class="kw">,</span></span>
+<span id="cb37-113"><a href="#cb37-113" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\+</span> üres(<span class="dt">La</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb37-114"><a href="#cb37-114" aria-hidden="true" tabindex="-1"></a>    szór(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span>)<span class="kw">.</span></span>
+<span id="cb37-115"><a href="#cb37-115" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dt">Kövek</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb37-116"><a href="#cb37-116" aria-hidden="true" tabindex="-1"></a>             tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">La</span><span class="kw">,</span><span class="dt">Nb1</span>)) <span class="kw">:-</span></span>
+<span id="cb37-117"><a href="#cb37-117" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="dt">=&lt;</span> <span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">Kövek</span> <span class="dt">=&lt;</span> <span class="dv">6</span><span class="kw">,</span></span>
+<span id="cb37-118"><a href="#cb37-118" aria-hidden="true" tabindex="-1"></a>    üres(<span class="dt">La</span>)<span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb37-119"><a href="#cb37-119" aria-hidden="true" tabindex="-1"></a>    összeg(<span class="dt">Lb</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> <span class="dt">Nb1</span> <span class="dt">is</span> <span class="dt">Nb</span> <span class="dt">+</span> <span class="dt">Kövek</span> <span class="dt">+</span> <span class="dt">X</span><span class="kw">.</span></span>
+<span id="cb37-120"><a href="#cb37-120" aria-hidden="true" tabindex="-1"></a>vet_ellenfél(<span class="dt">Kövek</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span>) <span class="kw">:-</span></span>
+<span id="cb37-121"><a href="#cb37-121" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">&gt;</span> <span class="dv">6</span><span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb37-122"><a href="#cb37-122" aria-hidden="true" tabindex="-1"></a>    szór(<span class="dv">6</span><span class="kw">,</span> <span class="dt">Lb</span><span class="kw">,</span> <span class="dt">Lb1</span>)<span class="kw">,</span></span>
+<span id="cb37-123"><a href="#cb37-123" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek1</span> <span class="dt">is</span> <span class="dt">Kövek</span> <span class="dt">-</span> <span class="dv">6</span><span class="kw">,</span></span>
+<span id="cb37-124"><a href="#cb37-124" aria-hidden="true" tabindex="-1"></a>    vet(<span class="dt">Kövek1</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb1</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">Állás</span>)<span class="kw">.</span></span>
+<span id="cb37-125"><a href="#cb37-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-126"><a href="#cb37-126" aria-hidden="true" tabindex="-1"></a><span class="co">% Kirajzolás</span></span>
+<span id="cb37-127"><a href="#cb37-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-128"><a href="#cb37-128" aria-hidden="true" tabindex="-1"></a>kirajzol(<span class="dt">Állás</span><span class="kw">,</span> számítógép) <span class="kw">:-</span> kirajzol(<span class="dt">Állás</span>)<span class="kw">.</span></span>
+<span id="cb37-129"><a href="#cb37-129" aria-hidden="true" tabindex="-1"></a>kirajzol(<span class="dt">Állás</span><span class="kw">,</span> ember) <span class="kw">:-</span></span>
+<span id="cb37-130"><a href="#cb37-130" aria-hidden="true" tabindex="-1"></a>    megfordít(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb37-131"><a href="#cb37-131" aria-hidden="true" tabindex="-1"></a>    kirajzol(<span class="dt">Állás1</span>)<span class="kw">.</span></span>
+<span id="cb37-132"><a href="#cb37-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-133"><a href="#cb37-133" aria-hidden="true" tabindex="-1"></a>kirajzol(tábla(<span class="dt">La</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">Lb</span><span class="kw">,</span><span class="dt">Nb</span>)) <span class="kw">:-</span></span>
+<span id="cb37-134"><a href="#cb37-134" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nl</span><span class="kw">,</span></span>
+<span id="cb37-135"><a href="#cb37-135" aria-hidden="true" tabindex="-1"></a>    fordított(<span class="dt">La</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">,</span></span>
+<span id="cb37-136"><a href="#cb37-136" aria-hidden="true" tabindex="-1"></a>    sort_ír(<span class="dt">F</span>)<span class="kw">,</span></span>
+<span id="cb37-137"><a href="#cb37-137" aria-hidden="true" tabindex="-1"></a>    kalahot_ír(<span class="dt">Na</span><span class="kw">,</span> <span class="dt">Nb</span>)<span class="kw">,</span></span>
+<span id="cb37-138"><a href="#cb37-138" aria-hidden="true" tabindex="-1"></a>    sort_ír(<span class="dt">Lb</span>)<span class="kw">.</span></span>
+<span id="cb37-139"><a href="#cb37-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-140"><a href="#cb37-140" aria-hidden="true" tabindex="-1"></a>sort_ír(<span class="dt">L</span>) <span class="kw">:-</span> tab(<span class="dv">5</span>)<span class="kw">,</span> lyukat_ír(<span class="dt">L</span>)<span class="kw">.</span></span>
+<span id="cb37-141"><a href="#cb37-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-142"><a href="#cb37-142" aria-hidden="true" tabindex="-1"></a>lyukat_ír([]) <span class="kw">:-</span> <span class="fu">nl</span><span class="kw">.</span></span>
+<span id="cb37-143"><a href="#cb37-143" aria-hidden="true" tabindex="-1"></a>lyukat_ír([<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> köveket_ír(<span class="dt">L</span>)<span class="kw">,</span> lyukat_ír(<span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb37-144"><a href="#cb37-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-145"><a href="#cb37-145" aria-hidden="true" tabindex="-1"></a>köveket_ír(<span class="dt">N</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dv">10</span><span class="kw">,</span> <span class="fu">write</span>(<span class="dt">N</span>)<span class="kw">,</span> tab(<span class="dv">4</span>)<span class="kw">.</span></span>
+<span id="cb37-146"><a href="#cb37-146" aria-hidden="true" tabindex="-1"></a>köveket_ír(<span class="dt">N</span>) <span class="kw">:-</span> <span class="dt">N</span> <span class="dt">&gt;=</span> <span class="dv">10</span><span class="kw">,</span> <span class="fu">write</span>(<span class="dt">N</span>)<span class="kw">,</span> tab(<span class="dv">3</span>)<span class="kw">.</span></span>
+<span id="cb37-147"><a href="#cb37-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-148"><a href="#cb37-148" aria-hidden="true" tabindex="-1"></a>kalahot_ír(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">N2</span>) <span class="kw">:-</span> köveket_ír(<span class="dt">N1</span>)<span class="kw">,</span> tab(<span class="dv">30</span>)<span class="kw">,</span> <span class="fu">write</span>(<span class="dt">N2</span>)<span class="kw">,</span> <span class="fu">nl</span><span class="kw">.</span></span>
+<span id="cb37-149"><a href="#cb37-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-150"><a href="#cb37-150" aria-hidden="true" tabindex="-1"></a><span class="co">% Alfa-béta nyírás</span></span>
+<span id="cb37-151"><a href="#cb37-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-152"><a href="#cb37-152" aria-hidden="true" tabindex="-1"></a>alfa_béta(<span class="dv">0</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> (<span class="dt">_</span><span class="kw">,</span> <span class="dt">Érték</span>)) <span class="kw">:-</span></span>
+<span id="cb37-153"><a href="#cb37-153" aria-hidden="true" tabindex="-1"></a>    értékelés(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">.</span></span>
+<span id="cb37-154"><a href="#cb37-154" aria-hidden="true" tabindex="-1"></a>alfa_béta(<span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)) <span class="kw">:-</span></span>
+<span id="cb37-155"><a href="#cb37-155" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Mélység</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">Mélység1</span> <span class="dt">is</span> <span class="dt">Mélység</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb37-156"><a href="#cb37-156" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Alfa1</span> <span class="dt">is</span> <span class="dt">-Béta</span><span class="kw">,</span> <span class="dt">Béta1</span> <span class="dt">is</span> <span class="dt">-Alfa</span><span class="kw">,</span></span>
+<span id="cb37-157"><a href="#cb37-157" aria-hidden="true" tabindex="-1"></a>    findall(<span class="dt">L</span><span class="kw">,</span> lépés(<span class="dt">Állás</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span> <span class="dt">Lépések</span>)<span class="kw">,</span></span>
+<span id="cb37-158"><a href="#cb37-158" aria-hidden="true" tabindex="-1"></a>    választ(<span class="dt">Lépések</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység1</span><span class="kw">,</span> <span class="dt">Alfa1</span><span class="kw">,</span> <span class="dt">Béta1</span><span class="kw">,</span></span>
+<span id="cb37-159"><a href="#cb37-159" aria-hidden="true" tabindex="-1"></a>            nincs<span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>))<span class="kw">.</span></span>
+<span id="cb37-160"><a href="#cb37-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-161"><a href="#cb37-161" aria-hidden="true" tabindex="-1"></a>választ([]<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Legjobb</span><span class="kw">,</span> (<span class="dt">Legjobb</span><span class="kw">,</span> <span class="dt">Alfa</span>))<span class="kw">.</span></span>
+<span id="cb37-162"><a href="#cb37-162" aria-hidden="true" tabindex="-1"></a>választ([<span class="dt">Lépés</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Legjobb</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb37-163"><a href="#cb37-163" aria-hidden="true" tabindex="-1"></a>    lép(<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb37-164"><a href="#cb37-164" aria-hidden="true" tabindex="-1"></a>    alfa_béta(<span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> (<span class="dt">_</span><span class="kw">,</span> <span class="dt">Érték</span>))<span class="kw">,</span></span>
+<span id="cb37-165"><a href="#cb37-165" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Érték1</span> <span class="dt">is</span> <span class="dt">-</span><span class="dt">Érték</span><span class="kw">,</span></span>
+<span id="cb37-166"><a href="#cb37-166" aria-hidden="true" tabindex="-1"></a>    nyír((<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték1</span>)<span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Legjobb</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb37-167"><a href="#cb37-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-168"><a href="#cb37-168" aria-hidden="true" tabindex="-1"></a>nyír((<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)) <span class="kw">:-</span></span>
+<span id="cb37-169"><a href="#cb37-169" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Érték</span> <span class="dt">&gt;=</span> <span class="dt">Béta</span><span class="kw">.</span></span>
+<span id="cb37-170"><a href="#cb37-170" aria-hidden="true" tabindex="-1"></a>nyír((<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb37-171"><a href="#cb37-171" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Alfa</span> <span class="dt">&lt;</span> <span class="dt">Érték</span><span class="kw">,</span> <span class="dt">Érték</span> <span class="dt">&lt;</span> <span class="dt">Béta</span><span class="kw">,</span></span>
+<span id="cb37-172"><a href="#cb37-172" aria-hidden="true" tabindex="-1"></a>    választ(<span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Érték</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb37-173"><a href="#cb37-173" aria-hidden="true" tabindex="-1"></a>nyír((<span class="dt">_</span><span class="kw">,</span> <span class="dt">Érték</span>)<span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Lépés1</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb37-174"><a href="#cb37-174" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Érték</span> <span class="dt">=&lt;</span> <span class="dt">Alfa</span><span class="kw">,</span></span>
+<span id="cb37-175"><a href="#cb37-175" aria-hidden="true" tabindex="-1"></a>    választ(<span class="dt">Többi</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Alfa</span><span class="kw">,</span> <span class="dt">Béta</span><span class="kw">,</span> <span class="dt">Lépés1</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb37-176"><a href="#cb37-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-177"><a href="#cb37-177" aria-hidden="true" tabindex="-1"></a><span class="co">% Kalah-specifikus rész</span></span>
+<span id="cb37-178"><a href="#cb37-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-179"><a href="#cb37-179" aria-hidden="true" tabindex="-1"></a>lépés(tábla([<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]<span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb37-180"><a href="#cb37-180" aria-hidden="true" tabindex="-1"></a>lépés(<span class="dt">Állás</span><span class="kw">,</span> [<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span></span>
+<span id="cb37-181"><a href="#cb37-181" aria-hidden="true" tabindex="-1"></a>    tartalmaz(<span class="dt">L</span><span class="kw">,</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>])<span class="kw">,</span></span>
+<span id="cb37-182"><a href="#cb37-182" aria-hidden="true" tabindex="-1"></a>    kövek(<span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb37-183"><a href="#cb37-183" aria-hidden="true" tabindex="-1"></a>    lépést_folytat(<span class="dt">K</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb37-184"><a href="#cb37-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-185"><a href="#cb37-185" aria-hidden="true" tabindex="-1"></a>lépést_folytat(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> []) <span class="kw">:-</span></span>
+<span id="cb37-186"><a href="#cb37-186" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=\=</span> (<span class="dv">7</span> <span class="dt">-</span> <span class="dt">L</span>) <span class="dv">mod</span> <span class="dv">13</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb37-187"><a href="#cb37-187" aria-hidden="true" tabindex="-1"></a>lépést_folytat(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Lépések</span>) <span class="kw">:-</span></span>
+<span id="cb37-188"><a href="#cb37-188" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Kövek</span> <span class="dt">=:=</span> (<span class="dv">7</span> <span class="dt">-</span> <span class="dt">L</span>) <span class="dv">mod</span> <span class="dv">13</span><span class="kw">,</span> <span class="kw">!,</span></span>
+<span id="cb37-189"><a href="#cb37-189" aria-hidden="true" tabindex="-1"></a>    vet(<span class="dt">Kövek</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="dt">Állás1</span>)<span class="kw">,</span></span>
+<span id="cb37-190"><a href="#cb37-190" aria-hidden="true" tabindex="-1"></a>    lépés(<span class="dt">Állás1</span><span class="kw">,</span> <span class="dt">Lépések</span>)<span class="kw">.</span></span>
+<span id="cb37-191"><a href="#cb37-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-192"><a href="#cb37-192" aria-hidden="true" tabindex="-1"></a>értékelés(tábla(<span class="dt">_</span><span class="kw">,</span><span class="dt">Na</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">Nb</span>)<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dt">Na</span> <span class="dt">-</span> <span class="dt">Nb</span><span class="kw">.</span></span>
+<span id="cb37-193"><a href="#cb37-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-194"><a href="#cb37-194" aria-hidden="true" tabindex="-1"></a>lépést_választ(<span class="dt">_</span><span class="kw">,</span> ember<span class="kw">,</span> <span class="dt">Lépés</span>) <span class="kw">:-</span></span>
+<span id="cb37-195"><a href="#cb37-195" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nl</span><span class="kw">,</span> writeln(<span class="st">&#39;Melyiket választod?&#39;</span>)<span class="kw">,</span></span>
+<span id="cb37-196"><a href="#cb37-196" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read</span>(<span class="dt">Lépés</span>)<span class="kw">,</span> érvényes(<span class="dt">Lépés</span>)<span class="kw">.</span></span>
+<span id="cb37-197"><a href="#cb37-197" aria-hidden="true" tabindex="-1"></a>lépést_választ(<span class="dt">Állás</span><span class="kw">,</span> számítógép<span class="kw">,</span> <span class="dt">Lépés</span>) <span class="kw">:-</span></span>
+<span id="cb37-198"><a href="#cb37-198" aria-hidden="true" tabindex="-1"></a>    előrelátás(<span class="dt">Mélység</span>)<span class="kw">,</span></span>
+<span id="cb37-199"><a href="#cb37-199" aria-hidden="true" tabindex="-1"></a>    alfa_béta(<span class="dt">Mélység</span><span class="kw">,</span> <span class="dt">Állás</span><span class="kw">,</span> <span class="fu">-</span><span class="dv">40</span><span class="kw">,</span> <span class="dv">40</span><span class="kw">,</span> (<span class="dt">Lépés</span><span class="kw">,</span> <span class="dt">_</span>))<span class="kw">,</span></span>
+<span id="cb37-200"><a href="#cb37-200" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nl</span><span class="kw">,</span> <span class="fu">write</span>(<span class="dt">Lépés</span>)<span class="kw">,</span> <span class="fu">nl</span><span class="kw">.</span></span>
+<span id="cb37-201"><a href="#cb37-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-202"><a href="#cb37-202" aria-hidden="true" tabindex="-1"></a>érvényes([])<span class="kw">.</span></span>
+<span id="cb37-203"><a href="#cb37-203" aria-hidden="true" tabindex="-1"></a>érvényes([<span class="dt">L</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="dv">0</span> <span class="dt">&lt;</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L</span> <span class="dt">&lt;</span> <span class="dv">7</span><span class="kw">,</span> érvényes(<span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb37-204"><a href="#cb37-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-205"><a href="#cb37-205" aria-hidden="true" tabindex="-1"></a><span class="co">% Beállítások</span></span>
+<span id="cb37-206"><a href="#cb37-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-207"><a href="#cb37-207" aria-hidden="true" tabindex="-1"></a>kövek_száma(<span class="dv">6</span>)<span class="kw">.</span></span>
+<span id="cb37-208"><a href="#cb37-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-209"><a href="#cb37-209" aria-hidden="true" tabindex="-1"></a>előrelátás(<span class="dv">4</span>)<span class="kw">.</span></span>
+<span id="cb37-210"><a href="#cb37-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-211"><a href="#cb37-211" aria-hidden="true" tabindex="-1"></a><span class="co">% Segéd-szabályok</span></span>
+<span id="cb37-212"><a href="#cb37-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-213"><a href="#cb37-213" aria-hidden="true" tabindex="-1"></a>tartalmaz(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>])<span class="kw">.</span></span>
+<span id="cb37-214"><a href="#cb37-214" aria-hidden="true" tabindex="-1"></a>tartalmaz(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">Marad</span>ék]) <span class="kw">:-</span> tartalmaz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Marad</span>ék)<span class="kw">.</span></span>
+<span id="cb37-215"><a href="#cb37-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-216"><a href="#cb37-216" aria-hidden="true" tabindex="-1"></a>fordított(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> fordított(<span class="dt">X</span><span class="kw">,</span> []<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb37-217"><a href="#cb37-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-218"><a href="#cb37-218" aria-hidden="true" tabindex="-1"></a>fordított([]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb37-219"><a href="#cb37-219" aria-hidden="true" tabindex="-1"></a>fordított([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">F</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> fordított(<span class="dt">M</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">F</span>]<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span> </span>
+<span id="cb37-220"><a href="#cb37-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-221"><a href="#cb37-221" aria-hidden="true" tabindex="-1"></a>n_edik(<span class="dt">N</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb37-222"><a href="#cb37-222" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">1</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb37-223"><a href="#cb37-223" aria-hidden="true" tabindex="-1"></a>    n_edik(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb37-224"><a href="#cb37-224" aria-hidden="true" tabindex="-1"></a>n_edik(<span class="dv">1</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb37-225"><a href="#cb37-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-226"><a href="#cb37-226" aria-hidden="true" tabindex="-1"></a>n_csere(<span class="dv">1</span><span class="kw">,</span> [<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb37-227"><a href="#cb37-227" aria-hidden="true" tabindex="-1"></a>n_csere(<span class="dt">N</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span></span>
+<span id="cb37-228"><a href="#cb37-228" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dv">1</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb37-229"><a href="#cb37-229" aria-hidden="true" tabindex="-1"></a>    n_csere(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span>
+<span id="cb37-230"><a href="#cb37-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-231"><a href="#cb37-231" aria-hidden="true" tabindex="-1"></a>összeg(<span class="dt">L</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> összeg(<span class="dt">L</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb37-232"><a href="#cb37-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-233"><a href="#cb37-233" aria-hidden="true" tabindex="-1"></a>összeg([]<span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">A</span>)<span class="kw">.</span></span>
+<span id="cb37-234"><a href="#cb37-234" aria-hidden="true" tabindex="-1"></a>összeg([<span class="dt">K</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb37-235"><a href="#cb37-235" aria-hidden="true" tabindex="-1"></a>    <span class="dt">A1</span> <span class="dt">is</span> <span class="dt">A</span> <span class="dt">+</span> <span class="dt">K</span><span class="kw">,</span></span>
+<span id="cb37-236"><a href="#cb37-236" aria-hidden="true" tabindex="-1"></a>    összeg(<span class="dt">M</span><span class="kw">,</span> <span class="dt">A1</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Ez a dokumentum az alábbi könyv 20.2. és 21.3. fejezete alapján készült:</p>
+<p>L. Sterling, E. Shapiro: <em>The Art of Prolog</em>, 2nd Ed., MIT Press, 1994.</p>
+</body>
+</html>

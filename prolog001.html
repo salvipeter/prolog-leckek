@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog 1</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-programozás-1">Prolog programozás 1</h1>
+<h2 id="bevezető">Bevezető</h2>
+<p>A <em>Prolog</em> egy különleges programozási nyelv. Az 1970-es években fejlesztették ki, tehát egy elég régi nyelvről van szó, és a Szeredi Péter által fejlesztett magyar <em>MProlog</em> rendszer mérföldkőnek számított a történetében. A Prolog név arra utal, hogy logikai problémák megoldására találták ki, de mindenféle más, érdekes feladatokra is jól használható, és a számítástechnika alapjainak tanítására is kiváló :)</p>
+<p>Háttérnek ennyi talán elég is, vágjunk bele! A programokat az <a href="https://swish.swi-prolog.org/">online SWI Prolog</a> rendszerben ki tudjátok próbálni: a baloldali ablakba lehet írni a programot, a jobb alsóba (a <code>?-</code> után) pedig a kérdéseket; a <code>Ctrl+Enter</code> billentyűkombináció megnyomására kezdi el a számítást, és az eredmények a jobb felső ablakban jelennek meg.</p>
+<h2 id="tények">Tények</h2>
+<p>Egy Prolog program <em>tényekből</em> és <em>szabályokból</em> áll, amikből a számítógép következtetéseket tud levonni. Ha megadunk egy tény- és szabályrendszert, utána kérdéseket tehetünk fel, amiket a gép legjobb tudása szerint megválaszol.</p>
+<p>Példaként vegyük Mohamed próféta családját!</p>
+<pre><code> Abú Tálib --- Abdulla === Ámna
+     |                  |
+     |                  |
+     |               Mohamed === Hadídzsa
+     |                        |
+     |                        |
+    Ali === Fátima ----------------- Zajnab
+         |                             |
+         |                             |
+Huszajn --- Muhszin --- Haszan       Umáma</code></pre>
+<p>(Ez csak egy nagyon kis részlete a családfának, és még ezen a részen belül sem tartalmaz minden kapcsolatot, mert pl. Ali Fátima halála után feleségül vette Umámát is. Egy teljesebb fát betettem a dokumentum végére.)</p>
+<p>A szülő-gyerek kapcsolatokat az alábbi program foglalja össze:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>szülő(abú_tálib<span class="kw">,</span> ali)<span class="kw">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>szülő(abdulla<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>szülő(ámna<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>szülő(mohamed<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>szülő(hadídzsa<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>szülő(mohamed<span class="kw">,</span> zajnab)<span class="kw">.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>szülő(hadídzsa<span class="kw">,</span> zajnab)<span class="kw">.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>szülő(ali<span class="kw">,</span> huszajn)<span class="kw">.</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>szülő(fátima<span class="kw">,</span> huszajn)<span class="kw">.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>szülő(ali<span class="kw">,</span> muhszin)<span class="kw">.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>szülő(fátima<span class="kw">,</span> muhszin)<span class="kw">.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>szülő(ali<span class="kw">,</span> haszan)<span class="kw">.</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>szülő(fátima<span class="kw">,</span> haszan)<span class="kw">.</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>szülő(zajnab<span class="kw">,</span> umáma)<span class="kw">.</span></span></code></pre></div>
+<p>Ebben a programban minden sor egy <em>tény</em>. Egy tény dolgok (itt emberek) közti kapcsolatot ír le. A formája a következő: adunk neki valami nevet (most ez a <code>szülő</code>), utána zárójelek között vesszővel elválasztva felsoroljuk a kapcsolatban levő dolgokat, és a végén egy ponttal (<code>.</code>) zárjuk.</p>
+<p>Talán furcsa lehet, hogy minden kisbetűvel van - majd később lesz szó arról, hogy mik az elnevezés pontos szabályai, egyelőre azt jegyezzétek meg, hogy minden <em>konkrét</em> dolog kisbetűvel írandó, és nem lehet benne szóköz.</p>
+<h3 id="egyszerű-kérdések">Egyszerű kérdések</h3>
+<p>Már egy ilyen egyszerű program esetén is lehet értelmes kérdéseket feltenni. Például megkérdezhetjük, hogy</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(mohamed<span class="kw">,</span> fátima)<span class="kw">.</span></span></code></pre></div>
+<p>… amire a rendszer a <code>true</code> (igaz) üzenettel válaszol, vagy hogy</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(ali<span class="kw">,</span> zajnab)<span class="kw">.</span></span></code></pre></div>
+<p>… amire a <code>false</code> (hamis) eredményt adja.</p>
+<p>Egy kicsit érdekesebb a következő kérdés:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(mohamed<span class="kw">,</span> <span class="dt">Kicsoda</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Erre azt a feleletet kapjuk, hogy <code>Kicsoda = fátima</code>. Ha rányomtok az eredmény alatt levő <code>Next</code> (következő) gombra, akkor még azt is kiírja alá, hogy <code>Kicsoda = zajnab</code>.</p>
+<p>Mi történt itt? Azáltal, hogy a második helyre egy nagybetűs szót (<code>Kicsoda</code>) írtunk, azt mondtuk, hogy ez egy határozatlan, ismeretlen érték. A kérdést tehát magyarul úgy lehetne megfogalmazni: “Mohamed kinek a szülője?”</p>
+<p>Erre alapból megkeresi az első választ, amit talál (<code>fátima</code>), és ha továbbit kérünk tőle, akkor megtalálja <code>zajnab</code>-ot is, és látja, hogy nincs több, és így leáll.</p>
+<p>Ha kisbetűvel írtuk volna:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(mohamed<span class="kw">,</span> kicsoda)<span class="kw">.</span></span></code></pre></div>
+<p>… akkor a <code>false</code> eredményt kaptuk volna, hiszen <code>kicsoda</code> itt egy konkrét dolgot jelöl, a kérdés tehát azt jelenti: “Igaz-e, hogy Mohamed szülője Kicsodának?”</p>
+<p>A kérdés a másik irányban is feltehető:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(<span class="dt">Ki</span><span class="kw">,</span> ali)<span class="kw">.</span></span></code></pre></div>
+<p>… tehát “Ki Ali szülője?”, amire a <code>Ki = abú_tálib</code> feleletet kapjuk.</p>
+<p>Még tovább is mehetünk, és rákérdezhetünk az összes szülő-gyerek kapcsolatra:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(<span class="dt">Ki</span><span class="kw">,</span> <span class="dt">Kinek</span>)<span class="kw">.</span></span></code></pre></div>
+<p>… azaz “Ki kinek a szülője?”. Az első válasz az lesz, hogy</p>
+<pre><code>Ki = abú_tálib,
+Kinek = ali</code></pre>
+<p>… és a <code>Next</code> nyomogatásával a többit is megkaphatjuk. (A <code>10</code> és <code>100</code> gombok rendre a következő 10 ill. 100 megoldást mutatják meg.)</p>
+<h3 id="összetett-kérdések">Összetett kérdések</h3>
+<p>Tegyük fel, hogy arra vagyunk kíváncsiak, hogy kik Mohamed unokái. Hogyan tudjuk ezt megkérdezni? Az unoka az a gyerek gyereke, tehát tudjuk, hogy van valaki, aki szülője az unokának, és akinek a szülője Mohamed. A logikai <em>és</em>sel összekötött, együtt teljesítendő feltételeket vesszővel választjuk el:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(mohamed<span class="kw">,</span> <span class="dt">Valaki</span>)<span class="kw">,</span> szülő(<span class="dt">Valaki</span><span class="kw">,</span> <span class="dt">Unoka</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Négy megoldást is talál:</p>
+<pre><code>Unoka = huszajn,
+Valaki = fátima
+Unoka = muhszin,
+Valaki = fátima
+Unoka = haszan,
+Valaki = fátima
+Unoka = umáma,
+Valaki = zajnab</code></pre>
+<p>(Ezek páronként értendők, tehát Fátimától van Huszajn, Muhszin és Haszan, és Zajnabtól Umáma.)</p>
+<p>A kérdés két tagjának sorrendje felcserélhető, tehát ugyanezt az eredményt adja ez is:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(<span class="dt">Valaki</span><span class="kw">,</span> <span class="dt">Unoka</span>)<span class="kw">,</span> szülő(mohamed<span class="kw">,</span> <span class="dt">Valaki</span>)<span class="kw">.</span></span></code></pre></div>
+<p>(Majd látni fogjuk viszont, hogy a számításigényük nem azonos, érdemesebb az erősebb megszorítással kezdeni.)</p>
+<p>Hasonlóan rákérdezhetünk, hogy kik Huszajn nagyszülei:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(<span class="dt">Valaki</span><span class="kw">,</span> huszajn)<span class="kw">,</span> szülő(<span class="dt">Nagyszülő</span><span class="kw">,</span> <span class="dt">Valaki</span>)<span class="kw">.</span></span></code></pre></div>
+<p>… amire megkapjuk Abú Tálibot, Mohamedet és Hadídzsát.</p>
+<p>Ha arra vagyunk kíváncsiak, hogy Haszan és Huszajn testvérek-e, így fogalmazhatjuk meg:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szülő(<span class="dt">Valaki</span><span class="kw">,</span> haszan)<span class="kw">,</span> szülő(<span class="dt">Valaki</span><span class="kw">,</span> huszajn)<span class="kw">.</span></span></code></pre></div>
+<p>Azt kapjuk, hogy <code>Valaki = ali</code>, tehát a válasz igen. Ha <code>huszajn</code> helyett <code>abdulla</code>-t írunk, akkor <code>false</code>-ot kapunk.</p>
+<h3 id="feladatok">Feladatok</h3>
+<ol>
+<li>Válaszoljátok meg az alábbi kérdéseket először magatok, majd utána ellenőrizzétek a számítógépen!
+<ul>
+<li><code>?- szülő(huszajn, X).</code></li>
+<li><code>?- szülő(X, huszajn).</code></li>
+<li><code>?- szülő(ámna, X), szülő(X, fátima).</code></li>
+<li><code>?- szülő(ámna, X), szülő(X, Y), szülő(Y, haszan).</code></li>
+</ul></li>
+<li>Fogalmazzátok meg Prologban!
+<ul>
+<li>Ki Ali szülője?</li>
+<li>Umámának van gyereke?</li>
+<li>Ki Zajnab nagyszülője?</li>
+</ul></li>
+<li>Készítsétek el a saját családfátokat (nagyszülőkig és unokatestvérekig)!</li>
+</ol>
+<h2 id="szabályok">Szabályok</h2>
+<p>Eddig csak tényekkel foglalkoztunk, de valójában a Prolog programok nagy része <em>szabályokból</em> áll. Először is egészítsük ki a programunkat a szereplőink nemével!</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>férfi(abú_tálib)<span class="kw">.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>férfi(abdulla)<span class="kw">.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>férfi(mohamed)<span class="kw">.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>férfi(ali)<span class="kw">.</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>férfi(huszajn)<span class="kw">.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>férfi(muhszin)<span class="kw">.</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>férfi(haszan)<span class="kw">.</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>nő(ámna)<span class="kw">.</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>nő(hadídzsa)<span class="kw">.</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>nő(fátima)<span class="kw">.</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>nő(zajnab)<span class="kw">.</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>nő(umáma)<span class="kw">.</span></span></code></pre></div>
+<p>Ha most a <code>szülő</code> mellett szeretnénk <code>anya</code> és <code>apa</code> kapcsolatokat is létrehozni, ezt megtehetjük egyenként:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>anya(ámna<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>anya(hadídzsa<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>apa(abú_tálib<span class="kw">,</span> ali)<span class="kw">.</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>apa(abdulla<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
+<p>… de ez elég sok munka, és érezzük, hogy felesleges, hiszen kikövetkeztethető.</p>
+<p>Sokkal egyszerűbb ezt egy-egy szabállyal megoldani:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>anya(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> nő(<span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>apa(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> férfi(<span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A <code>:-</code> jelet itt úgy olvashatjuk ki, hogy “akkor, ha”, tehát “X anyja Y-nak akkor, ha X szülője Y-nak és X nő”. A baloldalon levő részt a szabály <em>fej</em>ének, a jobboldalát a szabály <em>törzs</em>ének nevezzük.</p>
+<p>Mi történik, amikor feltesszük az alábbi kérdést?</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> anya(ámna<span class="kw">,</span> mohamed)<span class="kw">.</span></span></code></pre></div>
+<p>A rendszer megtalálja az <code>anya</code> szabályt, és <em>egyesíti</em> az <code>X</code>-et <code>ámna</code>-val, az <code>Y</code>-t pedig <code>mohamed</code>-del. (Az egyesítésről még később szó lesz, itt egyszerűen helyettesítést jelent.) Ezután megnézi, hogy a szabály jobboldalán levő feltétel teljesül-e; ez most <code>szülő(ámna, mohamed), nő(ámna)</code>, és ezek a tények szerepelnek a programban, tehát <code>true</code>-val tér vissza.</p>
+<p>Definiáljuk a “nagyszülő” kapcsolatot!</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>nagyszülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> szülő(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez pontosan követi azt, ahogy megkerestük valakinek a nagyszülőjét.</p>
+<h3 id="problémás-esetek">Problémás esetek</h3>
+<p>Hogyan tudnánk megadni a “fivér” kapcsolatot?</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fivér(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> szülő(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> szülő(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> férfi(<span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Tehát X fivére Y-nak, ha van egy közös szülőjük és X férfi.</p>
+<p>Itt érdemes megjegyezni, hogy bár Abú Tálib és Abdulla testvérek voltak, a</p>
+<pre><code>?- fivér(abú_tálib, abdulla).</code></pre>
+<p>kérdésre <code>false</code> a válasz, mivel a programnak nincs arról tudomása, hogy lenne közös szülőjük. (A Prolog mindent hamisnak vesz, amit az általa ismert adatokból nem tud kikövetkeztetni, és ez időnként furcsa következményekkel járhat - erről majd később.)</p>
+<p>Egy másik problémába ütközünk, ha Mohamed fivéreire vagyunk kíváncsiak:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> fivér(mohamed<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az eredmény, meglepő módon, <code>X = mohamed</code>! Ebből látszik, hogy a definíciónk nem volt elég pontos; hozzá kell venni azt is, hogy senki nem fivére önmagának:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fivér(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> szülő(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> szülő(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> férfi(<span class="dt">X</span>)<span class="kw">,</span> <span class="dt">X</span> <span class="kw">\=</span> <span class="dt">Y</span><span class="kw">.</span></span></code></pre></div>
+<p>Itt a <code>\=</code> jelentése “nem azonos”.</p>
+<h3 id="többféle-olvasat">Többféle olvasat</h3>
+<p>Készítsük el a</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>vangyereke(<span class="dt">X</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>szabályt.</p>
+<p>Ennek az az érdekessége, hogy többféleképpen is ki lehet olvasni:</p>
+<ol>
+<li>Ha X szülője Y-nak, akkor X-nek van gyereke.</li>
+<li>X-nek van gyereke, ha X szülője valakinek.</li>
+</ol>
+<p>A két olvasat egyenértékű.</p>
+<p>Ha ezt a szabályt beírjátok a programba, egy figyelmeztetés fog megjelenni, hogy az <code>Y</code> egy “singleton variable”, azaz egy egyszeri változó. Ez csak annyit jelent, hogy az <code>Y</code>-t sehol nem használjuk, ezért nem fontos neki nevet adni. Az ilyen névtelen változók helyett az alsóvonás (<code>_</code>) jelet szokás használni, vagy egy ezzel kezdődő nevet (pl. <code>_Y</code>). Ha ilyenre átírjátok, akkor a figyelmeztetés is eltűnik.</p>
+<h3 id="feladatok-1">Feladatok</h3>
+<ol>
+<li>Fordítsátok le Prologra!
+<ul>
+<li>Akinek van gyereke, az boldog. (<code>boldog</code> szabály)</li>
+<li>Minden X-re, ha X-nek van egy gyereke akinek van egy fivére, akkor X-nek két gyereke van. (<code>kétgyerekes</code> szabály)</li>
+</ul></li>
+<li>Készítsétek el az <code>unoka</code> szabályt! Teszteljétek a saját családfátokon!</li>
+<li>Csináljatok egy <code>nagybácsi</code> szabályt a <code>szülő</code> és <code>fivér</code> segítségével! Keressétek meg vele Robin unokahúgait és unokaöccseit!</li>
+</ol>
+<h2 id="rekurzív-szabályok">Rekurzív szabályok</h2>
+<p>Adjunk még egy utolsó szabályt a programunkhoz: az <em>ős</em> fogalmát. Valakinek az őseit úgy kapjuk meg, hogy felfelé megyünk a családfában: ős a szülő, a nagyszülő, a dédszülő stb. Ezt elkezdhetjük írni szabályokkal:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> szülő(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y1</span>)<span class="kw">,</span> szülő(<span class="dt">Y1</span><span class="kw">,</span> <span class="dt">Y2</span>)<span class="kw">,</span> szülő(<span class="dt">Y2</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y1</span>)<span class="kw">,</span> szülő(<span class="dt">Y1</span><span class="kw">,</span> <span class="dt">Y2</span>)<span class="kw">,</span> szülő(<span class="dt">Y2</span><span class="kw">,</span> <span class="dt">Y3</span>)<span class="kw">,</span> szülő(<span class="dt">Y3</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
+<p>Ez nagyon jól működik, de véges - bármennyi ilyen programsort írok, mindig tudok eggyel feljebb menni a családfában, és azt már nem kezeli.</p>
+<p>Egy kis trükkel meg tudjuk ezt oldani: azt mondjuk, hogy ha X gyereke őse Z-nek, akkor X is őse Z-nek:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez így magában még azonban nem elég, mert így ahhoz, hogy valaki ős legyen, mindig valaki másnak is ősnek kéne lennie, valahol ennek meg kéne állnia. Elég hozzávenni a legegyszerűbb esetet, amikor a szülő az ős:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez a kettő együtt már működik. X őse Z-nek, ha vagy (i) X szülője Z-nek, vagy (ii) X szülője Y-nak és Y őse Z-nek. Próbáljátok ki, mit ad az</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> ős(<span class="dt">X</span><span class="kw">,</span> huszajn)<span class="kw">.</span></span></code></pre></div>
+<p>kérdés!</p>
+<h3 id="feladat">Feladat</h3>
+<p>Tegyük fel, hogy az <code>ős</code> definícióját megváltoztatjuk!</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Jó ez így? Miért?</p>
+<h2 id="a-teljes-program">A teljes program</h2>
+<p>Itt van minden tény és szabály, amiről szó volt. A programban a <code>%</code> jel megjegyzések hozzáadására használható, a rendszer szempontjából a <code>%</code>-tól jobbra levő szöveg érdektelen, mintha ott se lenne.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">% szülő(X, Y) -&gt; X az Y szülője</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>szülő(abú_tálib<span class="kw">,</span> ali)<span class="kw">.</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>szülő(abdulla<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>szülő(ámna<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>szülő(mohamed<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>szülő(hadídzsa<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>szülő(mohamed<span class="kw">,</span> zajnab)<span class="kw">.</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>szülő(hadídzsa<span class="kw">,</span> zajnab)<span class="kw">.</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>szülő(ali<span class="kw">,</span> huszajn)<span class="kw">.</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>szülő(fátima<span class="kw">,</span> huszajn)<span class="kw">.</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>szülő(ali<span class="kw">,</span> muhszin)<span class="kw">.</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>szülő(fátima<span class="kw">,</span> muhszin)<span class="kw">.</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>szülő(ali<span class="kw">,</span> haszan)<span class="kw">.</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>szülő(fátima<span class="kw">,</span> haszan)<span class="kw">.</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>szülő(zajnab<span class="kw">,</span> umáma)<span class="kw">.</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>férfi(abú_tálib)<span class="kw">.</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>férfi(abdulla)<span class="kw">.</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>férfi(mohamed)<span class="kw">.</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>férfi(ali)<span class="kw">.</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>férfi(huszajn)<span class="kw">.</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>férfi(muhszin)<span class="kw">.</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>férfi(haszan)<span class="kw">.</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>nő(ámna)<span class="kw">.</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>nő(hadídzsa)<span class="kw">.</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>nő(fátima)<span class="kw">.</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>nő(zajnab)<span class="kw">.</span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>nő(umáma)<span class="kw">.</span></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>anya(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> nő(<span class="dt">X</span>)<span class="kw">.</span>     <span class="co">% X az Y anyja</span></span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>apa(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> férfi(<span class="dt">X</span>)<span class="kw">.</span>   <span class="co">% X az Y apja</span></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>nagyszülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> szülő(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>fivér(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> szülő(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">,</span> szülő(<span class="dt">Z</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> férfi(<span class="dt">X</span>)<span class="kw">,</span> <span class="dt">X</span> <span class="kw">\=</span> <span class="dt">Y</span><span class="kw">.</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>vangyereke(<span class="dt">X</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Ez a dokumentum az alábbi könyv 1.1-1.3 fejezete alapján készült:</p>
+<p>I. Bratko: <em>Prolog Programming for Artificial Intelligence</em>, 4th Ed., Pearson, 2011.</p>
+<p>A példaprogram hagyományos értékrendre épít, de igyekeztem nem kizárni az LGBTQ eseteket :)</p>
+<h3 id="mohamed-próféta-családfája">Mohamed próféta családfája</h3>
+<p><img src="./prophet-family.jpg" title="Mohamed próféta családfája" alt="image" /></p>
+</body>
+</html>

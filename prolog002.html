@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog 2</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-programozás-2">Prolog programozás 2</h1>
+<h2 id="típusok">Típusok</h2>
+<p>Most, hogy már van egy első képünk a Prologról, ideje pontosabban megvizsgálni az alkotóelemeit.</p>
+<h3 id="atomok">Atomok</h3>
+<p>Láttuk, hogy vannak “konkrét dolgok”, amiket kisbetűvel írunk - ezeket <em>atom</em>oknak szokás nevezni. Az atomok neve háromféleképpen képezhető:</p>
+<ol>
+<li>Betűk, számok és az alsóvonás (<code>_</code>) karakter kombinációja, de az első mindig egy kisbetű. Pl.: <code>nil</code>, <code>foo1</code>, <code>bar_42</code>, <code>baz__</code>, <code>ez_1_hosszú_név</code>.</li>
+<li>Különleges karakterek (nem betű/szám/alsóvonás) sorozata, pl. <code>.:.</code>, <code>==&gt;</code>, <code>+</code>.</li>
+<li>Aposztófok közti karaktersorozat, pl. <code>'Peti'</code>, <code>'Abú Tálib'</code>.</li>
+</ol>
+<p>Az első fajtára már sok példát láttunk; a másodikról majd később lesz szó; a harmadikat pedig jellemzően akkor használjuk, ha nagybetűvel kezdődő vagy szóközt tartalmazó nevet szeretnénk adni (ritka).</p>
+<h3 id="számok">Számok</h3>
+<p>A Prolog egész és valós számokat tud kezelni, a megszokott jelölésekkel. A valós számoknál lehet használni az “exponenciális formát” is, ahol egy <code>e</code> betű után a 10 kitevője szerepel, tehát pl. <code>1.23e5 = 123000.0</code> és <code>4.56e-3 = 0.00456</code>.</p>
+<p>Egy egész és egy valós szám nem ugyanaz még akkor sem, ha ugyanaz az értékük, tehát</p>
+<pre><code>?- 1.23e5 = 123000.</code></pre>
+<p>értéke <code>false</code>. Van viszont egy matematikai egyenlőségvizsgálat (<code>=:=</code>), és arra már teljesül, hogy</p>
+<pre><code>?- 1.23e5 =:= 123000.</code></pre>
+<p>(A számok közti műveletekről majd később lesz még szó.)</p>
+<h3 id="változók">Változók</h3>
+<p>Ahogy láttuk, a “határozatlan dolgok” (<em>változók</em>) nagybetűvel vagy alsóvonással kezdődnek, pl. <code>X</code>, <code>_</code>, <code>_Y</code>, <code>_z</code>.</p>
+<p>Ezek közül a <code>_</code> változónév különleges: minden alkalommal egy független változót jelöl. Tegyük fel például, hogy egy sakkprogramban az állás</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tábla(világos<span class="kw">,</span> futó<span class="kw">,</span> c<span class="kw">,</span> <span class="dv">3</span>)<span class="kw">.</span></span></code></pre></div>
+<p>alakú tényekkel van leírva. Ekkor világos összes bábuját lekérdezhetjük úgy, hogy</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> tábla(világos<span class="kw">,</span> <span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span></code></pre></div>
+<p>De ugyanez nem működne, ha más azonos változónevet adnánk meg, pl.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> tábla(világos<span class="kw">,</span> <span class="dt">X</span><span class="kw">,</span> <span class="dt">_hely</span><span class="kw">,</span> <span class="dt">_hely</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A többi változó egy-egy szabályon belül mindig ugyanazt jelöli, de a szabályok közt már azok is függetlenek, pl.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span>           <span class="co">% a bal- és jobboldali X,Z ugyanaz</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span> <span class="co">% de itt már egy másik X és Z van</span></span></code></pre></div>
+<h3 id="összetett-struktúrák">Összetett struktúrák</h3>
+<p>A struktúra vagy <em>funktor</em> értelmileg összetartozó dolgokat kapcsol össze. A tények és a szabályok feje is egy-egy funktor, tehát az alakja már ismerős: valamilyen név (egy atom), és utána zárójelek közt, vesszőkkel elválasztva a hozzátartozó dolgok (ezek az <em>argumentumok</em>, a számuk pedig a funktor <em>aritása</em>).</p>
+<p>Egy kétdimenziós pontot leírhatunk egy <code>pont(X, Y)</code> struktúrával. Ha ezután egy háromszöget akarunk létrehozni, akkor azt 6 koordináta helyett leírhatjuk 3 ponttal: <code>háromszög(P1, P2, P3)</code> - ez egy újabb struktúra. Például</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">P1</span> <span class="kw">=</span> pont(<span class="dv">1</span><span class="kw">,</span> <span class="dv">0</span>)<span class="kw">,</span> <span class="dt">P2</span> <span class="kw">=</span> pont(<span class="dv">0</span><span class="kw">,</span> <span class="dv">2</span>)<span class="kw">,</span> <span class="dt">P3</span> <span class="kw">=</span> pont(<span class="fu">-</span><span class="dv">1</span><span class="kw">,</span> <span class="dv">0</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="kw">=</span> háromszög(<span class="dt">P1</span><span class="kw">,</span> <span class="dt">P2</span><span class="kw">,</span> <span class="dt">P3</span>)<span class="kw">.</span></span></code></pre></div>
+<p>esetén a <code>T</code> értéke <code>háromszög(pont(1, 0), pont(0, 2), pont(-1, 0))</code> lesz.</p>
+<p>A különböző aritású funktorok különbözőnek számítanak, pl. lehet készíteni egy 3D <code>pont(X, Y, Z)</code> funktort is, illetve azonos nevű, de eltérő aritású tények/szabályok is megférnek egymás mellett.</p>
+<h3 id="feladatok">Feladatok</h3>
+<ol>
+<li>Milyen típusúak az alábbi kifejezések? (atom, szám, változó, struktúra)
+<ul>
+<li><code>Foo</code></li>
+<li><code>foo</code></li>
+<li><code>'Foo'</code></li>
+<li><code>_foo</code></li>
+<li><code>'Foo bar baz'</code></li>
+<li><code>foo(bar, baz)</code></li>
+<li><code>42</code></li>
+<li><code>15(X, Y)</code></li>
+<li><code>+(bal, jobb)</code></li>
+<li><code>három(Kis(Cica))</code></li>
+</ul></li>
+<li>Milyen struktúrával lehetne jól leírni egy téglalapot? Egy négyzetet? Egy kört?</li>
+</ol>
+<h2 id="egyesítés">Egyesítés</h2>
+<p>Két kifejezés egyesíthető, ha azonosak, vagy ha a bennük levő változókat be lehet úgy állítani, hogy azonossá váljanak. Például a <code>dátum(Év, Hónap, 22)</code> és a <code>dátum(X, március, Y)</code> kifejezések egyesíthetőek, ezt az <code>=</code> segítségével tudjuk ellenőrizni:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> dátum(<span class="dt">Év</span><span class="kw">,</span> <span class="dt">Hónap</span><span class="kw">,</span> <span class="dv">22</span>) <span class="kw">=</span> dátum(<span class="dt">X</span><span class="kw">,</span> március<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Hónap</span> <span class="kw">=</span> március<span class="kw">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dt">Év</span><span class="kw">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="dt">Y</span> <span class="kw">=</span> <span class="dv">22</span></span></code></pre></div>
+<p>(Mostantól az egyszerűség kedvéért a kérdésekre kapott eredményeket egyszerűen a kérdés alá fogom írni.)</p>
+<p>Ugyanakkor pl. a <code>dátum(Év, Hónap, 21)</code> és <code>dátum(X, Y, 22)</code> kifejezések nem egyesíthetőek, mivel a harmadik argumentum különböző; a <code>dátum(X, Y, Z)</code> és <code>pont(X, Y, Z)</code> kifejezések pedig azért nem, mert más a legkülső (“elsődleges”) funktoruk.</p>
+<p>Valójában a fenti egyenlőség végtelen sok más módon is kielégíthető, pl.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Év</span> <span class="kw">=</span> <span class="dv">1982</span><span class="kw">,</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Hónap</span> <span class="kw">=</span> március<span class="kw">,</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1982</span><span class="kw">,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="dt">Y</span> <span class="kw">=</span> <span class="dv">22</span></span></code></pre></div>
+<p>… de ezek kevésbé általánosak. Az egyesítés mindig a legáltalánosabbat adja.</p>
+<p>A pontos szabályok a következők:</p>
+<ol>
+<li>Ha <code>S</code> és <code>T</code> konstansok (tehát atomok vagy számok), akkor csak akkor egyesíthetőek, ha azonosak.</li>
+<li>Ha <code>S</code> változó, akkor a két kifejezés egyesíthető, és innentől kezdve <code>S</code> “értéke” <code>T</code> lesz. (Fordítva hasonlóan.)</li>
+<li>Ha <code>S</code> és <code>T</code> is struktúrák, akkor pontosan akkor egyesíthetőek, ha
+<ul>
+<li>megegyezik az elsődleges (legkülső) funktoruk</li>
+<li>ugyanannyi az aritásuk</li>
+<li>minden argumentumuk páronként egyesíthető (az ezekben szereplő változók ebben a rekurzív egyesítésben kaphatnak értéket)</li>
+</ul></li>
+</ol>
+<p>Például a</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>háromszög(pont(<span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> pont(<span class="dv">2</span><span class="kw">,</span> <span class="dv">3</span>)) <span class="kw">=</span> háromszög(<span class="dt">X</span><span class="kw">,</span> pont(<span class="dv">4</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> pont(<span class="dv">2</span><span class="kw">,</span> <span class="dt">Z</span>))</span></code></pre></div>
+<p>egyesítés az alábbi lépésekből áll:</p>
+<ol>
+<li><code>háromszög = háromszög</code></li>
+<li><code>pont(1, 1) = X</code> (itt az <code>X</code> megkapja a <code>pont(1, 1)</code> értéket)</li>
+<li><code>A = pont(4, Y)</code> (itt az <code>A</code> megkapja a <code>pont(4, Y)</code> értéket)</li>
+<li><code>pont(2, 3) = pont(2, Z)</code>
+<ol>
+<li><code>pont = pont</code></li>
+<li><code>2 = 2</code></li>
+<li><code>3 = Z</code> (itt a <code>Z</code> megkapja a <code>3</code> értéket)</li>
+</ol></li>
+</ol>
+<h3 id="egyesítés-funktoron-belül">Egyesítés funktoron belül</h3>
+<p>Az egyesítést ki lehet használni egy funktoron belül is. Egy szakasz függőlegességét pl. megadhatjuk így:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>függőleges(szakasz(pont(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">,</span> pont(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)))<span class="kw">.</span></span></code></pre></div>
+<p>Most feltehetünk mindenféle érdekes kérdést:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> függőleges(szakasz(pont(<span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">,</span> pont(<span class="dv">1</span><span class="kw">,</span> <span class="dv">2</span>)))<span class="kw">.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> függőleges(szakasz(pont(<span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">,</span> pont(<span class="dv">2</span><span class="kw">,</span> <span class="dt">Y</span>)))<span class="kw">.</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">false</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> függőleges(szakasz(pont(<span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">,</span> pont(<span class="dt">X</span><span class="kw">,</span> <span class="dv">2</span>)))<span class="kw">.</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> függőleges(szakasz(pont(<span class="dt">X</span><span class="kw">,</span> <span class="dv">3</span>)<span class="kw">,</span> <span class="dt">P</span>))<span class="kw">.</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="dt">P</span> <span class="kw">=</span> pont(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)</span></code></pre></div>
+<p>(Az utolsónál a rendszer az érdektelen y-koordinátára egy automatikusan generált nevet fog adni a <code>_</code> helyett, pl. <code>_123</code>.)</p>
+<h3 id="feladatok-1">Feladatok</h3>
+<ol>
+<li>Definiáljátok szakaszokra a vízszintességet is, majd döntsétek el a segítségével, hogy van-e olyan szakasz, ami egyszerre vízszintes és függőleges!</li>
+<li>Egyesíthetőek-e az alábbi kifejezéspárok? Ha igen, milyen értéke lesz a változóknak?
+<ul>
+<li><code>pont(A, B) = pont(1, 2)</code></li>
+<li><code>pont(A, B) = pont(X, Y, Z)</code></li>
+<li><code>plusz(2, 2) = 4</code></li>
+<li><code>+(2, D) = +(E, 2)</code></li>
+<li><code>háromszög(pont(-1, 0), P2, P3) = háromszög(P1, pont(1, 0), (pont(0, Y))</code></li>
+</ul></li>
+<li>Az előző feladat végén a háromszögek milyen családját írtuk le?</li>
+<li>Készítsetek egy szabályt, ami eldönti, hogy egy téglalap oldalai a tengelyekkel párhuzamosak-e!</li>
+</ol>
+<h2 id="kétféle-olvasat">Kétféle olvasat</h2>
+<p>Egy <code>P :- Q, R.</code> alakú szabályt kétféleképpen lehet értelmezni:</p>
+<ol>
+<li>Leíró (<em>deklaratív</em>) olvasatok:
+<ul>
+<li><code>P</code> igaz akkor, ha <code>Q</code> és <code>R</code> igaz.</li>
+<li><code>Q</code> és <code>R</code>-ből következik <code>P</code>.</li>
+</ul></li>
+<li>Működés szerinti (<em>procedurális</em>) olvasatok:
+<ul>
+<li>Ahhoz, hogy megoldjuk <code>P</code>-t, <em>először</em> megoldjuk <code>Q</code>-t, és <em>aztán</em> megoldjuk <code>R</code>-et.</li>
+<li>Ahhoz, hogy kielégítsük <code>P</code>-t, <em>először</em> kielégítjük <code>Q</code>-t és <em>aztán</em> kielégítjük <code>R</code>-et.</li>
+</ul></li>
+</ol>
+<p>A legfontosabb különbség az, hogy a procedurális olvasatokban számít a kifejezések sorrendje.</p>
+<h3 id="logikai-vagy">Logikai vagy</h3>
+<p>A deklaratív olvasat pusztán logika. A kifejezéseket eddig mindig vesszővel (<code>,</code>) kapcsoltuk össze, ami logikai <em>és</em>t jelent. A logikai (megengedő) <em>vagy</em>ot a pontosvessző (<code>;</code>) jelöli. A vesszőnek van elsőbbsége, tehát a <code>P :- Q, R; S, T.</code> kifejezést úgy értelmezzük, mintha <code>P :- (Q, R); (S, T).</code> lenne. A pontosvessző helyett mindig írhatunk külön szabályokat, és fordítva, pl. az</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>szabályt írhattuk volna egy sorban is:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">;</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>De általában a külön szabályokba írt változat jobban olvasható.</p>
+<h3 id="nyomkövetés">Nyomkövetés</h3>
+<p>Ahhoz, hogy jobban megértsük a procedurális olvasatot, kövessük végig, hogy mit csinál a rendszer egy egyszerű feladat megoldásakor! Legyen a program a következő:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>nagy(medve)<span class="kw">.</span>            <span class="co">% 1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>nagy(elefánt)<span class="kw">.</span>          <span class="co">% 2</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>kicsi(macska)<span class="kw">.</span>          <span class="co">% 3</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>barna(medve)<span class="kw">.</span>           <span class="co">% 4</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>fekete(macska)<span class="kw">.</span>         <span class="co">% 5</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>szürke(elefánt)<span class="kw">.</span>        <span class="co">% 6</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>sötét(<span class="dt">Z</span>) <span class="kw">:-</span> fekete(<span class="dt">Z</span>)<span class="kw">.</span>  <span class="co">% 7</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>sötét(<span class="dt">Z</span>) <span class="kw">:-</span> barna(<span class="dt">Z</span>)<span class="kw">.</span>   <span class="co">% 8</span></span></code></pre></div>
+<p>A kérdés pedig: <code>?- sötét(X), nagy(X).</code> Tehát “Mi az ami sötét színű és nagy?”</p>
+<p>A megoldáshoz vezető lépések:</p>
+<ol>
+<li>A teljesítendő célok listája <code>sötét(X), nagy(X)</code>.</li>
+<li>Végigmegyünk a programon az elejétől kezdve, hogy találunk-e a <code>sötét(X)</code>-el egyesíthető szabály-fejet (vagy tényt, hiszen a tények tulajdonképpen szabályok, amelyeknek a törzse <code>true</code>). A 7-es sor az első ilyen. Az egyesítés miatt <code>Z = X</code>, a <code>sötét(X)</code>-et helyettesítjük a szabály törzsével, az új cél-lista <code>fekete(X), nagy(X)</code>.</li>
+<li>Végigmegyünk a programon az elejétől kezdve, hogy találunk-e a <code>fekete(X)</code>-el egyesíthető szabály-fejet. Az 5-ös sor az első ilyen. Az egyesítés miatt <code>X = macska</code>, és mivel az 5-ös sornak nincsen törzse, az új cél-lista <code>nagy(macska)</code>.</li>
+<li>Most a <code>nagy(macska)</code>-val egyesíthető szabályt keresünk, de ilyen nincs.
+<ul>
+<li>Visszalépünk egyet, és az <code>X</code> változót ismét szabaddá tesszük. Keresünk egy újabb egyezést a <code>fekete(X)</code>-el, onnan, ahol legutóbb abbahagytuk (5-ös sor után), de ilyen sincsen.</li>
+<li>Visszalépünk még egyet, és újabb egyezést keresünk a <code>sötét(X)</code>-el, onnan kezdve, ahol legutóbb abbahagytuk (7-es sor után). Az első ilyen a 8. sorban van. Az egyesítés miatt <code>Z = X</code>, a <code>sötét(X)</code>-et helyettesítjük a törzzsel, az új cél-lista tehát <code>barna(X), nagy(X)</code>.</li>
+</ul></li>
+<li>A program elejétől keresünk a <code>barna(X)</code>-el egyesíthető szabályt. A 4-es sor az első ilyen. Az egyesítés miatt <code>X = medve</code>, és nincs törzs, tehát az új cél-lista <code>nagy(medve)</code>.</li>
+<li>A program elejétől keresünk a <code>nagy(medve)</code>-vel egyesíthető szabályt. Rögtön az első sorban meg is találjuk; nincs törzse, és így a cél-listánk elfogyott, készen vagyunk! Az <code>X</code> értéke tehát <code>medve</code>.</li>
+</ol>
+<p>A program végigkövetését a Prolog rendszer is lehetővé teszi a <code>trace</code> segítségével:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> trace<span class="kw">,</span> sötét(<span class="dt">X</span>)<span class="kw">,</span> nagy(<span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez most minden egyes lépést kiír, és megkérdezi, mit csináljon. A második <em>step into</em> (belelépés) gombot nyomogatva végignézhetjük, mi történik, és közben a programon is mutatja, hogy épp hol tart. Ha be akarjuk fejezni, az első <em>continue</em> (folytatás) gomb megnyomásával a program további nyomkövetés nélkül lefut, illetve az utolsó <em>abort</em> (megszakítás) gomb hatására azonnal leáll. Az egyes lépések a következő típusúak lehetnek:</p>
+<ul>
+<li>Call (fekete): egy új cél keresése indul</li>
+<li>Redo (sárga): újra próbálkozik egy másik egyesítéssel</li>
+<li>Fail (piros): a cél kielégítése sikertelen</li>
+<li>Exit (zöld): a cél kielégítése sikeres</li>
+</ul>
+<p>Itt érdemes még megjegyezni, hogy a beépített funkciókról a <code>help</code> segítségével lehet információt kapni (angolul persze), pl. <code>?- help(trace).</code> Ha nem tudjuk a nevét annak, amit keresünk, az <code>apropos</code> segíthet, ez magában a leírásban keres, pl. az <code>?- apropos(minimum).</code> kérdésre megkapjuk azokat a beépített szabályokat, amelyek leírásában szerepel a “minimum” - többek közt a <code>min/2</code>-t, tehát a 2 aritású <code>min</code> szabályt, amiről további információkat a <code>?- help(min).</code> vagy <code>?- help(min/2).</code> kérdésekkel kaphatunk.</p>
+<h3 id="feladatok-2">Feladatok</h3>
+<ol>
+<li><p>Írjátok újra az alábbi programot pontosvessző nélkül!</p>
+<pre><code>kiolvas(Szám, Szó) :-
+    Szám = 1, Szó = egy;
+    Szám = 2, Szó = kettő;
+    Szám = 3, Szó = három.</code></pre></li>
+<li><p>Mit ad az</p>
+<pre><code>f(1, egy).
+f(s(1), kettő).
+f(s(s(1)), három).
+f(s(s(s(X))), N) :- f(X, N).</code></pre>
+<p>program az alábbi kérdésekre? Ellenőrizzétek a számítógépen!</p>
+<ul>
+<li><code>?- f(s(1), A).</code></li>
+<li><code>?- f(s(s(1)), kettő).</code></li>
+<li><code>?- f(s(s(s(s(s(s(1)))))), C).</code></li>
+<li><code>?- f(D, három).</code></li>
+</ul></li>
+<li><p>Vezessétek végig a <code>?- nagy(X), sötét(X)</code> kérdés megoldását!</p></li>
+<li><p>A <code>trace</code>-t be lehet tenni egy szabály törzsébe is, és akkor onnantól kapcsolódik be a nyomkövetés. Írjátok át a 7. sort erre: <code>sötét(Z) :- trace, fekete(Z).</code> és így nézzétek meg a <code>?- sötét(X), nagy(X).</code> kérdést! Amikor belép a nyomkövetésbe, nyomjátok meg a <em>continue</em> gombot - mi történik? Mi a helyzet akkor, ha a 8. sorhoz is hozzáadjátok a <code>trace</code>-t, és újra kipróbáljátok?</p></li>
+</ol>
+<h2 id="a-sorrend-fontossága">A sorrend fontossága</h2>
+<p>Ha nem vigyázunk, könnyen írhatunk végtelen rekurziót. Ez a legtisztább formájában úgy néz ki, hogy</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>p <span class="kw">:-</span> p<span class="kw">.</span></span></code></pre></div>
+<p>Ha most kiértékeljük a <code>?- p.</code> kérdést, akkor a gép csak dolgozik és dolgozik, és nem áll le, csak az <code>Abort</code> gomb megnyomásával lehet lelőni. (Bonyolultabb esetekben van, hogy egy idő után egy hibaüzenetet kapunk, hogy “stack limit exceeded”, ami lényegében azt jelenti, hogy a rekurzió túl mély lett.)</p>
+<p>Az érdekes az, hogy egy program, ami deklaratív olvasatban helyes, vezethet végtelen rekurzióra (tehát a procedurális olvasat szerint hibás). Nézzük meg megint az <code>ős</code> szabályt!</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ős(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt két sorrendről beszélhetünk: a szabályok sorrendjéről, és a szabályon belüli kifejezések sorrendjéről. Vizsgáljuk meg az összes verziót!</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">% A múltkori családfa egy része</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>szülő(ámna<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>szülő(abdulla<span class="kw">,</span> mohamed)<span class="kw">.</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>szülő(mohamed<span class="kw">,</span> zajnab)<span class="kw">.</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>szülő(mohamed<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>szülő(fátima<span class="kw">,</span> huszajn)<span class="kw">.</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">% Eredeti</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>ős1(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>ős1(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős1(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">% Szabályok felcserélve</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>ős2(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">,</span> ős2(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>ős2(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">% Kifejezések felcserélve</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>ős3(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>ős3(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> ős3(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">% Mindkettő felcserélve</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>ős4(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> ős4(<span class="dt">Y</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">,</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>ős4(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> szülő(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A deklaratív olvasat a cserék során lényegesen nem változik, az mindig jó lesz. Mi a helyzet a procedurális olvasattal?</p>
+<p>Az <code>ős1</code> a már ismert verzió:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> trace<span class="kw">,</span> ős1(abdulla<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Call</span><span class="fu">:</span>ős1(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a> <span class="dt">Fail</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="dt">Redo</span><span class="fu">:</span>ős1(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> <span class="dt">Y</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> mohamed)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>ős1(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>ős1(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="dt">Exit</span><span class="fu">:</span>ős1(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Az <code>ős2</code> esetében először mindig nem-szülő őst próbál keresni:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> trace<span class="kw">,</span> ős2(abdulla<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Call</span><span class="fu">:</span>ős2(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> <span class="dt">Y1</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> mohamed)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>ős2(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> <span class="dt">Y2</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> zajnab)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>ős2(zajnab<span class="kw">,</span> fátima)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>szülő(zajnab<span class="kw">,</span> <span class="dt">Y3</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Fail</span><span class="fu">:</span>szülő(zajnab<span class="kw">,</span> <span class="dt">Y3</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Redo</span><span class="fu">:</span>ős2(zajnab<span class="kw">,</span> fátima)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>szülő(zajnab<span class="kw">,</span> fátima)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Fail</span><span class="fu">:</span>szülő(zajnab<span class="kw">,</span> fátima)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Fail</span><span class="fu">:</span>ős2(zajnab<span class="kw">,</span> fátima)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Redo</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> <span class="dt">Y2</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>ős2(fátima<span class="kw">,</span> fátima)</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>szülő(fátima<span class="kw">,</span> <span class="dt">Y3</span>)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Exit</span><span class="fu">:</span>szülő(fátima<span class="kw">,</span> huszajn)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>ős2(huszajn<span class="kw">,</span> fátima)</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Call</span><span class="fu">:</span>szülő(huszajn<span class="kw">,</span> <span class="dt">Y4</span>)</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Fail</span><span class="fu">:</span>szülő(huszajn<span class="kw">,</span> <span class="dt">Y4</span>)</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Redo</span><span class="fu">:</span>ős2(huszajn<span class="kw">,</span> fátima)</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Call</span><span class="fu">:</span>szülő(huszajn<span class="kw">,</span> fátima)</span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Fail</span><span class="fu">:</span>szülő(huszajn<span class="kw">,</span> fátima)</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Fail</span><span class="fu">:</span>ős2(huszajn<span class="kw">,</span> fátima)</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Redo</span><span class="fu">:</span>ős2(fátima<span class="kw">,</span> fátima)</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>szülő(fátima<span class="kw">,</span> fátima)</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Fail</span><span class="fu">:</span>szülő(fátima<span class="kw">,</span> fátima)</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Fail</span><span class="fu">:</span>ős2(fátima<span class="kw">,</span> fátima)</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a> <span class="dt">Redo</span><span class="fu">:</span>ős2(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>ős2(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="dt">Exit</span><span class="fu">:</span>ős2(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Az <code>ős3</code> a rekurzív szabálynál először az ősséget ellenőrzi, csak aztán a szülőséget:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> trace<span class="kw">,</span> ős3(abdulla<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Call</span><span class="fu">:</span>ős3(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a> <span class="dt">Fail</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="dt">Redo</span><span class="fu">:</span>ős3(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>ős3(<span class="dt">X</span><span class="kw">,</span> fátima)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>szülő(<span class="dt">X</span><span class="kw">,</span> fátima)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span>szülő(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>ős3(mohamed<span class="kw">,</span> fátima)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> mohamed)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>szülő(abdulla<span class="kw">,</span> mohamed)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="dt">Exit</span><span class="fu">:</span>ős3(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Az <code>ős4</code>-nél végtelen rekurzió jön létre:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> trace<span class="kw">,</span> ős4(abdulla<span class="kw">,</span> fátima)<span class="kw">.</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Call</span><span class="fu">:</span>ős4(abdulla<span class="kw">,</span> fátima)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>ős4(<span class="dt">X1</span><span class="kw">,</span> fátima)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>ős4(<span class="dt">X2</span><span class="kw">,</span> fátima)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>ős4(<span class="dt">X3</span><span class="kw">,</span> fátima)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Call</span><span class="fu">:</span>ős4(<span class="dt">X4</span><span class="kw">,</span> fátima)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>     ...</span></code></pre></div>
+<p>Egy jó ökölszabály, hogy érdemes az egyszerűbb szabályokat előre tenni (<code>ős1</code> és <code>ős3</code>), és a szabályokon belül is az egyszerűbb kifejezések jöjjenek előbb (<code>ős1</code>).</p>
+<h3 id="feladatok-3">Feladatok</h3>
+<ol>
+<li>Menjetek végig a fenti nyomkövetéseken soronként (ha esetleg megspóroltátok volna), és legyetek biztosak benne, hogy minden világos!</li>
+<li>Az <code>ős3</code> esetében, ha további megoldást keresünk a <code>Next</code> gombbal (ami itt az “Abdulla őse Fátimának” állítás egy másik bizonyítását jelentené), akkor megint végtelen rekurzióba kerül a program. Miért? Nézzétek meg nyomkövetéssel!</li>
+</ol>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Ez a dokumentum az alábbi könyv 2. fejezete alapján készült:</p>
+<p>I. Bratko: <em>Prolog Programming for Artificial Intelligence</em>, 4th Ed., Pearson, 2011.</p>
+<p>A programozók előszeretettel használják a <code>foo</code>, <code>bar</code> és <code>baz</code> neveket, amikor valamilyen példát mutatnak, ahol maga a név nem fontos. Hasonlóan, ha egy példában egy egész számot kell választani, ez leggyakrabban a <code>42</code> (a <em>Galaxis útikalauz stopposoknak</em> nyomán). Ilyen és hasonló programozó-szubkultúrával kapcsolatos érdekességekről rengeteget lehet olvasni a <a href="http://www.catb.org/jargon/html/"><em>Zsargon fájl</em>ban</a>, nagyon szórakoztató olvasmány. (Sajnos csak angolul, de sokszor nem is igazán lehetne lefordítani.) A fő része a Glossary (szószedet), ajánlom pl. a programhibákkal kapcsolatos szócikkeket (<em>bug</em>, <em>heisenbug</em>, <em>mandelbug</em>, <em>schroedinbug</em> stb.).</p>
+<p>Ha az előző bekezdés végén levő pont-zárójel-pont kombináció szemet szúrt, akkor ajánlom a programozók írásstílusáról szóló részt (Hacker Writing Style) is. :)</p>
+</body>
+</html>

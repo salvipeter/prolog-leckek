@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog 5</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-programozás-5">Prolog programozás 5</h1>
+<h2 id="rendezések">Rendezések</h2>
+<p>Egy klasszikus - és nagyon hasznos - programozási feladat számok listájának növekvő sorrendbe rendezése. Erre rengeteg módszer van, itt csak a legfontosabbak közül nézünk meg néhányat.</p>
+<h3 id="beszúrásos-rendezés-insertion-sort">Beszúrásos rendezés (<em>insertion sort</em>)</h3>
+<p>Az első algoritmus a <em>beszúrásos rendezés</em>. Az ötlet a következő: ha van egy listám, akkor azt szétszedem az első elemre és a maradékára, az utóbbit (rekurzívan) rendezem, és végül az első elemet beszúrom a “megfelelő” helyre.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rendez1([]<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rendez1([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> rendez1(<span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">,</span> beszúr(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M1</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A megfelelő helyre való beszúrásnál pedig egyszerűen addig megyünk, amíg egy legalább akkora elemet nem találunk:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>beszúr(<span class="dt">X</span><span class="kw">,</span> []<span class="kw">,</span> [<span class="dt">X</span>])<span class="kw">.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>beszúr(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">X</span>,<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">=&lt;</span> <span class="dt">Y</span><span class="kw">.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>beszúr(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M1</span>]) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&gt;</span> <span class="dt">Y</span><span class="kw">,</span> beszúr(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Próbáljuk ki!</p>
+<pre><code>?- rendez1([4,1,9,2,6,0,3,2,5,1], X).
+X = [0, 1, 1, 2, 2, 3, 4, 5, 6, 9]</code></pre>
+<p>Ennek az algoritmusnak egy nagy előnye, hogy akkor is jól használható, ha az adatokat folyamatosan kapjuk, hiszen ha már van egy rendezett listánk, akkor utána mindig elég a <code>beszúr</code> műveletet használni. Egy másik jó tulajdonsága, hogy egy már rendezett sorozatnál nem végez plusz munkát, épp csak ellenőrzi, hogy a lista tényleg jó sorrendben van:</p>
+<pre><code>?- trace, rendez1([1,2,3], X).
+Call:rendez1([1, 2, 3], X)
+ Call:rendez1([2, 3], X1)
+  Call:rendez1([3], X2)
+   Call:rendez1([], X3)
+   Exit:rendez1([], [])
+   Call:beszúr(3, [], X2)
+   Exit:beszúr(3, [], [3])
+  Exit:rendez1([3], [3])
+  Call:beszúr(2, [3], X1)
+   Call:2=&lt;3
+   Exit:2=&lt;3
+  Exit:beszúr(2, [3], [2, 3])
+ Exit:rendez1([2, 3], [2, 3])
+ Call:beszúr(1, [2, 3], X)
+  Call:1=&lt;2
+  Exit:1=&lt;2
+ Exit:beszúr(1, [2, 3], [1, 2, 3])
+Exit:rendez1([1, 2, 3], [1, 2, 3])
+X = [1, 2, 3]</code></pre>
+<p>Ugyanakkor ha nincs szerencsénk, nem túl jó hatásfokú: ha a lista <em>n</em> hosszú, akkor kb. <em>n^2</em> összehasonlítást végez a legrosszabb esetben.</p>
+<h3 id="gyorsrendezés-quicksort">Gyorsrendezés (<em>quicksort</em>)</h3>
+<p>A gyorsrendezésnél kiválasztunk egy tetszőleges elemet (pl. az elsőt), és a többit két részre osztjuk aszerint, hogy nagyobb-e ennél vagy sem. Ezután a két részt külön-külön rendezzük (rekurzívan), majd az eredmény ezek összefűzéséből adódik:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rendez2([]<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rendez2([<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    szétoszt(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">Kicsi</span><span class="kw">,</span> <span class="dt">Nagy</span>)<span class="kw">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    rendez2(<span class="dt">Kicsi</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    rendez2(<span class="dt">Nagy</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    hozzáfűz(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">N</span>]<span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A szétosztás elég magától értetődő:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>szétoszt(<span class="dt">_</span><span class="kw">,</span> []<span class="kw">,</span> []<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>szétoszt(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">N</span>]) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">=&lt;</span> <span class="dt">Y</span><span class="kw">,</span> szétoszt(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>szétoszt(<span class="dt">X</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">K</span>]<span class="kw">,</span> <span class="dt">N</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&gt;</span> <span class="dt">Y</span><span class="kw">,</span> szétoszt(<span class="dt">X</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez (nagyon hosszú listákra) bizonyíthatóan sokkal kevesebb ellenőrzést végez, mint a beszúrásos rendezés. A fenti program azonban a hozzáfűzések miatt nem igazán hatékony - a következő leckében majd szó lesz a különbség-listákról, amelyek segítségével sokkal gyorsabbá tehető.</p>
+<h3 id="fésülő-rendezés-merge-sort">Fésülő rendezés (<em>merge sort</em>)</h3>
+<p>Utolsónak nézzünk meg egy nagyon hasonló algoritmust: itt is két részre bontjuk mindig a listát, azokat rendezzük, majd összefűzzük, de itt nem a szétválasztás a bonyolultabb, hanem az összefűzés, vagy ez esetben az <em>összefésülés</em>.</p>
+<p>A listát a felénél kettéosztjuk, és mindkét részt rendezzük (rekurzívan), végül a két rendezett listát egy listává fésüljük össze:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rendez3([]<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rendez3([<span class="dt">X</span>]<span class="kw">,</span> [<span class="dt">X</span>])<span class="kw">.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rendez3(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    kettéoszt(<span class="dt">X</span><span class="kw">,</span> <span class="dt">X1</span><span class="kw">,</span> <span class="dt">X2</span>)<span class="kw">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    rendez3(<span class="dt">X1</span><span class="kw">,</span> <span class="dt">Y1</span>)<span class="kw">,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    rendez3(<span class="dt">X2</span><span class="kw">,</span> <span class="dt">Y2</span>)<span class="kw">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    összefésül(<span class="dt">Y1</span><span class="kw">,</span> <span class="dt">Y2</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>kettéoszt([]<span class="kw">,</span> []<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>kettéoszt([<span class="dt">X</span>]<span class="kw">,</span> [<span class="dt">X</span>]<span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>kettéoszt([<span class="dt">X</span>,<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M1</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M2</span>]) <span class="kw">:-</span> kettéoszt(<span class="dt">M</span><span class="kw">,</span> <span class="dt">M1</span><span class="kw">,</span> <span class="dt">M2</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az összefésülésnél a két lista elemét összehasonlítjuk, és a megfelelőt berakjuk a maradékok összefűzéséből kapott listába:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>összefésül([<span class="dt">X</span><span class="fu">|</span><span class="dt">Mx</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">My</span>]<span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">=&lt;</span> <span class="dt">Y</span><span class="kw">,</span> összefésül(<span class="dt">Mx</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">My</span>]<span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>összefésül([<span class="dt">X</span><span class="fu">|</span><span class="dt">Mx</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">My</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&gt;</span> <span class="dt">Y</span><span class="kw">,</span> összefésül([<span class="dt">X</span><span class="fu">|</span><span class="dt">Mx</span>]<span class="kw">,</span> <span class="dt">My</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>összefésül(<span class="dt">X</span><span class="kw">,</span> []<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>összefésül([]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt érdekes módon azt tapasztaljuk, hogy a (helyes) eredményt végtelen sokszor megkapjuk. Ez azért van, mert a <code>rendez3</code> harmadik szabálya az egyelemű listákra is meghívódhat. Ezt ki lehetne védeni azzal, hogy megköveteljük, hogy legyen legalább két eleme:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rendez3(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">X</span> <span class="kw">=</span> [<span class="dt">_</span>,<span class="dt">_</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span> <span class="dt">Y</span> <span class="kw">=</span> [<span class="dt">_</span>,<span class="dt">_</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    kettéoszt(<span class="dt">X</span><span class="kw">,</span> <span class="dt">X1</span><span class="kw">,</span> <span class="dt">X2</span>)<span class="kw">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    rendez3(<span class="dt">X1</span><span class="kw">,</span> <span class="dt">Y1</span>)<span class="kw">,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    rendez3(<span class="dt">X2</span><span class="kw">,</span> <span class="dt">Y2</span>)<span class="kw">,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    összefésül(<span class="dt">Y1</span><span class="kw">,</span> <span class="dt">Y2</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>… de ez nem a legelegánsabb. (Hasonlóan, az <code>összefésül</code> utolsó két szabálya közt is van átfedés.) Nincs valami jobb mód erre?</p>
+<h2 id="vágás">Vágás</h2>
+<p>Egy szabály törzsében <em>vágást</em> eszközölhetünk a <code>!</code> segítségével. Ez azt mondja, hogy ha már idáig eljutottunk, akkor vagy sikerül teljesíteni a törzs maradék részét, vagy ha nem, akkor úgy vesszük, hogy ezzel a fejjel való egyesítés sikertelen volt, nem próbálunk a <code>!</code> előtti kifejezésekre visszamenni, vagy az azonos fejhez tartozó esetleges többi szabályt megnézni.</p>
+<p>Nézzük meg például az alábbi szabályokat, ahol <code>A</code>, <code>B</code>, <code>C</code> stb. kifejezéseket jelölnek:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">C</span> <span class="kw">:-</span> <span class="dt">P</span><span class="kw">,</span> <span class="dt">Q</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="kw">!,</span> <span class="dt">S</span><span class="kw">,</span> <span class="dt">T</span><span class="kw">,</span> <span class="dt">U</span><span class="kw">.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">C</span> <span class="kw">:-</span> <span class="dt">V</span><span class="kw">.</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dt">A</span> <span class="kw">:-</span> <span class="dt">B</span><span class="kw">,</span> <span class="dt">C</span><span class="kw">,</span> <span class="dt">D</span><span class="kw">.</span></span></code></pre></div>
+<p>Ekkor ha az</p>
+<pre><code>?- A.</code></pre>
+<p>kérdést feltesszük, a következő fog történni:</p>
+<ol>
+<li>Megnézi, hogy <code>B</code> teljesül-e (tegyük fel, hogy igen).</li>
+<li>Megnézi, hogy <code>P</code>, <code>Q</code>, <code>R</code> teljesülnek-e (tegyük fel, hogy igen).</li>
+<li>Megnézi, hogy <code>S</code>, <code>T</code>, <code>U</code> teljesülnek-e. Tegyük fel, hogy az <code>S</code> és <code>T</code> teljesül, de az <code>U</code> nem. Ekkor szokás szerint visszamegy a <code>T</code>-re, és megkeresi annak egy másik megoldását stb.</li>
+<li>Ha nem sikerült az <code>S</code>, <code>T</code>, <code>U</code>-t teljesíteni, akkor - a vágás miatt - már nem megy vissza, hogy az <code>R</code> egy másik megoldását keresse, és nem próbálkozik a <code>C</code>-hez tartozó második szabállyal sem, hanem egy szinttel feljebb megy, és a <code>B</code>-hez keres egy másik megoldást.</li>
+</ol>
+<h3 id="összefésülés-hatékonyabban">Összefésülés hatékonyabban</h3>
+<p>Nézzük meg, hogyan lehet ezzel feljavítani az összefésülést!</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>összefésül([<span class="dt">X</span><span class="fu">|</span><span class="dt">Mx</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">My</span>]<span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">=&lt;</span> <span class="dt">Y</span><span class="kw">,</span> <span class="kw">!,</span> összefésül(<span class="dt">Mx</span><span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">My</span>]<span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>összefésül([<span class="dt">X</span><span class="fu">|</span><span class="dt">Mx</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">My</span>]<span class="kw">,</span> [<span class="dt">Y</span><span class="fu">|</span><span class="dt">M</span>]) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&gt;</span> <span class="dt">Y</span><span class="kw">,</span> <span class="kw">!,</span> összefésül([<span class="dt">X</span><span class="fu">|</span><span class="dt">Mx</span>]<span class="kw">,</span> <span class="dt">My</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>összefésül(<span class="dt">X</span><span class="kw">,</span> []<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>összefésül([]<span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="kw">!.</span></span></code></pre></div>
+<p>A vágások a programot hatékonyabbá teszik: ha az első szabályban láttuk, hogy <code>X =&lt; Y</code>, már nem kell ellenőrizni a többi szabályt stb. (Az utolsó sorban a vágás felesleges, csak a szimmetria kedvéért került bele.)</p>
+<p>Hasonlóan, a <code>rendez3</code> második szabályában:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rendez3([<span class="dt">X</span>]<span class="kw">,</span> [<span class="dt">X</span>]) <span class="kw">:-</span> <span class="kw">!.</span></span></code></pre></div>
+<p>Ezekkel a módosításokkal már egyértelmű (<em>determinisztikus</em>) lesz a megoldás.</p>
+<p>A vágások nem változtatják meg a program értelmét (tehát, hogy milyen kifejezésekre lesz igaz), csak a hatékonyságát.</p>
+<h3 id="maximum">Maximum</h3>
+<p>Nézzünk egy másik példát! Az alábbi szabály két szám közül kiválasztja a nagyobbikat:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>max1(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&gt;=</span> <span class="dt">Y</span><span class="kw">.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>max1(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&lt;</span> <span class="dt">Y</span><span class="kw">.</span></span></code></pre></div>
+<p>A fenti módon ez átírható így:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>max2(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&gt;=</span> <span class="dt">Y</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>max2(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&lt;</span> <span class="dt">Y</span><span class="kw">.</span></span></code></pre></div>
+<p>Felmerül akkor, hogy a második szabályban szükség van-e egyáltalán az <code>X &lt; Y</code> összehasonlításra, hiszen csak akkor juthatunk oda, ha az <code>X &gt;= Y</code> nem teljesült. A program akkor is működni látszik, ha elhagyjuk:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>max3(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> <span class="dt">X</span> <span class="dt">&gt;=</span> <span class="dt">Y</span><span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>max3(<span class="dt">_</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Teszteljük egy kicsit!</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> max3(<span class="dv">3</span><span class="kw">,</span> <span class="dv">5</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">5</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> max3(<span class="dv">4</span><span class="kw">,</span> <span class="dv">2</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">4</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> max3(<span class="dv">1</span><span class="kw">,</span> <span class="dv">5</span><span class="kw">,</span> <span class="dv">5</span>)<span class="kw">.</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> max3(<span class="dv">5</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span> <span class="co">% Ajjaj...</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Hoppá! Mi történt?</p>
+<p>Mivel az utolsó példában mindhárom argumentumnak van értéke, és az első és harmadik nem azonos, az első szabállyal nem is próbálkozik, hanem rögtön a másodikra megy, ami pedig most, hogy kivettük a feltételt, teljesül.</p>
+<p>A <code>max3</code> változatban megváltozott a program deklaratív jelentése, hiszen egy olyan tényt tartalmaz, ami magában nézve nem igaz. Ez általában kerülendő, bár a hatékonysághoz néha szükséges. Ha ilyen gondolatmenetet alkalmazunk, nagyon óvatosnak kell lenni - itt pl. biztosnak kell lennünk benne, hogy a harmadik argumentum mindig változó.</p>
+<h3 id="hozzáadás-halmazhoz">Hozzáadás halmazhoz</h3>
+<p>Egy további példaként nézzük meg az alábbi szabályt:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">% hozzáad(+X, +Halmaz, -Eredmény).</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Hozzáadja `X`-et a `Halmaz` listához,</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">% de csak akkor, ha az még nem tartalmazta.</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>hozzáad(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">L</span>) <span class="kw">:-</span> tartalmaz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span> <span class="kw">!.</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>hozzáad(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> [<span class="dt">X</span><span class="fu">|</span><span class="dt">L</span>])<span class="kw">.</span></span></code></pre></div>
+<p>A vágás nélkül itt a második szabályt nehezebb lenne megfogalmazni, kéne hozzá a 3. leckéhez tartozó projektben látott <code>nemtartalmaz</code> szabály, és következésképp a hatékonyságból is vesztene.</p>
+<p>Cserébe itt is problémába ütközünk, ha a harmadik argumentum nem változó:</p>
+<pre><code>?- hozzáad(b, [a,b], [b,a,b]).
+true</code></pre>
+<p>Ezt elkerülendő, érdemes a dokumentációval egyértelművé tenni a használatot. A fenti programhoz tartozó megjegyzés is ilyen szellemben íródott. Az első sorában egy egyezményes jelölésrendszert használ, melyben minden argumentum háromféle lehet:</p>
+<ul>
+<li><code>+X</code> : kell, hogy legyen értéke</li>
+<li><code>?X</code> : lehet értéke, de nem muszáj</li>
+<li><code>-X</code> : csak változó lehet</li>
+</ul>
+<p>A <code>help</code> is ezeket használja. Például:</p>
+<pre><code>?- help(&gt;).
++Expr1 &gt; +Expr2
+...
+?- help(flatten). % lapít (3. lecke 10. feladat)
+flatten(+NestedList, -FlatList)
+...
+?- help(member). % tartalmaz
+member(?Elem, ?List)
+...</code></pre>
+<p>Az első esetben mindkét kifejezésnek ismertnek kell lennie; a másodikban a lapítandó lista ismert, és a lapított verzió csak változó lehet; a harmadikban pedig mind a lista, mind a benne tartalmazandó elem lehet változó vagy ismert is.</p>
+<h3 id="feladatok">Feladatok</h3>
+<ol>
+<li><p>Nézzük meg az alábbi szabályokat!</p>
+<pre><code>p(1).
+p(2) :- !.
+p(3).</code></pre>
+<p>Mit lesz az összes válasz az alábbi kérdésekre:</p>
+<pre><code>?- p(X).
+?- p(X), p(Y).
+?- p(X), !, p(Y).</code></pre></li>
+<li><p>Írjátok át hatékonyabbra a <code>szétoszt</code> szabályt vágások segítségével!</p></li>
+</ol>
+<h2 id="tagadás">Tagadás</h2>
+<p>Hogyan tudjuk megfogalmazni azt, hogy “Csilla szeret minden állatot, kivéve a pókokat”?</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>szereti(csilla<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> pók(<span class="dt">X</span>)<span class="kw">,</span> <span class="kw">!,</span> <span class="kw">fail.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>szereti(csilla<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> állat(<span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>(Általában ilyenkor a <code>false</code> helyett a <code>fail</code>-t szokás használni, de a kettő jelentése azonos.)</p>
+<p>Próbáljuk ki!</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>állat(tarantula)<span class="kw">.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>állat(denevér)<span class="kw">.</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>pók(tarantula)<span class="kw">.</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szereti(csilla<span class="kw">,</span> tarantula)<span class="kw">.</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="kw">false</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> szereti(csilla<span class="kw">,</span> denevér)<span class="kw">.</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>Ez annyira hasznos, hogy érdemes bevezetni, mint tagadást:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>nem(<span class="dt">P</span>) <span class="kw">:-</span> <span class="dt">P</span><span class="kw">,</span> <span class="kw">!,</span> <span class="kw">fail.</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>nem(<span class="dt">_</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Figyeljük meg, hogy itt valami olyat csináltunk, amit eddig még soha: egy változót (<code>P</code>) a törzsben magában használtunk. Ez feltételezi, hogy a <code>P</code>-nek kiszámolható az igazságértéke. Például a fenti példát átírva:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>szereti(csilla<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> állat(<span class="dt">X</span>)<span class="kw">,</span> nem(pók(<span class="dt">X</span>))<span class="kw">.</span></span></code></pre></div>
+<p>Itt a <code>P</code> értéke a <code>pók(X)</code> struktúra, és a <code>nem</code> törzsében levő <code>P</code> kiértékelésekor ezt mint megoldandó célkifejezést értelmezi.</p>
+<h3 id="a-zárt-világ-feltétel">A “zárt világ” feltétel</h3>
+<p>A tagadásnak ez a módja nem mindig intuitív. Egy így tagadott kifejezés akkor lesz igaz, ha a kifejezés nem bizonyítható.</p>
+<p>Mi történik, ha az előző programban felcseréljük a törzs két tagját?</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>szereti(csilla<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> nem(pók(<span class="dt">X</span>))<span class="kw">,</span> állat(<span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Érdekes módon Csilla most már a denevéreket sem szereti! Miért? Azért, mert a <code>nem(pók(X))</code>-ben az <code>X</code> egy változó, tehát a <code>pók(X)</code> bizonyítható az <code>X = tarantula</code> helyettesítéssel, így a <code>nem(pók(X))</code> nem teljesül. Az érték nélküli argumentumokkal tehát vigyázni kell.</p>
+<p>Hasonlóan furcsa lehet, hogy</p>
+<pre><code>?- nem(állat(kutya)).
+true</code></pre>
+<p>… de persze helyes, hiszen a programban levő szabályok alapján nem bizonyítható, hogy a kutya állat.</p>
+<p>Ezek miatt a <code>nem</code> (vagy az angol <code>not</code>) helyett a <code>\+</code> operátort szokás használni, melynek definíciója ugyanaz, csak az elnevezés kevésbé félrevezető:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>szereti(csilla<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> állat(<span class="dt">X</span>)<span class="kw">,</span> <span class="kw">\+</span> pók(<span class="dt">X</span>)<span class="kw">.</span></span></code></pre></div>
+<h3 id="feladatok-1">Feladatok</h3>
+<ol>
+<li><p>Milyen kérdéssel lehet a <code>Jelöltek</code> listából kiválasztani azokat, akik nem szerepelnek a <code>Kiesettek</code> listában? Használjátok a <code>tartalmaz</code> szabályt és a tagadást!</p></li>
+<li><p>Készítsetek szabályt, ami két halmaz különbségét képzi! (A halmaz itt egy olyan lista, amiben minden elem egyszer fordul elő.)</p>
+<pre><code>?- különbség([a,b,c,d], [f,d,b,e], X).
+X = [a, c]</code></pre></li>
+<li><p>Készítsetek szabályt, ami kiválogatja egy listából azokat a kifejezéseket, amelyek egy adott másik kifejezéssel egyesíthetőek!</p>
+<pre><code>?- egyesíthető([X,b,t(Y)], t(a), L).
+L = [X, t(Y)]</code></pre>
+<p>Figyeljetek arra, hogy az <code>X</code> és <code>Y</code> ne kapjon ezáltal értéket!</p></li>
+</ol>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Ez a dokumentum az alábbi könyv 5. és 9.1. fejezete alapján készült:</p>
+<p>I. Bratko: <em>Prolog Programming for Artificial Intelligence</em>, 4th Ed., Pearson, 2011.</p>
+<p>Az összefésüléses példa az alábbi könyv 11. fejezetéből származik:</p>
+<p>L. Sterling, E. Shapiro: <em>The Art of Prolog</em>, 2nd Ed., MIT Press, 1994.</p>
+<p>Rendezési algoritmusokból nincs hiány. Bizonyítható, hogy a gyorsrendezés, a fésülő rendezés (és még sok másik) a lehető leghatékonyabb … kivéve egy-két furcsa módszert:</p>
+<ol>
+<li>Vágjunk (száraz) spagettitésztákat az egyes számoknak megfelelő hosszokra, majd marokra fogva tegyük le az asztalra. Ezután egy kartonlapot rátéve mindig sorban vegyük ki azt, ami hozzáér a laphoz, és így egy csökkenő sorrendezéshez jutunk.</li>
+<li>Vegyük a lista egy véletlenszerű permutációját, és ellenőrizzük, hogy sorban van-e. Ha igen, készen vagyunk. Ha nem, akkor robbantsuk fel a világot. Feltéve, hogy igaz a párhuzamos univerzumok elmélete, csak az az univerzum fog megmaradni, amelyikben a véletlen permutáció pont a helyes sorbarendezés volt.</li>
+</ol>
+</body>
+</html>

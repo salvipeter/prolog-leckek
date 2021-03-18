@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog 4</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-programozás-4">Prolog programozás 4</h1>
+<h2 id="operátorok">Operátorok</h2>
+<p>Van még szintaktikus cukor bizonyos struktúrákon: ezek az <em>operátorok</em>. Amikor például leírunk egy olyan matematikai kifejezést, hogy <em>2a+bc</em>, vagy a szorzásokat <code>*</code>-al jelölve, <em>2*a+b*c</em>, akkor a szorzás és összeadás műveletek az argumentumaik <em>között</em> szerepelnek. Ezeket hívjuk <em>infix</em> (“közbülső”) operátoroknak. Ha egy ilyen kifejezést a szokásos <em>prefix</em> (“elülső”) funktorokkal szeretnénk leírni, akkor ezt kapnánk:</p>
+<pre><code>+(*(2, a), *(b, c))</code></pre>
+<p>Vannak nyelvek, amelyek ezt preferálják, és vannak olyanok, amelyek a <em>posztfix</em> (“hátulsó”) operátorokat:</p>
+<pre><code>((2, a)*, (b, c)*)+</code></pre>
+<p>… de a Prolog ezekre a megszokott infix jelöléseket támogatja.</p>
+<p>Tetszőleges funktorból lehet operátort csinálni. Az egyargumentumú funktorok lehetnek pre- vagy posztfixek, a kétargumentumúak pedig csak infixek. Ahhoz, hogy egy ilyen kifejezést értelmezni lehessen, még azt is kell tudni, melyik operátornak van elsőbbsége - például a szorzást előbb kell elvégezni, mint az összeadást, tehát elsőbbsége van.</p>
+<p>A Prologban az ilyen jellegű “beállításokat” olyan szabályokkal lehet megadni, amelyeknek nincsen feje, csak törzse. Néhány példa operátorok definíciójára (ezek alapból be vannak állítva):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">op</span>(<span class="dv">200</span><span class="kw">,</span> fy<span class="kw">,</span> <span class="fu">-</span>)<span class="kw">.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">op</span>(<span class="dv">400</span><span class="kw">,</span> yfx<span class="kw">,</span> <span class="fu">*</span>)<span class="kw">.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">op</span>(<span class="dv">500</span><span class="kw">,</span> yfx<span class="kw">,</span> <span class="fu">+</span>)<span class="kw">.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">op</span>(<span class="dv">1000</span><span class="kw">,</span> xfy<span class="kw">,</span> <span class="st">&#39;,&#39;</span>)<span class="kw">.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">op</span>(<span class="dv">1200</span><span class="kw">,</span> xfx<span class="kw">,</span> <span class="kw">:-</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt az első 1 és 1200 közti szám adja meg a <em>precedenciá</em>t (minél kisebb, annál korábban kell elvégezni az adott műveletet), a második a típusát, és a harmadik magát az operátort.</p>
+<p>Hétféle típus létezik:</p>
+<ul>
+<li><code>xfx</code>, <code>xfy</code>, <code>yfx</code>: infix operátorok</li>
+<li><code>fx</code>, <code>fy</code>: prefix operátorok</li>
+<li><code>xf</code>, <code>yf</code>: posztfix operátorok</li>
+</ul>
+<p>Ezeket úgy kell értelmezni, hogy az <code>f</code> mutatja az operátor helyét, az <code>x</code> és <code>y</code> pedig az argumentumo(ka)t. Ha egy argumentum <code>x</code>-el van jelölve, akkor - amennyiben az is egy operátoros kifejezés - az <code>x</code> operátorának szigorúan kisebb precedenciájúnak kell lennie az <code>f</code>-nél. Ezzel szemben az <code>y</code> esetében ez nem csak kisebb lehet, hanem egyenlő is. A zárójelezés minden előtt elsőbbséget élvez (0 a precedenciája).</p>
+<p>Ez így elég absztrakt, nézzünk egy pár példát!</p>
+<ol>
+<li>Mivel a <code>+</code> operátor <code>yfx</code> típusú, ha egy <code>a + b + c</code> kifejezésem van, akkor ezt nem értelmezhetem úgy, hogy <code>a + (b + c)</code>, mert akkor az első <code>+</code> jobboldalán levő <code>b + c</code> kifejezés operátorának precedenciája megegyezik a <code>+</code>-éval (hiszen az is <code>+</code>). Viszont ha <code>(a + b) + c</code> módon értelmezem, ez a probléma nem lép fel: a második <code>+</code> baloldalán levő <code>a + b</code> kifejezés precedenciája ugyan ugyanaz, de ez megengedett mert a baloldali egy <code>y</code>-argumentum. Tehát az <code>yfx</code> operátorokat <strong>balról jobbra</strong> kell zárójelezni.</li>
+<li>A <code>-a * (b + c * d)</code> kiértékelését először a zárójeles résszel kell kezdeni. Ezt nem értelmezhetem úgy, hogy <code>(b + c) * d</code>, mivel a <code>+</code> precedenciája nagyobb a <code>*</code>-énál, az <code>yfx</code> szerint pedig kisebbnek vagy egyenlőnek kéne lennie. Ezért a helyes értelmezés a <code>b + (c * d)</code>. Ezután jön a 200-as precedenciájú 1-argumentumú <code>-</code> operátor, és végül a 400-as precedenciájú <code>*</code>.</li>
+<li>A <code>P :- Q, R, S</code> kifejezés helyes zárójelezése <code>P :- (Q, (R, S))</code>, mivel az <code>xfy</code> típusú vessző operátort <strong>jobbról balra</strong> kell zárójelezni, és a <code>:-</code> operátor precedenciája a legmagasabb.</li>
+<li>Mivel a <code>:-</code> operátor <code>xfx</code> típusú, ezért <strong>nem szerepelhet a saját argumentumaként</strong>. Egy olyan kifejezésnek, hogy <code>a :- b :- c</code>, nincsen helyes zárójelezése.</li>
+<li>A negálás <code>fy</code> típusú, ezért a <code>--a</code> kifejezés is elfogadható; ha <code>fx</code> típusú lenne, akkor ezt zárójelezni kéne <code>-(-a)</code> alakban.</li>
+</ol>
+<p>Nem csak különleges karakterekkel megadott funktorokból készíthetünk operátorokat, hanem tetszőleges nevűekből. Ez magyarul kevésbé természetes, mint angolul, de azért nézzünk erre is példát!</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">op</span>(<span class="dv">600</span><span class="kw">,</span> xfx<span class="kw">,</span> benne_van)<span class="kw">.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> benne_van <span class="dt">L</span> <span class="kw">:-</span> tartalmaz(<span class="dt">X</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez definiálja a <code>tartalmaz</code> funktor infix változatát. Ezután</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> b benne_van [a, b, c]<span class="kw">.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> benne_van(b<span class="kw">,</span> [a, b, c])<span class="kw">.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<h3 id="feladat">Feladat</h3>
+<p>Mit ad az alábbi program</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>t(<span class="dv">0</span><span class="fu">+</span><span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span><span class="fu">+</span><span class="dv">0</span>)<span class="kw">.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>t(<span class="dt">X</span><span class="fu">+</span><span class="dv">0</span><span class="fu">+</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">X</span><span class="fu">+</span><span class="dv">1</span><span class="fu">+</span><span class="dv">0</span>)<span class="kw">.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>t(<span class="dt">X</span><span class="fu">+</span><span class="dv">1</span><span class="fu">+</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">Z</span>) <span class="kw">:-</span> t(<span class="dt">X</span><span class="fu">+</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">X1</span>)<span class="kw">,</span> t(<span class="dt">X1</span><span class="fu">+</span><span class="dv">1</span><span class="kw">,</span> <span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
+<p>a következő kérdésekre:</p>
+<ul>
+<li><code>?- t(0+1, A).</code></li>
+<li><code>?- t(0+1+1, B).</code></li>
+<li><code>?- t(1+0+1+1+1, C).</code></li>
+<li><code>?- t(D, 1+1+1+0).</code></li>
+</ul>
+<h2 id="számolás">Számolás</h2>
+<p>Ahogy az előző feladatban is látszott, a matematikai kifejezések a Prolog számára csak struktúrák, és ezért az</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span> <span class="fu">+</span> <span class="dv">2</span><span class="kw">.</span></span></code></pre></div>
+<p>kérdésre azt a (nem túl sokatmondó) választ kapjuk, hogy</p>
+<pre><code>X = 1 + 2</code></pre>
+<p>Ha rá akarjuk kényszeríteni, hogy kiértékelje a kifejezést, az egyenlőség helyett az <code>is</code> operátort használhatjuk:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">1</span> <span class="dt">+</span> <span class="dv">2</span><span class="kw">.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">3</span></span></code></pre></div>
+<p>A matematikai kifejezésekben használható az összeadás (<code>+</code>), kivonás/negáció (<code>-</code>), szorzás (<code>*</code>), osztás (<code>/</code>), egészosztás (<code>//</code>), hatványozás (<code>**</code> vagy <code>^</code>), és a maradékszámítás (<code>mod</code>). Néhány példa:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">5</span><span class="fl">/</span><span class="dv">2</span><span class="kw">.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="fl">2.5</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">9//2</span><span class="kw">.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">4</span> <span class="co">% 9-ben 4-szer van meg (teljesen) a 2</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">2</span><span class="dt">^</span><span class="dv">256</span><span class="kw">.</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">115792089237316195423570985008687907853269984665640564039457584007913129639936</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dt">X</span> <span class="dt">is</span> <span class="dv">10</span> <span class="dv">mod</span> <span class="dv">3</span><span class="kw">.</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span> <span class="co">% 10-nek a 3-mal vett osztási maradéka 1</span></span></code></pre></div>
+<p>Szintén alkalmazhatóak olyan gyakran használt matematikai függvények, mint az abszolutérték (<code>abs</code>), a szinusz (<code>sin</code>), vagy a természetes alapú logaritmus (<code>log</code>). A <code>?- help(functions).</code> ad egy teljes listát.</p>
+<p>A relációs jelek szintén “kiértékelő erővel” bírnak, tehát pl.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">2</span> <span class="dt">&gt;</span> <span class="dv">3</span><span class="kw">.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span></code></pre></div>
+<p>A nagyobb-egyenlő és kisebb-egyenlő relációk rendre <code>&gt;=</code> és <code>=&lt;</code>, a matematikai egyenlőség és különbözőség pedig <code>=:=</code> és <code>=\=</code>, pl.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span> <span class="kw">=</span> <span class="dv">6</span> <span class="fu">-</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">false</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span> <span class="dt">=:=</span> <span class="dv">6</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span> <span class="kw">\=</span> <span class="dv">6</span> <span class="fu">-</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">true</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> <span class="dv">2</span> <span class="fu">+</span> <span class="dv">3</span> <span class="dt">=\=</span> <span class="dv">6</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">false</span></span></code></pre></div>
+<p>A matematikai kiértékelésnél feltétel, hogy a kifejezésben ne szerepeljen változó. Tehát a rendszer nem tudja azt megválaszolni, hogy <code>?- X + 2 &lt; X + 3.</code>, bármennyire is nyilvánvalónak tűnik nekünk.</p>
+<h3 id="legnagyobb-közös-osztó">Legnagyobb közös osztó</h3>
+<p>Két szám legnagyobb közös osztójának megkeresése klasszikus probléma. Az alábbi megoldás ötlete Euklidész <em>Elemek</em> c. művéből származik (i.e. 300 körül).</p>
+<p>Legyen <code>lnko(N, M, O)</code> igaz, ha <code>N</code> és <code>M</code> legnagyobb közös osztója <code>O</code>. Ha a két szám azonos, akkor az osztó is az lesz:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lnko(<span class="dt">N</span><span class="kw">,</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ha az első szám a kisebb, akkor azt levonhatjuk a másodikból, és a legnagyobb közös osztó nem változik:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lnko(<span class="dt">N</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">O</span>) <span class="kw">:-</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&lt;</span> <span class="dt">M</span><span class="kw">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">M1</span> <span class="dt">is</span> <span class="dt">M</span> <span class="dt">-</span> <span class="dt">N</span><span class="kw">,</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    lnko(<span class="dt">N</span><span class="kw">,</span> <span class="dt">M1</span><span class="kw">,</span> <span class="dt">O</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Végül, ha a második szám a kisebb, akkor egyszerűen cseréljük meg a két számot, és az előző esethez jutunk:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lnko(<span class="dt">N</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">O</span>) <span class="kw">:-</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N</span> <span class="dt">&gt;</span> <span class="dt">M</span><span class="kw">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    lnko(<span class="dt">M</span><span class="kw">,</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">O</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Könnyen látszik, hogy a 3. típusú lépés után mindig 2. típusú jön, és a 2. típusú lépés után az <code>N + M</code> összeg csökken. Mivel a számok nem mehetnek 0 alá, előbb-utóbb biztosan eljut az 1. típusú lépéshez, ahol megkapjuk az eredményt.</p>
+<p>Teszteljük!</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> lnko(<span class="dv">1071</span><span class="kw">,</span> <span class="dv">462</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">21</span><span class="kw">.</span></span></code></pre></div>
+<p>A fenti magyarázatok deklaratív jellegűek. A procedurális olvasata a programnak a következő:</p>
+<ol>
+<li>Ha <code>N = M</code>, akkor a legnagyobb közös osztó <code>N</code>. Vége.</li>
+<li>Ha <code>N &lt; M</code>, akkor vonjuk ki <code>M</code>-ből <code>N</code>-et, és menjünk vissza az 1. lépésre.</li>
+<li>Ha <code>N &gt; M</code>, akkor cseréljük meg <code>N</code>-et és <code>M</code>-et, és menjünk vissza az 1. lépésre.</li>
+</ol>
+<p>Az ilyen megoldási módszereket <em>algoritmusnak</em> nevezik. Bár Euklidész algoritmusa régi, de már sokkal régebben is léteztek hasonló módszerek, pl. az ókori Mezopotámiában a sumérok már i.e. 2500 körül ismertek algoritmust az osztásra. Maga az elnevezés egy Bagdadban tanító VIII-IX. századi perzsa matematikus nevéből származik, akit (arabosan) úgy hívtak, hogy Muhammad bin Múszá <em>al-Khvárizmí</em> (“Mózes fia Mohamed, Hvárezmből”).</p>
+<p>Ha már a kezdeteknél tartunk, az első program, amit tényleg számítógépre írtak, Ada Lovelace (1815-1852) nevéhez fűződik, aki Byronnak, a híres költőnek volt a lánya. A program a Bernoulli-számokat számította ki; a gép pedig, amire írta, egy mechanikus számítógép volt, a <em>Difference Engine</em>. Ezt Charles Babbage (1791-1871) tervezte, de csak születésének 200 éves évfordulájára készült el (viszont működött!).</p>
+<p><img src="./difference-engine.jpg" title="A Difference Engine" alt="image" /></p>
+<h3 id="listák-hossza">Listák hossza</h3>
+<p>Most, hogy már tudunk számolni, ki tudjuk számítani egy lista hosszát is:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hossz([]<span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>hossz([<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">N</span>) <span class="kw">:-</span> hossz(<span class="dt">M</span><span class="kw">,</span> <span class="dt">N1</span>)<span class="kw">,</span> <span class="dt">N</span> <span class="dt">is</span> <span class="dv">1</span> <span class="dt">+</span> <span class="dt">N1</span><span class="kw">.</span></span></code></pre></div>
+<p>Egy üres lista hossza 0, egyébként meg a maradék hossza plusz egy.</p>
+<p>Ha a fenti definícióban az <code>is</code> helyett <code>=</code>-t használunk, akkor látjuk, hogyan számol:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> hossz([a, b, c]<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">1</span><span class="fu">+</span>(<span class="dv">1</span><span class="fu">+</span>(<span class="dv">1</span><span class="fu">+</span><span class="dv">0</span>))</span></code></pre></div>
+<p>Egy másik lehetőség, hogy egy középső argumentumban számon tartjuk az eddigi hosszt:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hossz2([]<span class="kw">,</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>hossz2([<span class="dt">_</span><span class="fu">|</span><span class="dt">M</span>]<span class="kw">,</span> <span class="dt">C</span><span class="kw">,</span> <span class="dt">N</span>) <span class="kw">:-</span> <span class="dt">C1</span> <span class="dt">is</span> <span class="dv">1</span> <span class="dt">+</span> <span class="dt">C</span><span class="kw">,</span> hossz2(<span class="dt">M</span><span class="kw">,</span> <span class="dt">C1</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>hossz2(<span class="dt">L</span><span class="kw">,</span> <span class="dt">N</span>) <span class="kw">:-</span> hossz2(<span class="dt">L</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt a <code>hossz2(L1, C, N)</code>-re mindig igaz lesz, hogy a teljes lista hossza az az <code>L1</code> lista hossza + <code>C</code>-vel egyenlő.</p>
+<p>A lényeges különbséget a <code>trace</code> mutatja:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> trace<span class="kw">,</span> hossz([a, b, c]<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Call</span><span class="fu">:</span>hossz([a, b, c]<span class="kw">,</span> <span class="dt">X</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>hossz([b, c]<span class="kw">,</span> <span class="dt">X1</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>hossz([c]<span class="kw">,</span> <span class="dt">X2</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>hossz([]<span class="kw">,</span> <span class="dt">X3</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Exit</span><span class="fu">:</span>hossz([]<span class="kw">,</span> <span class="dv">0</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span><span class="dt">X2</span> <span class="dt">is</span> <span class="dv">1</span><span class="dt">+</span><span class="dv">0</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Exit</span><span class="fu">:</span><span class="dv">1</span> <span class="dt">is</span> <span class="dv">1</span><span class="fu">+</span><span class="dv">0</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span>hossz([c]<span class="kw">,</span> <span class="dv">1</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span><span class="dt">X1</span> <span class="dt">is</span> <span class="dv">1</span><span class="dt">+</span><span class="dv">1</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span><span class="dv">2</span> <span class="dt">is</span> <span class="dv">1</span><span class="fu">+</span><span class="dv">1</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>hossz([b, c]<span class="kw">,</span> <span class="dv">2</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span><span class="dt">X</span> <span class="dt">is</span> <span class="dv">1</span><span class="dt">+</span><span class="dv">2</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span><span class="dv">3</span> <span class="dt">is</span> <span class="dv">1</span><span class="fu">+</span><span class="dv">2</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="dt">Exit</span><span class="fu">:</span>hossz([a, b, c]<span class="kw">,</span> <span class="dv">3</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">3</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> trace<span class="kw">,</span> hossz2([a, b, c]<span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="dt">Call</span><span class="fu">:</span>hossz2([a, b, c]<span class="kw">,</span> <span class="dt">X</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a> <span class="dt">Call</span><span class="fu">:</span>hossz2([a, b, c]<span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">X</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span><span class="dt">C1</span> <span class="dt">is</span> <span class="dv">0</span><span class="dt">+</span><span class="dv">1</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span><span class="dv">1</span> <span class="dt">is</span> <span class="dv">0</span><span class="fu">+</span><span class="dv">1</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Call</span><span class="fu">:</span>hossz2([b, c]<span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">X</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span><span class="dt">C2</span> <span class="dt">is</span> <span class="dv">1</span><span class="dt">+</span><span class="dv">1</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Exit</span><span class="fu">:</span><span class="dv">2</span> <span class="dt">is</span> <span class="dv">1</span><span class="fu">+</span><span class="dv">1</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Call</span><span class="fu">:</span>hossz2([c]<span class="kw">,</span> <span class="dv">2</span><span class="kw">,</span> <span class="dt">X</span>)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Call</span><span class="fu">:</span><span class="dt">C3</span> <span class="dt">is</span> <span class="dv">2</span><span class="dt">+</span><span class="dv">1</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Exit</span><span class="fu">:</span><span class="dv">3</span> <span class="dt">is</span> <span class="dv">2</span><span class="fu">+</span><span class="dv">1</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Call</span><span class="fu">:</span>hossz2([]<span class="kw">,</span> <span class="dv">3</span><span class="kw">,</span> <span class="dt">X</span>)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Exit</span><span class="fu">:</span>hossz2([]<span class="kw">,</span> <span class="dv">3</span><span class="kw">,</span> <span class="dv">3</span>)</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Exit</span><span class="fu">:</span>hossz2([c]<span class="kw">,</span> <span class="dv">2</span><span class="kw">,</span> <span class="dv">3</span>)</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Exit</span><span class="fu">:</span>hossz2([b, c]<span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">3</span>)</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a> <span class="dt">Exit</span><span class="fu">:</span>hossz2([a, b, c]<span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">3</span>)</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="dt">Exit</span><span class="fu">:</span>hossz2([a, b, c]<span class="kw">,</span> <span class="dv">3</span>)</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">3</span></span></code></pre></div>
+<p>Az első verzióban, miután elértünk az üres listáig, még hozzá kell adogatnunk az 1-eket a hosszhoz. A második verzióban viszont ilyenkor már nincs más feladatunk, csak visszatérni a már kiszámolt eredménnyel. Ez utóbbit úgy hívják hogy “vég-rekurzió” (<em>tail-recursion</em>), mivel a szabálynak a legvégén van a rekurziós lépés. Az algoritmusok ilyen felírása gyakran hatékonyabb, ahogy azt mindjárt látni fogjuk.</p>
+<h3 id="fibonacci-számok">Fibonacci-számok</h3>
+<p>A Fibonacci-számokat úgy képezzük, hogy elkezdjük két 1-essel, és utána mindig az előző két szám összegét vesszük:</p>
+<pre><code>1 1 2 3 5 8 13 21 34 55 ...</code></pre>
+<p>Számoljuk ki az <em>n</em>-edik Fibonacci-számot!</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fib(<span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fib(<span class="dv">2</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fib(<span class="dt">N</span><span class="kw">,</span> <span class="dt">M</span>) <span class="kw">:-</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">N2</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">2</span><span class="kw">,</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    fib(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">K1</span>)<span class="kw">,</span> fib(<span class="dt">N2</span><span class="kw">,</span> <span class="dt">K2</span>)<span class="kw">,</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">M</span> <span class="dt">is</span> <span class="dt">K1</span> <span class="dt">+</span> <span class="dt">K2</span><span class="kw">.</span></span></code></pre></div>
+<p>Próbáljuk ki!</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> fib(<span class="dv">10</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">55</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> fib(<span class="dv">20</span><span class="kw">,</span> <span class="dt">X</span>)<span class="kw">.</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="dt">X</span> <span class="kw">=</span> <span class="dv">6765</span></span></code></pre></div>
+<p>Működik, de nagyobb számokra (pl. 40) már nem tudja kiszámolni. A problémát az okozza, hogy a kisebb Fibonacci-számokat feleslegesen újra és újra, rengetegszer kiszámolja.</p>
+<p>Próbáljuk ezt is vég-rekurzióval megoldani! Két plusz argumentumként vegyük fel az “előző” két számot (<code>K1</code> és <code>K2</code>):</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fib2(<span class="dv">1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>fib2(<span class="dt">N</span><span class="kw">,</span> <span class="dt">K1</span><span class="kw">,</span> <span class="dt">K2</span><span class="kw">,</span> <span class="dt">M</span>) <span class="kw">:-</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N1</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">K3</span> <span class="dt">is</span> <span class="dt">K1</span> <span class="dt">+</span> <span class="dt">K2</span><span class="kw">,</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    fib2(<span class="dt">N1</span><span class="kw">,</span> <span class="dt">K2</span><span class="kw">,</span> <span class="dt">K3</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>fib2(<span class="dt">N</span><span class="kw">,</span> <span class="dt">M</span>) <span class="kw">:-</span> fib2(<span class="dt">N</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">M</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Nézzük meg, mit csinál! Először beállítja <code>K1</code>-et és <code>K2</code>-t 1-re, majd minden lépésben (i) csökkenti az <code>N</code>-et, (ii) a <code>K1</code> helyére rakja a <code>K2</code>-et, és (iii) a <code>K2</code> helyére rakja a (régi) <code>K1</code> és <code>K2</code> összegét. Ez alapján könnyen belátható, hogy <code>fib2(I, K1, K2, M)</code>-re mindig igaz lesz, hogy az <code>N-I+1</code>-edik Fibonacci szám a <code>K1</code> lesz (<code>I = N</code> esetén nyilvánvaló; a második szabály pedig nem rontja el).</p>
+<p>Így már nagy értékekre is jól működik, hiszen minden Fibonacci-számot csak egyszer számol ki.</p>
+<h3 id="feladatok">Feladatok</h3>
+<ol>
+<li><p>Írjatok szabályt, amivel két szám közül ki lehet választani a nagyobbat!</p>
+<pre><code>?- max(2, 5, X).
+X = 5˛</code></pre></li>
+<li><p>Írjatok szabályt, amivel egy listából ki lehet választani a legnagyobb elemet!</p>
+<pre><code>?- maximum([5, 2, 8, 3], X).
+X = 8</code></pre></li>
+<li><p>Írjatok szabályt, amivel ki lehet számolni egy listában levő számok összegét!</p>
+<pre><code>?- összeg([5, 2, 8, 3], X).
+X = 18</code></pre></li>
+<li><p>Írjatok szabályt, ami eldönti, hogy egy lista elemei növekvő sorrendben vannak-e!</p>
+<pre><code>?- növekvő([2, 5, 6, 8]).
+true
+?- növekvő([2, 6, 5, 8]).
+false</code></pre></li>
+<li><p>Írjatok szabályt, amivel egy listából ki lehet választani elemeket úgy, hogy az összegük egy adott szám legyen!</p>
+<pre><code>?- részösszeg([1, 2, 5, 3, 2], 5, X).
+X = [1, 2, 2]
+X = [2, 3]
+X = [5]
+...</code></pre></li>
+<li><p>Írjatok egy <code>között(N1, N2, X)</code> szabályt, ami eldönti, hogy az <code>X</code> az <code>N1</code> és az <code>N2</code> között van-e (a határokat beleértve)!</p>
+<pre><code>?- között(2, 5, 3).
+true
+?- között(2, 5, 5).
+true
+?- között(2, 5, X).
+X = 2
+X = 3
+...</code></pre></li>
+<li><p>Írjatok <code>ha</code>, <code>akkor</code>, <code>egyébként</code> és <code>:=</code> operátorokat, hogy lehessen ilyeneket írni:</p>
+<pre><code>ha X &gt; Y akkor Z := X egyébként Z := Y</code></pre>
+<p>Ehhez az kell, hogy a kifejezés így zárójeleződjön:</p>
+<pre><code>ha(akkor(&gt;(X, Y), egyébként(:=(Z, X), :=(Z, Y))))</code></pre>
+<p>Működjön az alábbi kérdés-felelet:</p>
+<pre><code>?- X = 2, Y = 3,
+   X2 = 2 * X, X4 = 4 * X,
+   ha Y &gt; X2 akkor Z := Y egyébként Z := X4,
+   ha Z &gt; 5 akkor W := 1 egyébként W := 0.
+X = 2
+Y = 3
+Z = 8
+W = 1
+X2 = 4
+X4 = 8</code></pre></li>
+</ol>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Ez a dokumentum az alábbi könyv 3.3-3.4. fejezete alapján készült:</p>
+<p>I. Bratko: <em>Prolog Programming for Artificial Intelligence</em>, 4th Ed., Pearson, 2011.</p>
+<p>Kizárólag prefix operátorokkal működnek a <em>Lisp</em> nyelvcsalád nyelvei (Common Lisp, Scheme, Clojure, Racket etc.) Ezeknél a funktor neve is a zárójelen belülre kerül, tehát a fenti példából ez lesz:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>(<span class="op">+</span> (<span class="op">*</span> <span class="dv">2</span> a) (<span class="op">*</span> b c))</span></code></pre></div>
+<p>Ennek az egyik előnye a következetesség, a másik pedig, hogy a műveletek kiterjeszthetőek több argumentumra. Lispben például értelmes a <code>(+ 1 2 3 4 5)</code> kifejezés, aminek az értéke 15.</p>
+<p>Kizárólag posztfix operátorokkal működnek a <em>veremnyelvek</em>, mint pl. a Forth vagy a PostScript. Itt minden operátornak csak egyféle aritása lehet, de cserébe megszabadulunk a zárójelektől. A fenti példa Forthban:</p>
+<pre class="forth"><code>2 a * b c * +</code></pre>
+<p>Ezt hívják <em>Reverse Polish Notation</em>-nek (RPN, “fordított lengyel jelölés”). Sok számológép(-app) is használja, én is mindig így szoktam számolni.</p>
+<p>A magyar nyelv ragozási rendszere mellett egy-egy operátorrá tett szó magában még nem képes természetes mondatok készítésére, de más nyelvekben ez nagyon jól működik. Ezek az ún. <em>izoláló</em> nyelvek - jellemzően ilyenek a (dél)kelet-ázsiai nyelvek, pl. kínai, indonéz vagy thai, de bizonyos mértékig az angol is.</p>
+<p>A Prolog beépítve tartalmaz néhány hasznos szabályt, amit most elkészítettünk:</p>
+<ul>
+<li><code>lnko</code> → <code>gcd</code> (de mint matematikai függvény)</li>
+<li><code>max</code> → <code>max</code> (de mint matematikai függvény)</li>
+<li><code>maximum</code> → <code>max_list</code></li>
+<li><code>összeg</code> → <code>sum_list</code></li>
+</ul>
+</body>
+</html>
