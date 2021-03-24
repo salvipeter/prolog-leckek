@@ -36,7 +36,7 @@ Ez így elég absztrakt, nézzünk egy pár példát!
 2. A `-a * (b + c * d)` kiértékelését először a zárójeles résszel kell kezdeni. Ezt nem értelmezhetem úgy, hogy `(b + c) * d`, mivel a `+` precedenciája nagyobb a `*`-énál, az `yfx` szerint pedig kisebbnek vagy egyenlőnek kéne lennie. Ezért a helyes értelmezés a `b + (c * d)`. Ezután jön a 200-as precedenciájú 1-argumentumú `-` operátor, és végül a 400-as precedenciájú `*`.
 3. A `P :- Q, R, S` kifejezés helyes zárójelezése `P :- (Q, (R, S))`, mivel az `xfy` típusú vessző operátort **jobbról balra** kell zárójelezni, és a `:-` operátor precedenciája a legmagasabb.
 4. Mivel a `:-` operátor `xfx` típusú, ezért **nem szerepelhet a saját argumentumaként**. Egy olyan kifejezésnek, hogy `a :- b :- c`, nincsen helyes zárójelezése.
-5. A negálás `fy` típusú, ezért a `--a` kifejezés is elfogadható; ha `fx` típusú lenne, akkor ezt zárójelezni kéne `-(-a)` alakban.
+5. A negálás `fy` típusú, ezért a `- -a` kifejezés is elfogadható; ha `fx` típusú lenne, akkor ezt zárójelezni kéne `-(-a)` alakban.
 
 Nem csak különleges karakterekkel megadott funktorokból készíthetünk operátorokat, hanem tetszőleges nevűekből. Ez magyarul kevésbé természetes, mint angolul, de azért nézzünk erre is példát!
 
@@ -311,7 +311,7 @@ Nézzük meg, mit csinál! Először beállítja `K1`-et és `K2`-t 1-re, majd m
    Működjön az alábbi kérdés-felelet:
 
        ?- X = 2, Y = 3,
-          X2 = 2 * X, X4 = 4 * X,
+          X2 is 2 * X, X4 is 4 * X,
           ha Y > X2 akkor Z := Y egyébként Z := X4,
           ha Z > 5 akkor W := 1 egyébként W := 0.
        X = 2

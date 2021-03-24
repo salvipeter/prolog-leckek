@@ -239,7 +239,7 @@
 <li>A <code>-a * (b + c * d)</code> kiértékelését először a zárójeles résszel kell kezdeni. Ezt nem értelmezhetem úgy, hogy <code>(b + c) * d</code>, mivel a <code>+</code> precedenciája nagyobb a <code>*</code>-énál, az <code>yfx</code> szerint pedig kisebbnek vagy egyenlőnek kéne lennie. Ezért a helyes értelmezés a <code>b + (c * d)</code>. Ezután jön a 200-as precedenciájú 1-argumentumú <code>-</code> operátor, és végül a 400-as precedenciájú <code>*</code>.</li>
 <li>A <code>P :- Q, R, S</code> kifejezés helyes zárójelezése <code>P :- (Q, (R, S))</code>, mivel az <code>xfy</code> típusú vessző operátort <strong>jobbról balra</strong> kell zárójelezni, és a <code>:-</code> operátor precedenciája a legmagasabb.</li>
 <li>Mivel a <code>:-</code> operátor <code>xfx</code> típusú, ezért <strong>nem szerepelhet a saját argumentumaként</strong>. Egy olyan kifejezésnek, hogy <code>a :- b :- c</code>, nincsen helyes zárójelezése.</li>
-<li>A negálás <code>fy</code> típusú, ezért a <code>--a</code> kifejezés is elfogadható; ha <code>fx</code> típusú lenne, akkor ezt zárójelezni kéne <code>-(-a)</code> alakban.</li>
+<li>A negálás <code>fy</code> típusú, ezért a <code>- -a</code> kifejezés is elfogadható; ha <code>fx</code> típusú lenne, akkor ezt zárójelezni kéne <code>-(-a)</code> alakban.</li>
 </ol>
 <p>Nem csak különleges karakterekkel megadott funktorokból készíthetünk operátorokat, hanem tetszőleges nevűekből. Ez magyarul kevésbé természetes, mint angolul, de azért nézzünk erre is példát!</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">op</span>(<span class="dv">600</span><span class="kw">,</span> xfx<span class="kw">,</span> benne_van)<span class="kw">.</span></span>
@@ -429,7 +429,7 @@ X = 3
 <pre><code>ha(akkor(&gt;(X, Y), egyébként(:=(Z, X), :=(Z, Y))))</code></pre>
 <p>Működjön az alábbi kérdés-felelet:</p>
 <pre><code>?- X = 2, Y = 3,
-   X2 = 2 * X, X4 = 4 * X,
+   X2 is 2 * X, X4 is 4 * X,
    ha Y &gt; X2 akkor Z := Y egyébként Z := X4,
    ha Z &gt; 5 akkor W := 1 egyébként W := 0.
 X = 2
