@@ -31,12 +31,22 @@ Hétféle típus létezik:
 
 Ezeket úgy kell értelmezni, hogy az `f` mutatja az operátor helyét, az `x` és `y` pedig az argumentumo(ka)t. Ha egy argumentum `x`-el van jelölve, akkor - amennyiben az is egy operátoros kifejezés - az `x` operátorának szigorúan kisebb precedenciájúnak kell lennie az `f`-nél. Ezzel szemben az `y` esetében ez nem csak kisebb lehet, hanem egyenlő is. A zárójelezés minden előtt elsőbbséget élvez (0 a precedenciája).
 
-Ez így elég absztrakt, nézzünk egy pár példát!
-1. Mivel a `+` operátor `yfx` típusú, ha egy `a + b + c` kifejezésem van, akkor ezt nem értelmezhetem úgy, hogy `a + (b + c)`, mert akkor az első `+` jobboldalán levő `b + c` kifejezés operátorának precedenciája megegyezik a `+`-éval (hiszen az is `+`). Viszont ha `(a + b) + c` módon értelmezem, ez a probléma nem lép fel: a második `+` baloldalán levő `a + b` kifejezés precedenciája ugyan ugyanaz, de ez megengedett mert a baloldali egy `y`-argumentum. Tehát az `yfx` operátorokat **balról jobbra** kell zárójelezni.
-2. A `-a * (b + c * d)` kiértékelését először a zárójeles résszel kell kezdeni. Ezt nem értelmezhetem úgy, hogy `(b + c) * d`, mivel a `+` precedenciája nagyobb a `*`-énál, az `yfx` szerint pedig kisebbnek vagy egyenlőnek kéne lennie. Ezért a helyes értelmezés a `b + (c * d)`. Ezután jön a 200-as precedenciájú 1-argumentumú `-` operátor, és végül a 400-as precedenciájú `*`.
-3. A `P :- Q, R, S` kifejezés helyes zárójelezése `P :- (Q, (R, S))`, mivel az `xfy` típusú vessző operátort **jobbról balra** kell zárójelezni, és a `:-` operátor precedenciája a legmagasabb.
+Nézzünk ez alapján egy pár példát arra, hogy a Prolog különböző kifejezéseket hogyan *elemez* (angolul *parsing*):
+1. Mivel a `+` operátor `yfx` típusú, ha egy `a + b + c` kifejezésem van, akkor ezt nem értelmezhetem úgy, hogy `+(a, +(b, c))`, mert akkor a külső `+` második argumentumában levő `+(b, c)` kifejezés precedenciája megegyezik a `+`-éval (hiszen az is `+`). Viszont ha `+(+(a, b), c)` módon értelmezem, ez a probléma nem lép fel: az első argumentumban levő `+(a, b)` kifejezés precedenciája ugyan ugyanaz, de ez megengedett, mert a baloldali egy `y`-argumentum. Tehát az `yfx` operátorokat **balról jobbra** kell zárójelezni.
+2. A `-a * (b + c * d)` kiértékelését először a zárójeles résszel kell kezdeni. Ezt nem értelmezhetem úgy, hogy `*(+(b, c), d)`, mivel a `+` precedenciája nagyobb a `*`-énál, az `yfx` szerint pedig kisebbnek vagy egyenlőnek kéne lennie. Ezért a helyes értelmezés a `+(b, *(c, d))`. Ezután jön a 200-as precedenciájú 1-argumentumú `-` operátor, és végül a 400-as precedenciájú `*`. A teljes kifejezés tehát így néz ki: `*(-(a),+(b,*(c,d)))`.
+3. A `P :- Q, R, S` kifejezés helyes zárójelezése `:-(P, ','(Q, ','(R, S)))`, mivel az `xfy` típusú vessző operátort **jobbról balra** kell zárójelezni, és a `:-` operátor precedenciája a legmagasabb.
 4. Mivel a `:-` operátor `xfx` típusú, ezért **nem szerepelhet a saját argumentumaként**. Egy olyan kifejezésnek, hogy `a :- b :- c`, nincsen helyes zárójelezése.
-5. A negálás `fy` típusú, ezért a `- -a` kifejezés is elfogadható; ha `fx` típusú lenne, akkor ezt zárójelezni kéne `-(-a)` alakban.
+5. A negálás `fy` típusú, ezért a `- -a` kifejezés is elfogadható (a két mínuszjelet el kell választani, különben egy `--` nevű operátor lesz belőle); ha `fx` típusú lenne, akkor ezt zárójelezni kéne `-(-a)` alakban.
+
+A precedencia tehát többek közt azt is meghatározza, hogy mi egy kifejezésben a legkülső (*elsődleges*) funktor, ezért pl.
+
+```
+?- X+Y = 2*3+5.
+X = 2*3
+Y = 5
+?- X*Y = 2*3+5.
+false
+```
 
 Nem csak különleges karakterekkel megadott funktorokból készíthetünk operátorokat, hanem tetszőleges nevűekből. Ez magyarul kevésbé természetes, mint angolul, de azért nézzünk erre is példát!
 
