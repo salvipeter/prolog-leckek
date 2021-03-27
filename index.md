@@ -14,3 +14,5 @@
    - [Projekt: Katamino](prolog005-project.html)
 6. [Különbség-listák, struktúrák kezelése, magasabb rendű szabályok, vezérlés](prolog006.html)
    - [Projekt: Kalah](prolog006-project.html)
+
+[Hova tovább? - Könyvajánló](books.html)
