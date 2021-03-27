@@ -6,7 +6,7 @@
 
 2. L. Sterling, E. Shapiro: *The Art of Prolog*, 2nd Ed., MIT Press, 1994.
 
-   Kezdő Prolog tankönyv, de sokkal mélyebben. Nagyon izgalmas példaprogramok vannak benne, mint pl. egy egyenletmegoldó vagy egy fordítóprogram.
+   Kezdő Prolog tankönyv, de sokkal több technikai háttérrel. Nagyon izgalmas példaprogramok vannak benne, mint pl. egy egyenletmegoldó vagy egy fordítóprogram.
 
 3. W.F. Clocksin, *Clause and Effect - Prolog Programming for the Working Programmer*, Springer, 1997.
 
@@ -20,6 +20,12 @@
 
    175 különféle nehézségű feladat megoldása Prologban, különböző témákban.
 
-6. W.F. Clocksin, Ch.S. Mellish, *Programming in Prolog - Using the ISO Standard*, 5th Ed., Springer, 2003.
+6. P. Deransart, A. Ed-Dbali, L. Cervoni, *Prolog: The Standard*, Springer, 1996.
 
    A Prolog szabvány bemutatása, jó referencia.
+
+A fentiek mind angolul vannak. Magyar nyelven:
+
+- Zs. Farkas, I. Futó, T. Langer, P. Szeredi, *Mprolog programozási nyelv*, Műszaki Könyvkiadó, 1989.
+
+Ez a Prolog programozás alapjain kívül tartalmaz az itthoni fejlesztésű Mprolog (*Modular Prolog*) rendszerre specifikus részeket is (kapcsolat más programnyelvekkel, grafika stb.) Ld. még a Neumann János Számítógép-tudományi Társaság informatikatörténeti fórumának [erről szóló oldalát](https://itf.njszt.hu/termek_software/mprolog-modular-prolog-rendszer).
