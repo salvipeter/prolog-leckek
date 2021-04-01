@@ -714,6 +714,8 @@ Nyertem.
 
 3. Írjátok át a programot úgy, hogy a bonyolultabb (de izgalmasabb) [Oware](https://boardgamegeek.com/boardgame/28302/oware) játék szabályait kövesse!
 
+4. Írjatok dámajátékot! A játék kerete legyen ugyanaz, és a számítógép használja a fenti alfa-béta nyírás algoritmust.
+
 ### A teljes program
 
 ```prolog
