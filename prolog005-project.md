@@ -161,6 +161,10 @@ t k k k z z c c c
 true 
 ```
 
+### Feladat
+
+A Katamino szabályai szerint a kirakandó téglalap magassága mindig 5. Oldjuk fel ezt a korlátot! Írjátok át a programot úgy, hogy a `katamino` szabály paraméterben kapja meg a magasságot is, és ennek megfelelő megoldást keressen! A program vegye észre rögtön, ha a magasság nem illik a megkapott alakzatok számához (pl. 10 alakzat és 7-es magasság). Keressetek megoldást a 3x20, 4x15, 5x12, 6x10 téglalapok kitöltésére! (Tipp: a szabályokban az eddigi `N` paramétert cseréljétek `N-M` párra.)
+
 ### A teljes program
 
 ```prolog
