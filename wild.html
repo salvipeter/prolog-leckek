@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prolog mélyvíz</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 40em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="prolog-mélyvíz">Prolog mélyvíz</h1>
+<p>Most, hogy már tisztában vagyunk a Prolog alapjaival, nézzük meg, hogy hogy néz ki egy “igazi” Prolog program: az asszociációs listákat megvalósító könyvtár SWI Prologban.</p>
+<p>Az alábbiakban a <a href="https://github.com/SWI-Prolog/swipl-devel/blob/97a77e76b2013d65cf34e5ea31f6330ca42660f9/library/assoc.pl">forráskódot</a> <em>teljesen változatlan formában</em> közlöm, csak közbeszúrok magyarázatokat.</p>
+<h2 id="háttér">Háttér</h2>
+<p>Mielőtt megnéznénk magát a programot, vizsgáljuk meg, hogy mi is a probléma, amire megoldást ad, és mi ennek az elméleti háttere.</p>
+<h3 id="asszociációs-listák">Asszociációs listák</h3>
+<p>Programozáskor nagyon gyakran előfordul, hogy adatokat <em>kulcsokhoz</em> rendelünk, amelyek szerint később ki akarjuk majd keresni őket. Az a feltételezés, hogy különböző adatokhoz mindig különböző kulcs tartozik. Ilyen kulcs lehet pl. egy bankban a számlaszám, amihez a megfelelő számla adatait rendelik. A kulcs-érték párokat tároló adatstruktúrákat gyakran nevezik <em>szótáraknak</em> is, hiszen egy szótárban (enciklopédiában stb.) is egy-egy címszóhoz vannak rendelve a jelentések/magyarázatok.</p>
+<p>A szótár legegyszerűbb megvalósítása az <em>asszociációs lista</em>, ahol a párokat egy listában tároljuk:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>empty_assoc([])<span class="kw">.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>put_assoc(<span class="dt">K</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> [<span class="dt">K</span><span class="fu">-</span><span class="dt">V</span><span class="fu">|</span><span class="dt">A</span>])<span class="kw">.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">K</span><span class="fu">-</span><span class="dt">V</span><span class="fu">|</span><span class="dt">_</span>]<span class="kw">,</span> <span class="dt">V</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">K1</span><span class="fu">-</span><span class="dt">_</span><span class="fu">|</span><span class="dt">A</span>]<span class="kw">,</span> <span class="dt">V</span>) <span class="kw">:-</span> <span class="dt">K</span> <span class="kw">\=</span> <span class="dt">K1</span><span class="kw">,</span> get_assoc(<span class="dt">K</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">V</span>)<span class="kw">.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>del_assoc(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">K</span><span class="fu">-</span><span class="dt">V</span><span class="fu">|</span><span class="dt">A</span>]<span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">A1</span>) <span class="kw">:-</span> <span class="kw">!,</span> del_assoc_others(<span class="dt">K</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">A1</span>)<span class="kw">.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>del_assoc(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">K1</span><span class="fu">-</span><span class="dt">V1</span><span class="fu">|</span><span class="dt">A</span>]<span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> [<span class="dt">K1</span><span class="fu">-</span><span class="dt">V1</span><span class="fu">|</span><span class="dt">A1</span>]) <span class="kw">:-</span> <span class="dt">K</span> <span class="kw">\=</span> <span class="dt">K1</span><span class="kw">,</span> del_assoc(<span class="dt">K</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">A1</span>)<span class="kw">.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>del_assoc_others(<span class="dt">_</span><span class="kw">,</span> []<span class="kw">,</span> []) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>del_assoc_others(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">K</span><span class="fu">-</span><span class="dt">_</span><span class="fu">|</span><span class="dt">A</span>]<span class="kw">,</span> <span class="dt">A1</span>) <span class="kw">:-</span> <span class="kw">!,</span> del_assoc_others(<span class="dt">K</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">A1</span>)<span class="kw">.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>del_assoc_others(<span class="dt">K</span><span class="kw">,</span> [<span class="dt">K1</span><span class="fu">-</span><span class="dt">V1</span><span class="fu">|</span><span class="dt">A</span>]<span class="kw">,</span> [<span class="dt">K1</span><span class="fu">-</span><span class="dt">V1</span><span class="fu">|</span><span class="dt">A1</span>]) <span class="kw">:-</span> <span class="dt">K</span> <span class="kw">\=</span> <span class="dt">K1</span><span class="kw">,</span> del_assoc_others(<span class="dt">K</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">A1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Itt az üres szótár egyszerűen egy üres lista; a <code>put_assoc</code> egy asszociációs lista elejére rak be egy kulcs-érték párt; a <code>get_assoc</code> megkeresi a listában az első adott kulcsú értéket; a <code>del_assoc</code> pedig kitörli ugyanezt. A törlésnél figyelni kell arra, hogy az összes lehetséges előfordulást töröljük, ezért ez mindig a teljes listán végigmegy.</p>
+<p>Amíg nincsen nagyon sok adatunk, ez a megoldás elég jól működik. Az egyszerűségnek azonban ára van: mind a keresés, mind a törlés általános esetben az elemek számával arányos. Ezt úgy szokás megfogalmazni, hogy a keresés és törlés komplexitása <em>O</em>(<em>n</em>), ahol <em>n</em> az elemek száma. Ez az <em>O</em> (kiolvasva <em>ordó</em>) azt mondja, hogy nem biztos, hogy pontosan <em>n</em> művelet, lehet hogy <em>n</em>+2, vagy <em>5n</em>, de ha az <em>n</em>-et 100-szor akkorára választom, akkor a műveletigény is körülbelül 100-szor akkorára nő. (Egy <em>O</em>(<em>n</em>^2)-es algoritmus esetén ilyenkor a műveletigény kb. a 10 000-szeresére változna.)</p>
+<p>A következőkben bemutatott módszer olyan, hogy mindhárom művelet (beszúrás, keresés, törlés) egyaránt <em>O</em>(log <em>n</em>) komplexitású, tehát ha az <em>n</em> a 100-szorosára nő, akkor a műveletigény kb. 6-7-szeresére változik. A beszúrás a fenti egyszerű verzióban gyorsabb - <em>O</em>(1) -, de a keresés és törlés hatkékonysága miatt érdemesebb az alábbi adatstruktúrákat alkalmazni.</p>
+<h3 id="bináris-keresőfák">Bináris keresőfák</h3>
+<p>Tegyük fel, hogy a kulcsok sorbarendezhetőek (Prologban tetszőleges két kifejezés sorbarendezhető a <code>@&lt;</code> operátorral). Ekkor a kulcsokat egy olyan (általában fejjel lefele ábrázolt) fa alakú struktúrába lehet szervezni, ami mindig legfeljebb kétfelé ágazik el (ezért <em>bináris fának</em> hívják). Nézzünk egy példát, ahol a kulcsok számok:</p>
+<pre><code>       8
+      / \
+     /   \
+    /     \
+   3      10
+  / \       \
+ /   \       \
+1     6      14
+     / \     /
+    4   7   13</code></pre>
+<p>Itt a fa <em>gyökere</em> a 8, belső <em>csúcsok</em> a 3, 10, 6 és 14, és a fa <em>levelei</em> az 1, 4, 7 és 13. Amikor egy csúcsból csak egy ág megy tovább (pl. 10, 14), olyankor is az ág vagy balra, vagy jobbra megy. Egy ilyen fát könnyen le tudunk írni Prologban, például egy <code>fa</code> struktúrával, aminek az első argumentuma a kulcs, a második és harmadik pedig a bal- és jobboldali ág (a nem létező ágakat jelölje mondjuk a <code>-</code>):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa(<span class="dv">8</span><span class="kw">,</span> fa(<span class="dv">3</span><span class="kw">,</span> fa(<span class="dv">1</span><span class="kw">,</span> <span class="fu">-</span><span class="kw">,</span> <span class="fu">-</span>)<span class="kw">,</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>            fa(<span class="dv">6</span><span class="kw">,</span> fa(<span class="dv">4</span><span class="kw">,</span> <span class="fu">-</span><span class="kw">,</span> <span class="fu">-</span>)<span class="kw">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                  fa(<span class="dv">7</span><span class="kw">,</span> <span class="fu">-</span><span class="kw">,</span> <span class="fu">-</span>)))<span class="kw">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      fa(<span class="dv">10</span><span class="kw">,</span> <span class="fu">-</span><span class="kw">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             fa(<span class="dv">14</span><span class="kw">,</span> fa(<span class="dv">13</span><span class="kw">,</span> <span class="fu">-</span><span class="kw">,</span> <span class="fu">-</span>)<span class="kw">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">-</span>)))</span></code></pre></div>
+<p>(Egy másik lehetőség, hogy a levelekre egy külön <code>levél</code> funktort használunk stb.)</p>
+<p>A fenti példában szereplő fának van egy különleges tulajdonsága: egy csúcs alatti baloldali ágon (és az abból kijövő ágakon stb.) minden elem kisebb, a jobboldali ágon pedig mindegyik nagyobb, mint a csúcsban levő érték. Az ilyen tulajdonságú fákat <em>keresőfának</em> nevezik.</p>
+<p>Ha meg akarunk keresni egy elemet, akkor elindulunk a gyökértől, és aszerint, hogy a keresett kulcs kisebb, vagy nagyobb, balra ill. jobbra megyünk tovább. Ezt addig folytatjuk, amíg meg nem találjuk a keresett elemet, vagy egy levélhez nem érünk. A keresés műveletigénye tehát a fa magasságával arányos. A beszúrásról és törlésről hasonlóan megmutatható, hogy a fa magasságától függ a komplexitásuk. Ha az adatok szépen egyenletesen helyezkednek el, akkor ez hozzávetőlegesen log <em>n</em> lesz (2-es alapú logaritmussal).</p>
+<p>Sajnos azonban ez nem feltétlenül teljesül - pl. ez is egy keresőfa:</p>
+<pre><code>          6
+         /
+        5
+       /
+      4
+     /
+    3
+   /
+  2
+ /
+1 </code></pre>
+<p>… de itt a fa magassága az elemek számával azonos.</p>
+<h3 id="avl-fák">AVL-fák</h3>
+<p>Egy lehetséges megoldása ennek a problémának az, hogy megköveteljük, hogy a fa mindig <em>kiegyensúlyozott</em> legyen, tehát minden csúcsnál a bal- és jobb ághoz tartozó részfa magassága legfeljebb 1-el különbözhet. A fenti példában a 8-as alatti két részfa magassága egyaránt 3, a 3-as alatti két részfa magassága 1 és 2, de pl. a 10-es alatti két részfa magassága 0 és 2, tehát ez nem kiegyensúlyozott. Ha a 10-14-13 hármast “átforgatjuk”, akkor kiegyensúlyozottá válik:</p>
+<pre><code>       8
+      / \
+     /   \
+    /     \
+   3      13
+  / \     / \
+ /   \   /   \
+1     6 10   14
+     / \
+    4   7</code></pre>
+<p>A beszúrás és törlés műveletekbe ilyen jellegű forgatásokat épít be az <em>AVL-fa</em>, hogy biztosítja a kiegyensúlyozottságot. Ezt a módszert 1962-ben publikálta két szovjet matematikus, Adelszon-Velszkij és Landisz, az ő vezetéknevükből származik az adastruktúra elnevezése.</p>
+<p>Az alább vizsgált program AVL-fát használ a szótár megvalósítására - a pontos részleteket majd útközben megbeszéljük. Kalandra fel!</p>
+<h2 id="a-program">A program</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*  Part of SWI-Prolog</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Author:        R.A.O&#39;Keefe, L.Damas, V.S.Costa, Glenn Burgess,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">                   Jiri Spitz and Jan Wielemaker</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    E-mail:        J.Wielemaker@vu.nl</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    WWW:           http://www.swi-prolog.org</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Copyright (c)  2004-2018, various people and institutions</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    All rights reserved.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Redistribution and use in source and binary forms, with or without</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    modification, are permitted provided that the following conditions</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">    are met:</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">    1. Redistributions of source code must retain the above copyright</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">       notice, this list of conditions and the following disclaimer.</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">    2. Redistributions in binary form must reproduce the above copyright</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">       notice, this list of conditions and the following disclaimer in</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">       the documentation and/or other materials provided with the</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">       distribution.</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">    COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">    POSSIBILITY OF SUCH DAMAGE.</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code></pre></div>
+<p>A <code>/*</code> és <code>*/</code> közti rész megjegyzésnek számít, olyan, mint ha minden sor elején lenne egy <code>%</code> szimbólum.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> module(assoc<span class="kw">,</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>          [ empty_assoc<span class="fu">/</span><span class="dv">1</span>,              <span class="co">% -Assoc</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            is_assoc<span class="fu">/</span><span class="dv">1</span>,                 <span class="co">% +Assoc</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            assoc_to_list<span class="fu">/</span><span class="dv">2</span>,            <span class="co">% +Assoc, -Pairs</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            assoc_to_keys<span class="fu">/</span><span class="dv">2</span>,            <span class="co">% +Assoc, -List</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            assoc_to_values<span class="fu">/</span><span class="dv">2</span>,          <span class="co">% +Assoc, -List</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            gen_assoc<span class="fu">/</span><span class="dv">3</span>,                <span class="co">% ?Key, +Assoc, ?Value</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            get_assoc<span class="fu">/</span><span class="dv">3</span>,                <span class="co">% +Key, +Assoc, ?Value</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            get_assoc<span class="fu">/</span><span class="dv">5</span>,                <span class="co">% +Key, +Assoc0, ?Val0, ?Assoc, ?Val</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            list_to_assoc<span class="fu">/</span><span class="dv">2</span>,            <span class="co">% +List, ?Assoc</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            map_assoc<span class="fu">/</span><span class="dv">2</span>,                <span class="co">% :Goal, +Assoc</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            map_assoc<span class="fu">/</span><span class="dv">3</span>,                <span class="co">% :Goal, +Assoc0, ?Assoc</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            max_assoc<span class="fu">/</span><span class="dv">3</span>,                <span class="co">% +Assoc, ?Key, ?Value</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            min_assoc<span class="fu">/</span><span class="dv">3</span>,                <span class="co">% +Assoc, ?Key, ?Value</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            ord_list_to_assoc<span class="fu">/</span><span class="dv">2</span>,        <span class="co">% +List, ?Assoc</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>            put_assoc<span class="fu">/</span><span class="dv">4</span>,                <span class="co">% +Key, +Assoc0, +Value, ?Assoc</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            del_assoc<span class="fu">/</span><span class="dv">4</span>,                <span class="co">% +Key, +Assoc0, ?Value, ?Assoc</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            del_min_assoc<span class="fu">/</span><span class="dv">4</span>,            <span class="co">% +Assoc0, ?Key, ?Value, ?Assoc</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            del_max_assoc<span class="fu">/</span><span class="dv">4</span>             <span class="co">% +Assoc0, ?Key, ?Value, ?Assoc</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>          ])<span class="kw">.</span></span></code></pre></div>
+<p>Az SWI Prologban a programok könyvtárakba vagy <em>modulokba</em> vannak szervezve. Itt az <code>assoc</code> modul definícióját látjuk: a <code>module</code> első argumentuma a modul neve, a második pedig a modul által szolgáltatott szabályok listája (aritásokkal együtt). A megjegyzések azt is mutatják, hogy az egyes argumentumok mit jelentenek, illetve hogy változót vagy értéket várnak (ld. 5. lecke).</p>
+<p>A modul definíciójában nem szereplő szabályok “kívülről” (más programfájlokból) nem látszanak. A fenti kezdetleges asszociációs listánál például a <code>del_assoc_others</code> egy ilyen lokális szabály lenne, amit a <code>del_assoc</code> ugyan használ, de a könyvtárat használó más program már nem lát.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> autoload(library(error)<span class="kw">,</span>[must_be<span class="fu">/</span><span class="dv">2</span>,domain_error<span class="fu">/</span><span class="dv">2</span>])<span class="kw">.</span></span></code></pre></div>
+<p>Ez a sor láthatóvá teszi az <code>error</code> modul által szolgáltatott <code>must_be</code> és <code>domain_error</code> szabályokat. Az <code>autoload</code> helyett írhatunk <code>use_module</code>-t is, a különbség az, hogy az <code>autoload</code> a szabályok betöltését csak akkor végzi el, amikor ténylegesen szükség van rájuk, míg a <code>use_module</code> rögtön e sor feldolgozásakor.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">/** &lt;module&gt; Binary associations</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">Assocs are Key-Value associations implemented as  a balanced binary tree</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">(AVL tree).</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">@see            library(pairs), library(rbtrees)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">@author         R.A.O&#39;Keefe, L.Damas, V.S.Costa and Jan Wielemaker</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code></pre></div>
+<p>A <code>/** ... */</code> között levő megjegyzések speciális formátumúak. Ezeket egy külön program feldolgozza, és automatikusan generálja a könyvtárhoz tartozó <a href="https://www.swi-prolog.org/pldoc/doc/_SWI_/library/assoc.pl">dokumentációt</a>. A <code>&lt;module&gt;</code>, <code>@see</code> és <code>@author</code> ennek a külső programnak adott instrukciók.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> meta_predicate</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    map_assoc(<span class="dv">1</span><span class="kw">,</span> ?)<span class="kw">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    map_assoc(<span class="dv">2</span><span class="kw">,</span> ?<span class="kw">,</span> ?)<span class="kw">.</span></span></code></pre></div>
+<p>A <code>meta_predicate</code> az utána következő, vesszővel elválasztott szabályokat meta-szabályokként deklarálja, tehát ezek olyan szabályok, amelyek más szabályokon operálnak. Az argumentumoknál a <code>+</code>, <code>-</code> és <code>?</code> jelentése ugyanaz, mint a kommenteknél; a számok azt jelölik, hogy ott az argumentum egy szabály, aminek ennyivel kevesebb argumentuma van.</p>
+<p>Például a 6. leckében látott <code>maplist/2</code> és <code>maplist/3</code> is pontosan így deklarálható. A hasonlatosság nem véletlen - a <code>map_assoc</code> ugyanúgy egy szabályt fog alkalmazni minden elemre, csak nem egy <em>lista</em> minden elemére, hanem egy asszociációs struktúra (AVL-fa) minden elemére.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  empty_assoc(?Assoc) is semidet.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Is true if Assoc is the empty association list.</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>empty_assoc(t)<span class="kw">.</span></span></code></pre></div>
+<p>A <code>%!</code>-el kezdődő megjegyzések szintén dokumentáció-generálásra valók, és az azt követő szabályra vonatkoznak. Az üres AVL-fát itt a <code>t</code> atom fogja jelölni (nem a <code>-</code>, mint fent).</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  assoc_to_list(+Assoc, -Pairs) is det.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Translate Assoc to a list Pairs of Key-Value pairs.  The keys</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   in Pairs are sorted in ascending order.</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>assoc_to_list(<span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">List</span>) <span class="kw">:-</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    assoc_to_list(<span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>assoc_to_list(t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> <span class="dt">Rest</span>) <span class="kw">:-</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    assoc_to_list(<span class="dt">L</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> [<span class="dt">Key</span><span class="fu">-</span><span class="dt">Val</span><span class="fu">|</span><span class="dt">More</span>])<span class="kw">,</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    assoc_to_list(<span class="dt">R</span><span class="kw">,</span> <span class="dt">More</span><span class="kw">,</span> <span class="dt">Rest</span>)<span class="kw">.</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>assoc_to_list(t<span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> <span class="dt">List</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az <code>assoc_to_list</code> szabály egy AVL-fából párok listáját hozza létre. Akkumulátoros megoldás (ld. 6. lecke), tehát egy üres akkumulátor paraméterrel meghívja a 3-argumentumú változatot. Az AVL-fa egy csúcsát a <code>t(K,V,B,L,R)</code> struktúra írja le, ahol <code>K</code> és <code>V</code> a kulcs és a hozzá tartozó érték, <code>B</code> a kiegyensúlyozáshoz használt szimbólum (<code>-</code> ha a két részfa azonos magasságú, <code>&lt;</code> ill. <code>&gt;</code> ha a baloldali ill. jobboldali magasabb), <code>L</code> és <code>R</code> pedig a bal- és jobboldali részfa.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  assoc_to_keys(+Assoc, -Keys) is det.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Keys is the list of keys   in Assoc. The keys are sorted</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   in ascending order.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>assoc_to_keys(<span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">List</span>) <span class="kw">:-</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    assoc_to_keys(<span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>assoc_to_keys(t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> <span class="dt">Rest</span>) <span class="kw">:-</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    assoc_to_keys(<span class="dt">L</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> [<span class="dt">Key</span><span class="fu">|</span><span class="dt">More</span>])<span class="kw">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    assoc_to_keys(<span class="dt">R</span><span class="kw">,</span> <span class="dt">More</span><span class="kw">,</span> <span class="dt">Rest</span>)<span class="kw">.</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>assoc_to_keys(t<span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> <span class="dt">List</span>)<span class="kw">.</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">%!  assoc_to_values(+Assoc, -Values) is det.</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Values is the  list  of   values  in  Assoc.  Values are</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">%   ordered in ascending  order  of  the   key  to  which  they were</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">%   associated.  Values may contain duplicates.</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>assoc_to_values(<span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">List</span>) <span class="kw">:-</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    assoc_to_values(<span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> [])<span class="kw">.</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>assoc_to_values(t(<span class="dt">_</span><span class="kw">,</span><span class="dt">Value</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> <span class="dt">Rest</span>) <span class="kw">:-</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    assoc_to_values(<span class="dt">L</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> [<span class="dt">Value</span><span class="fu">|</span><span class="dt">More</span>])<span class="kw">,</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    assoc_to_values(<span class="dt">R</span><span class="kw">,</span> <span class="dt">More</span><span class="kw">,</span> <span class="dt">Rest</span>)<span class="kw">.</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>assoc_to_values(t<span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> <span class="dt">List</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez a két szabály gyakorlatilag ugyanaz, mint az előző, csak nem kulcs-érték párokat gyűjtenek ki listába, hanem rendre kulcsokat illetve értékeket.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  is_assoc(+Assoc) is semidet.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Assoc is an association list. This predicate checks</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   that the structure is valid, elements are in order, and tree</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   is balanced to the extent guaranteed by AVL trees.  I.e.,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   branches of each subtree differ in depth by at most 1.</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>is_assoc(<span class="dt">Assoc</span>) <span class="kw">:-</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    is_assoc(<span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">_Min</span><span class="kw">,</span> <span class="dt">_Max</span><span class="kw">,</span> <span class="dt">_Depth</span>)<span class="kw">.</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>is_assoc(t<span class="kw">,</span><span class="dt">X</span><span class="kw">,</span><span class="dt">X</span><span class="kw">,</span><span class="dv">0</span>) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>is_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t<span class="kw">,</span>t)<span class="kw">,</span><span class="dt">K</span><span class="kw">,</span><span class="dt">K</span><span class="kw">,</span><span class="dv">1</span>) <span class="kw">:-</span> <span class="kw">!,</span> <span class="dt">ground</span>(<span class="dt">K</span>)<span class="kw">.</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>is_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span>t<span class="kw">,</span>t(<span class="dt">RK</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t<span class="kw">,</span>t))<span class="kw">,</span><span class="dt">K</span><span class="kw">,</span><span class="dt">RK</span><span class="kw">,</span><span class="dv">2</span>) <span class="kw">:-</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Ensure right side Key is &#39;greater&#39; than K</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span> <span class="dt">ground</span>((<span class="dt">K</span><span class="kw">,</span><span class="dt">RK</span>))<span class="kw">,</span> <span class="dt">K</span> <span class="fu">@&lt;</span> <span class="dt">RK</span><span class="kw">.</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>is_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span>t(<span class="dt">LK</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t<span class="kw">,</span>t)<span class="kw">,</span>t)<span class="kw">,</span><span class="dt">LK</span><span class="kw">,</span><span class="dt">K</span><span class="kw">,</span><span class="dv">2</span>) <span class="kw">:-</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Ensure left side Key is &#39;less&#39; than K</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span> <span class="dt">ground</span>((<span class="dt">LK</span><span class="kw">,</span><span class="dt">K</span>))<span class="kw">,</span> <span class="dt">LK</span> <span class="fu">@&lt;</span> <span class="dt">K</span><span class="kw">.</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>is_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span><span class="dt">Min</span><span class="kw">,</span><span class="dt">Max</span><span class="kw">,</span><span class="dt">Depth</span>) <span class="kw">:-</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    is_assoc(<span class="dt">L</span><span class="kw">,</span><span class="dt">Min</span><span class="kw">,</span><span class="dt">LMax</span><span class="kw">,</span><span class="dt">LDepth</span>)<span class="kw">,</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    is_assoc(<span class="dt">R</span><span class="kw">,</span><span class="dt">RMin</span><span class="kw">,</span><span class="dt">Max</span><span class="kw">,</span><span class="dt">RDepth</span>)<span class="kw">,</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Ensure Balance matches depth</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compare</span>(<span class="dt">Rel</span><span class="kw">,</span><span class="dt">RDepth</span><span class="kw">,</span><span class="dt">LDepth</span>)<span class="kw">,</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    balance(<span class="dt">Rel</span><span class="kw">,</span><span class="dt">B</span>)<span class="kw">,</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Ensure ordering</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ground</span>((<span class="dt">LMax</span><span class="kw">,</span><span class="dt">K</span><span class="kw">,</span><span class="dt">RMin</span>))<span class="kw">,</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">LMax</span> <span class="fu">@&lt;</span> <span class="dt">K</span><span class="kw">,</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">K</span> <span class="fu">@&lt;</span> <span class="dt">RMin</span><span class="kw">,</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Depth</span> <span class="dt">is</span> <span class="dt">max</span>(<span class="dt">LDepth</span><span class="er">,</span> <span class="dt">RDepth</span>)<span class="dt">+</span><span class="dv">1</span><span class="kw">.</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co">% Private lookup table matching comparison operators to Balance operators used in tree</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>balance(<span class="kw">=,</span><span class="fu">-</span>)<span class="kw">.</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>balance(<span class="dt">&lt;</span><span class="kw">,</span><span class="dt">&lt;</span>)<span class="kw">.</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>balance(<span class="dt">&gt;</span><span class="kw">,</span><span class="dt">&gt;</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az <code>is_assoc</code> ellenőrzi, hogy a paraméterben kapott kifejezés egy helyes AVL-fa-e. Az első szabály csak meghívja a 4-argumentumú verziót. A többi az 5 lehetséges esetet kezeli:</p>
+<ol>
+<li><p>Az <em>üres fa</em> egy helyes AVL-fa. (A többi paraméter értéke itt érdektelen, de azért valami értelmesre vannak beállítva.)</p></li>
+<li><p>A <em>levél</em> minimuma és maximuma is a levélben szereplő kulcs, a mélysége pedig 1. A <code>ground</code> azt ellenőrzi, hogy a kulcsban nem szerepel ismeretlen változó.</p></li>
+<li><p>Ha csak a <em>baloldali részfa üres</em>, a jobboldali részfa alatti részfák üresek kell, hogy legyenek, és az egész fa mélysége 2. Ellenőrzi, hogy a kulcsokban nincsenek ismeretlenek, és a jobboldali részfa kulcsa nagyobb, mint a gyökéré.</p></li>
+<li><p>Ha csak a <em>jobboldali részfa üres</em>, akkor ugyanez fordítva.</p></li>
+<li><p>Ha <em>egyik részfa sem üres</em>, akkor rekurzívan ellenőrzi mindkettőt. A fa minimuma a baloldali részfa minimuma, a maximuma pedig a jobboldali részfa maximuma lesz. A részfák mélységét összehasonlítja a <code>compare</code> segítségével, ami az első argumentumban <code>&lt;</code>, <code>=</code> vagy <code>&gt;</code> lesz. Ellenőrzi, hogy ennek megfelel-e a fában szereplő <code>B</code> szimbólum (a <code>balance</code> az <code>=</code>-ből <code>-</code> jelet csinál), és hogy a kulcs a baloldali maximum és a jobboldali minimum közé esik. A mélység eggyel több, mint a két részfa mélysége közül a nagyobbik.</p></li>
+</ol>
+<div class="sourceCode" id="cb15"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  gen_assoc(?Key, +Assoc, ?Value) is nondet.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Value is an association in Assoc. Enumerates keys in</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   ascending order on backtracking.</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   @see get_assoc/3.</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>gen_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">Value</span>) <span class="kw">:-</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    (   <span class="dt">ground</span>(<span class="dt">Key</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">-&gt;</span>  get_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">Value</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span>   gen_assoc_(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">Value</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    )<span class="kw">.</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>gen_assoc_(<span class="dt">Key</span><span class="kw">,</span> t(<span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    gen_assoc_(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>gen_assoc_(<span class="dt">Key</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>gen_assoc_(<span class="dt">Key</span><span class="kw">,</span> t(<span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    gen_assoc_(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A <code>gen_assoc</code> egy olyan keresés, ami fordítva is tud működni: meg tud keresni egy adott értékhez tartozó kulcsot (természetesen ez nem lesz hatékony), vagy ha az érték sincsen megadva, akkor végigmegy az összes kulcs-érték páron. Ha a kulcs meg van adva, akkor ugyanazt csinálja, mint a <code>get_assoc</code>; a tényleges implementáció a <code>gen_assoc_</code> szabályban van.</p>
+<p>Mivel először a baloldali részfát vizsgálja, utána a gyökérben levő értéket, és végül a jobboldali részfát (<em>infix</em> bejárás), a kulcsokat növekvő sorrendben fogja végigvenni.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  get_assoc(+Key, +Assoc, -Value) is semidet.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Value is an association in Assoc.</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   @error type_error(assoc, Assoc) if Assoc is not an association list.</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    must_be(assoc<span class="kw">,</span> <span class="dt">Assoc</span>)<span class="kw">,</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    get_assoc_(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Assoc</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> if(current_predicate(<span class="st">&#39;$</span><span class="st">btree_find_node</span><span class="st">&#39;</span><span class="fu">/</span><span class="dv">5</span>))<span class="kw">.</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>get_assoc_(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Tree</span> <span class="fu">\==</span> t<span class="kw">,</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;$</span><span class="st">btree_find_node</span><span class="st">&#39;</span>(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Tree</span><span class="kw">,</span> <span class="bn">0x010405</span><span class="kw">,</span> <span class="dt">Node</span><span class="kw">,</span> <span class="kw">=</span>)<span class="kw">,</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arg</span>(<span class="dv">2</span><span class="kw">,</span> <span class="dt">Node</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> else<span class="kw">.</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>get_assoc_(<span class="dt">Key</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compare</span>(<span class="dt">Rel</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    get_assoc(<span class="dt">Rel</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="kw">=,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">&lt;</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Tree</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    get_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">&gt;</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    get_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> endif<span class="kw">.</span></span></code></pre></div>
+<p>Megadott kulcs alapján keres. A <code>must_be</code> ellenőrzi, hogy az <code>Assoc</code> változó <code>assoc</code> “típusú”-e - ehhez a <code>has_type</code> szabályt használja, amit majd még ki kell bővíteni, hogy értelmezze az <code>assoc</code> típust (ld. fájl vége).</p>
+<p>Az <code>:- if(X). ... :- else. ... :- endif.</code> kifejezések a fordítónak szólnak: ha <code>X</code> teljesül, akkor az <code>:- if(X).</code> utáni, ha nem, akkor az <code>:- else.</code> utáni kifejezést kell csak lefordítani. A <code>current_predicate</code> azt ellenőrzi, hogy a zárójelben levő szabály létezik-e. Jelen esetben azt nézi meg, hogy a <code>'$btree_find_node'/5</code> definiálva van-e; ez egy C programnyelven írt, bináris fában kereső, <a href="https://github.com/SWI-Prolog/swipl-devel/blob/master/src/pl-btree.c">nagyon hatékony eljárás</a>.</p>
+<p>A <code>\==</code> operátor az <code>==</code> tagadása, ami (egyesítés nélküli) azonosságot tesztel, tehát pl. egy változó csak önmagával vagy egy vele már korábban egyesített változóval lesz azonos. A <code>'$btree_find_node'</code>-ban szereplő furcsa szám azt kódolja le, hogy a <code>t(K,V,B,L,R)</code> struktúrában a kulcs az első, a bal- és jobboldali részfa pedig rendre a negyedik és ötödik argumentum. A <code>Node</code> a kulcsot tartalmazó csúcsot adja vissza (ha szerepelt a fában), az utolsó argumentum pedig <code>=</code>, <code>&lt;</code> vagy <code>&gt;</code>, attól függően, hogy megtalálta-e az elemet, vagy pedig új bal- ill. jobb-levélként kéne felvenni a fába.</p>
+<p>Amennyiben ez a keresőalgoritmus nem elérhető, az <code>:- else</code> után található egy tisztán Prologban írt alternatíva, ami nagyon könnyen érthető.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  get_assoc(+Key, +Assoc0, ?Val0, ?Assoc, ?Val) is semidet.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Val0 is in Assoc0 and Key-Val is in Assoc.</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">Key</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">NV</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">NL</span><span class="kw">,</span><span class="dt">NR</span>)<span class="kw">,</span> <span class="dt">NVal</span>) <span class="kw">:-</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compare</span>(<span class="dt">Rel</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">,</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    get_assoc(<span class="dt">Rel</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NV</span><span class="kw">,</span> <span class="dt">NL</span><span class="kw">,</span> <span class="dt">NR</span><span class="kw">,</span> <span class="dt">NVal</span>)<span class="kw">.</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="kw">=,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NVal</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">NVal</span>)<span class="kw">.</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">&lt;</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NL</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">NVal</span>) <span class="kw">:-</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    get_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NL</span><span class="kw">,</span> <span class="dt">NVal</span>)<span class="kw">.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>get_assoc(<span class="dt">&gt;</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> <span class="dt">NR</span><span class="kw">,</span> <span class="dt">NVal</span>) <span class="kw">:-</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    get_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NR</span><span class="kw">,</span> <span class="dt">NVal</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez a változat arra használható, hogy egy már létező kulcshoz tartozó értéket lecseréljünk. A harmadik argumentum a kulcshoz tartozó régi érték, a negyedik az így keletkező AVL-fa, és az utolsó az új érték.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  list_to_assoc(+Pairs, -Assoc) is det.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Create an association from a list Pairs of Key-Value pairs. List</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   must not contain duplicate keys.</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   @error domain_error(unique_key_pairs, List) if List contains duplicate keys</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>list_to_assoc(<span class="dt">List</span><span class="kw">,</span> <span class="dt">Assoc</span>) <span class="kw">:-</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    (  <span class="dt">List</span> <span class="kw">=</span> [] <span class="kw">-&gt;</span> <span class="dt">Assoc</span> <span class="kw">=</span> t</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span>  keysort(<span class="dt">List</span><span class="kw">,</span> <span class="dt">Sorted</span>)<span class="kw">,</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>           (  ord_pairs(<span class="dt">Sorted</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>           <span class="kw">-&gt;</span> length(<span class="dt">Sorted</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>              list_to_assoc(<span class="dt">N</span><span class="kw">,</span> <span class="dt">Sorted</span><span class="kw">,</span> []<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Assoc</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>           <span class="kw">;</span>  domain_error(unique_key_pairs<span class="kw">,</span> <span class="dt">List</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    )<span class="kw">.</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>list_to_assoc(<span class="dv">1</span><span class="kw">,</span> [<span class="dt">K</span><span class="fu">-</span><span class="dt">V</span><span class="fu">|</span><span class="dt">More</span>]<span class="kw">,</span> <span class="dt">More</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t<span class="kw">,</span>t)) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>list_to_assoc(<span class="dv">2</span><span class="kw">,</span> [<span class="dt">K1</span><span class="fu">-</span><span class="dt">V1</span>,<span class="dt">K2</span><span class="fu">-</span><span class="dt">V2</span><span class="fu">|</span><span class="dt">More</span>]<span class="kw">,</span> <span class="dt">More</span><span class="kw">,</span> <span class="dv">2</span><span class="kw">,</span> t(<span class="dt">K2</span><span class="kw">,</span><span class="dt">V2</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span>t(<span class="dt">K1</span><span class="kw">,</span><span class="dt">V1</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t<span class="kw">,</span>t)<span class="kw">,</span>t)) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>list_to_assoc(<span class="dt">N</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> <span class="dt">More</span><span class="kw">,</span> <span class="dt">Depth</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">Balance</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)) <span class="kw">:-</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">N0</span> <span class="dt">is</span> <span class="dt">N</span> <span class="dt">-</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">RN</span> <span class="dt">is</span> <span class="dt">N0</span> <span class="dv">div</span> <span class="dv">2</span><span class="kw">,</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Rem</span> <span class="dt">is</span> <span class="dt">N0</span> <span class="dv">mod</span> <span class="dv">2</span><span class="kw">,</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">LN</span> <span class="dt">is</span> <span class="dt">RN</span> <span class="dt">+</span> <span class="dt">Rem</span><span class="kw">,</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    list_to_assoc(<span class="dt">LN</span><span class="kw">,</span> <span class="dt">List</span><span class="kw">,</span> [<span class="dt">K</span><span class="fu">-</span><span class="dt">V</span><span class="fu">|</span><span class="dt">Upper</span>]<span class="kw">,</span> <span class="dt">LDepth</span><span class="kw">,</span> <span class="dt">L</span>)<span class="kw">,</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    list_to_assoc(<span class="dt">RN</span><span class="kw">,</span> <span class="dt">Upper</span><span class="kw">,</span> <span class="dt">More</span><span class="kw">,</span> <span class="dt">RDepth</span><span class="kw">,</span> <span class="dt">R</span>)<span class="kw">,</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Depth</span> <span class="dt">is</span> <span class="dt">LDepth</span> <span class="dt">+</span> <span class="dv">1</span><span class="kw">,</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compare</span>(<span class="dt">B</span><span class="kw">,</span> <span class="dt">RDepth</span><span class="kw">,</span> <span class="dt">LDepth</span>)<span class="kw">,</span> balance(<span class="dt">B</span><span class="kw">,</span> <span class="dt">Balance</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Az <code>assoc_to_list</code> fordítottja. A fa hatékony építéséhez először sorbarakja az elemeket a kulcsok szerint a <code>keysort</code> szabály segítségével. Az <code>ord_pairs</code> később lesz definiálva, azt vizsgálja, hogy az elemek szigorú sorrendben vannak, tehát nincs két azonos sem köztük. Ha ez nem teljesül, akkor a <code>domain_error</code> hibát jelez: a <code>List</code> nem teljesíti a <code>unique_key_pairs</code> feltételt, tehát hogy a kulcsok egyértelműek legyenek.</p>
+<p>A fa építését az 5-argumentumú verzió végzi. Az első argumentum az elemek száma, a második és harmadik elem együtt a rendezett elemek különbség-listája, a negyedik a fa mélysége, és az utolsó a készített AVL-fa. Az elemek száma alapján:</p>
+<ol>
+<li><p>Ha <em>1 elem van</em>, akkor egy 1 mélységű, egy levélből álló fa az eredmény.</p></li>
+<li><p>Ha <em>2 elem van</em>, akkor egy 2 mélységű, egy bal-levéllel rendelkező fa az eredmény.</p></li>
+<li><p>Ha <em>legalább 3 elem van</em>, akkor rekurzívan elkészít két részfát, amelyek a lista első ill. második felét tartalmazzák. Kicsit pontosabban, a két részfa összesen <code>N - 1</code> elemet tárol (mivel 1 a gyökérbe kerül), és ha ez nem páros, akkor a baloldaliban lesz több elem. A különbség-lista itt lesz hasznos: az első <code>LN</code> elemből elkészül az <code>L</code> fa, és a <code>List</code> listából fel nem használt maradékot a <code>[K-V|Upper]</code> listával egyesíti. Ezáltal a gyökérhez tartozó kulcs-érték pár és a jobboldali fa építéséhez szükséges <code>Upper</code> lista is rögtön adott. Mivel a baloldali részfában van több elem, a mélység eggyel több lesz, mint a baloldali mélység. Végül a bal- és jobb mélység alapján kiszámolja a gyökérhez tartozó <code>B</code> értéket (<code>&lt;</code>, <code>-</code> vagy <code>&gt;</code>).</p></li>
+</ol>
+<div class="sourceCode" id="cb19"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  ord_list_to_assoc(+Pairs, -Assoc) is det.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Assoc is created from an ordered list Pairs of Key-Value</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   pairs. The pairs must occur in strictly ascending order of</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   their keys.</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">%   @error domain_error(key_ordered_pairs, List) if pairs are not ordered.</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>ord_list_to_assoc(<span class="dt">Sorted</span><span class="kw">,</span> <span class="dt">Assoc</span>) <span class="kw">:-</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    (  <span class="dt">Sorted</span> <span class="kw">=</span> [] <span class="kw">-&gt;</span> <span class="dt">Assoc</span> <span class="kw">=</span> t</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span>  (  ord_pairs(<span class="dt">Sorted</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>           <span class="kw">-&gt;</span> length(<span class="dt">Sorted</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">,</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>              list_to_assoc(<span class="dt">N</span><span class="kw">,</span> <span class="dt">Sorted</span><span class="kw">,</span> []<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Assoc</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>           <span class="kw">;</span>  domain_error(key_ordered_pairs<span class="kw">,</span> <span class="dt">Sorted</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    )<span class="kw">.</span></span></code></pre></div>
+<p>Ugyanez, csak már feltételezi, hogy a lista elemei rendezettek.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  ord_pairs(+Pairs) is semidet</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Pairs is a list of Key-Val pairs strictly ordered by key.</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>ord_pairs([<span class="dt">K</span><span class="fu">-</span><span class="dt">_V</span><span class="fu">|</span><span class="dt">Rest</span>]) <span class="kw">:-</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    ord_pairs(<span class="dt">Rest</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">.</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ord_pairs([]<span class="kw">,</span> <span class="dt">_K</span>)<span class="kw">.</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>ord_pairs([<span class="dt">K</span><span class="fu">-</span><span class="dt">_V</span><span class="fu">|</span><span class="dt">Rest</span>]<span class="kw">,</span> <span class="dt">K0</span>) <span class="kw">:-</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">K0</span> <span class="fu">@&lt;</span> <span class="dt">K</span><span class="kw">,</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    ord_pairs(<span class="dt">Rest</span><span class="kw">,</span> <span class="dt">K</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ellenőrzi, hogy a lista elemei szigorú sorrendben vannak-e.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  map_assoc(:Pred, +Assoc) is semidet.</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Pred(Value) is true for all values in Assoc.</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>map_assoc(<span class="dt">Pred</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    map_assoc_(<span class="dt">T</span><span class="kw">,</span> <span class="dt">Pred</span>)<span class="kw">.</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>map_assoc_(t<span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>map_assoc_(t(<span class="dt">_</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Pred</span>) <span class="kw">:-</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    map_assoc_(<span class="dt">L</span><span class="kw">,</span> <span class="dt">Pred</span>)<span class="kw">,</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">call</span>(<span class="dt">Pred</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">,</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    map_assoc_(<span class="dt">R</span><span class="kw">,</span> <span class="dt">Pred</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Infix bejárással végigmegy az elemeken, és mindegyikre meghívja az első argumentumban kapott szabályt. A <code>call(Pred, Val)</code> a <code>Val</code> paramétert még hozzácsapja a <code>Pred</code> argumentumaihoz, tehát pl. a <code>call(tartalmaz(42), L)</code> megfelel a <code>tartalmaz(42, L)</code> hívásnak.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  map_assoc(:Pred, +Assoc0, ?Assoc) is semidet.</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Map corresponding values. True if Assoc is Assoc0 with Pred</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   applied to all corresponding pairs of of values.</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>map_assoc(<span class="dt">Pred</span><span class="kw">,</span> <span class="dt">T0</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    map_assoc_(<span class="dt">T0</span><span class="kw">,</span> <span class="dt">Pred</span><span class="kw">,</span> <span class="dt">T</span>)<span class="kw">.</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>map_assoc_(t<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> t)<span class="kw">.</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>map_assoc_(t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L0</span><span class="kw">,</span><span class="dt">R0</span>)<span class="kw">,</span> <span class="dt">Pred</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Ans</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L1</span><span class="kw">,</span><span class="dt">R1</span>)) <span class="kw">:-</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    map_assoc_(<span class="dt">L0</span><span class="kw">,</span> <span class="dt">Pred</span><span class="kw">,</span> <span class="dt">L1</span>)<span class="kw">,</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">call</span>(<span class="dt">Pred</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">Ans</span>)<span class="kw">,</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    map_assoc_(<span class="dt">R0</span><span class="kw">,</span> <span class="dt">Pred</span><span class="kw">,</span> <span class="dt">R1</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ez a változat két argumentumot ad a kapott szabályhoz: az első (<code>Val</code>) az éppen vizsgált érték, mint az előző verzióban, a második (<code>Ans</code>) pedig egy változó, amire az adott elemet lecserélve egy új fát épít. Ezzel tehát lehet olyat csinálni, hogy minden értéket a fában négyzetre emelünk stb.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  max_assoc(+Assoc, -Key, -Value) is semidet.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Value is in Assoc and Key is the largest key.</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>max_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    max_assoc(<span class="dt">R</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>max_assoc(t<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span>)<span class="kw">.</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>max_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    max_assoc(<span class="dt">R</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Megkeresi a legnagyobb kulcsot a fában, és a hozzá tartozó értéket.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  min_assoc(+Assoc, -Key, -Value) is semidet.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Value is in assoc and Key is the smallest key.</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>min_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    min_assoc(<span class="dt">L</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>min_assoc(t<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span>)<span class="kw">.</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>min_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">_</span>)<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>) <span class="kw">:-</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    min_assoc(<span class="dt">L</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ugyanez a legkisebb kulcsra.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  put_assoc(+Key, +Assoc0, +Value, -Assoc) is det.</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Assoc is Assoc0, except that Key is associated with</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   Value. This can be used to insert and change associations.</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>put_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">A0</span><span class="kw">,</span> <span class="dt">Value</span><span class="kw">,</span> <span class="dt">A</span>) <span class="kw">:-</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    insert(<span class="dt">A0</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Value</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>insert(t<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t<span class="kw">,</span>t)<span class="kw">,</span> yes)<span class="kw">.</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>insert(t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compare</span>(<span class="dt">Rel</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">Key</span>)<span class="kw">,</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    insert(<span class="dt">Rel</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">.</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>insert(<span class="kw">=,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> no)<span class="kw">.</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>insert(<span class="dt">&lt;</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    insert(<span class="dt">L</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewL</span><span class="kw">,</span> <span class="dt">LeftHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    adjust(<span class="dt">LeftHasChanged</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">NewL</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> left<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">.</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>insert(<span class="dt">&gt;</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    insert(<span class="dt">R</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewR</span><span class="kw">,</span> <span class="dt">RightHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    adjust(<span class="dt">RightHasChanged</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">NewR</span>)<span class="kw">,</span> right<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">.</span></span></code></pre></div>
+<p>A beszúrásnál először az <code>insert/5</code> szabály hívódik meg, aminek utolsó argumentuma azt mondja meg, hogy nőtt-e a fa mélysége. Ez az üres fa esetét lekezeli, egyébként pedig a felelősséget az <code>insert/6</code> szabályra hárítja. Ennek az argumentumai:</p>
+<ol>
+<li><p>A gyökérben levő kulcs hogyan viszonyul a beszúrandó kulcshoz (<code>&lt;</code>, <code>=</code>, <code>&gt;</code>).</p></li>
+<li><p>Az eredeti AVL-fa.</p></li>
+<li><p>A beszúrandó kulcs.</p></li>
+<li><p>A beszúrandó érték.</p></li>
+<li><p>Az új AVL-fa.</p></li>
+<li><p>Nőtt-e a fa mélysége.</p></li>
+</ol>
+<p>Ha a kulcsok megegyeznek, akkor a hozzá tartozó értéket a megadottra lecseréli. Ha a beszúrandó kulcs a kisebb, akkor a baloldali részfán végez rekurzívan beszúrást (az <code>insert/5</code>-tel), majd az <code>adjust</code> szabállyal (ld. lent) biztosítja a kiegyensúlyozottságot; ha a beszúrandó kulcs a nagyobb, akkor ugyanez a jobboldali részfával.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>adjust(no<span class="kw">,</span> <span class="dt">Oldree</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">Oldree</span><span class="kw">,</span> no)<span class="kw">.</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>adjust(yes<span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B0</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">LoR</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    table(<span class="dt">B0</span><span class="kw">,</span> <span class="dt">LoR</span><span class="kw">,</span> <span class="dt">B1</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span><span class="kw">,</span> <span class="dt">ToBeRebalanced</span>)<span class="kw">,</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    rebalance(<span class="dt">ToBeRebalanced</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B0</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">B1</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">%     balance  where     balance  whole tree  to be</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">%     before   inserted  after    increased   rebalanced</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>table(<span class="fu">-</span>      <span class="kw">,</span> left    <span class="kw">,</span> <span class="dt">&lt;</span>      <span class="kw">,</span> yes       <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>table(<span class="fu">-</span>      <span class="kw">,</span> right   <span class="kw">,</span> <span class="dt">&gt;</span>      <span class="kw">,</span> yes       <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>table(<span class="dt">&lt;</span>      <span class="kw">,</span> left    <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> no        <span class="kw">,</span> yes   ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>table(<span class="dt">&lt;</span>      <span class="kw">,</span> right   <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> no        <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>table(<span class="dt">&gt;</span>      <span class="kw">,</span> left    <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> no        <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>table(<span class="dt">&gt;</span>      <span class="kw">,</span> right   <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> no        <span class="kw">,</span> yes   ) <span class="kw">:-</span> <span class="kw">!.</span></span></code></pre></div>
+<p>Az <code>adjust</code> első argumentuma, hogy történt-e beszúrás. Ha nem, akkor a kulcsok változatlanok, tehát a kiegyensúlyozottság továbbra is teljesül. A második argumentum a módosított AVL-fa, a harmadik azt mondja meg, hogy a bal vagy jobb részfát módosítottuk (<code>left</code> ill. <code>right</code>), a negyedik a kiegyensúlyozás után kapott AVL-fa, az utolsó pedig azt jelzi, hogy nőtt-e a fa mélysége.</p>
+<p>A <code>table</code> táblázatból könnyen kiolvasható, hogy a 6 lehetséges esetben mi történik: mi lesz az új egyensúly-szimbólum (<code>&lt;</code>, <code>-</code> vagy <code>&gt;</code>), megnövekedik a mélység, illetve szükség van-e forgatásra. Látszik, hogy csak két esetben van szükség forgatásra. Nézzük meg, mi történik az alábbi AVL-fával a 4-es kulcs beszúrásakor!</p>
+<pre><code>       8                   8                   6
+      / \                 / \                 / \
+     /   \               /   \               /   \
+    /     \             /     \             /     \
+   3      10  ---&gt;     3      10  ---&gt;     3       8
+  / \                 / \                 / \       \
+ /   \               /   \               /   \       \
+1     6             1     6             1     4      10
+                         /
+                        4</code></pre>
+<p>A 4-es beszúrása után a 6-os <code>&lt;</code> típusú lesz, a 3-as <code>&gt;</code> típusú, de probléma csak a legfelső szinten jelentkezik, ahol a 8-as már eleve <code>&lt;</code> típusú volt. Itt tehát az egész fára fog meghívódni a forgató <code>rebalance</code> operáció, aminek az eredménye jobboldalt látszik.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  del_min_assoc(+Assoc0, ?Key, ?Val, -Assoc) is semidet.</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Value  is  in  Assoc0   and  Key  is  the smallest key.</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   Assoc is Assoc0 with Key-Value   removed. Warning: This will</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   succeed with _no_ bindings for Key or Val if Assoc0 is empty.</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>del_min_assoc(<span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span>) <span class="kw">:-</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    del_min_assoc(<span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">_DepthChanged</span>)<span class="kw">.</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>del_min_assoc(t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">_B</span><span class="kw">,</span>t<span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> yes) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>del_min_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">Changed</span>) <span class="kw">:-</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    del_min_assoc(<span class="dt">L</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewL</span><span class="kw">,</span> <span class="dt">LeftChanged</span>)<span class="kw">,</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    deladjust(<span class="dt">LeftChanged</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">NewL</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> left<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">Changed</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Kitörli a legkisebb kulcsú elemet. <code>Val</code> a hozzá tartozó érték, és az utolsó argumentum a törléssel keletkezett AVL-fa. Ha a baloldali részfa üres, akkor a keresett kulcs a gyökérben van, és az új fa a jobboldali részfa lesz. Egyébként a baloldali részfában végezzük rekurzívan a törlést, és utána kiegyensúlyozzuk a <code>deladjust</code> szabály segítségével (ld. lent).</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  del_max_assoc(+Assoc0, ?Key, ?Val, -Assoc) is semidet.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Value  is  in  Assoc0   and  Key  is  the greatest key.</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   Assoc is Assoc0 with Key-Value   removed. Warning: This will</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   succeed with _no_ bindings for Key or Val if Assoc0 is empty.</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>del_max_assoc(<span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span>) <span class="kw">:-</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    del_max_assoc(<span class="dt">Tree</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">_DepthChanged</span>)<span class="kw">.</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>del_max_assoc(t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">_B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span>t)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> yes) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>del_max_assoc(t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">Changed</span>) <span class="kw">:-</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    del_max_assoc(<span class="dt">R</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewR</span><span class="kw">,</span> <span class="dt">RightChanged</span>)<span class="kw">,</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    deladjust(<span class="dt">RightChanged</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">NewR</span>)<span class="kw">,</span> right<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">Changed</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Ugyanez, csak a legnagyobb kulcsú elemmel és jobboldali rekurzióval.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  del_assoc(+Key, +Assoc0, ?Value, -Assoc) is semidet.</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   True if Key-Value is  in  Assoc0.   Assoc  is  Assoc0 with</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   Key-Value removed.</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>del_assoc(<span class="dt">Key</span><span class="kw">,</span> <span class="dt">A0</span><span class="kw">,</span> <span class="dt">Value</span><span class="kw">,</span> <span class="dt">A</span>) <span class="kw">:-</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    delete(<span class="dt">A0</span><span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Value</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">% delete(+Subtree, +SearchedKey, ?SearchedValue, ?SubtreeOut, ?WhatHasChanged)</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>delete(t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compare</span>(<span class="dt">Rel</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">Key</span>)<span class="kw">,</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    delete(<span class="dt">Rel</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">.</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co">% delete(+KeySide, +Subtree, +SearchedKey, ?SearchedValue, ?SubtreeOut, ?WhatHasChanged)</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co">% KeySide is an operator {&lt;,=,&gt;} indicating which branch should be searched for the key.</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co">% WhatHasChanged {yes,no} indicates whether the NewTree has changed in depth.</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>delete(<span class="kw">=,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">_B</span><span class="kw">,</span>t<span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">R</span><span class="kw">,</span> yes) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>delete(<span class="kw">=,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">_B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span>t)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">L</span><span class="kw">,</span> yes) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>delete(<span class="kw">=,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Rh tree is deeper, so rotate from R to L</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    del_min_assoc(<span class="dt">R</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewR</span><span class="kw">,</span> <span class="dt">RightHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    deladjust(<span class="dt">RightHasChanged</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">NewR</span>)<span class="kw">,</span> right<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!.</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>delete(<span class="kw">=,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Key</span><span class="kw">,</span> <span class="dt">Val</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Rh tree is not deeper, so rotate from L to R</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    del_max_assoc(<span class="dt">L</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewL</span><span class="kw">,</span> <span class="dt">LeftHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    deladjust(<span class="dt">LeftHasChanged</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">NewL</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> left<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!.</span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>delete(<span class="dt">&lt;</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>    delete(<span class="dt">L</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewL</span><span class="kw">,</span> <span class="dt">LeftHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>    deladjust(<span class="dt">LeftHasChanged</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">NewL</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> left<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">.</span></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>delete(<span class="dt">&gt;</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>) <span class="kw">:-</span></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>    delete(<span class="dt">R</span><span class="kw">,</span> <span class="dt">K</span><span class="kw">,</span> <span class="dt">V</span><span class="kw">,</span> <span class="dt">NewR</span><span class="kw">,</span> <span class="dt">RightHasChanged</span>)<span class="kw">,</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>    deladjust(<span class="dt">RightHasChanged</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">NewR</span>)<span class="kw">,</span> right<span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Általános törlő operáció. Nézzük végig a <code>delete/6</code> egyes eseteit!</p>
+<ol>
+<li><p>Keresett kulcs a gyökérben, baloldali részfa üres. Eredmény a jobboldali részfa.</p></li>
+<li><p>Keresett kulcs a gyökérben, jobboldali részfa üres. Eredmény a baloldali részfa.</p></li>
+<li><p>Keresett kulcs a gyökérben, és a jobboldali részfa mélyebb. Ekkor a jobboldali részfából kiveszi a legkisebb kulcsú elemet, és berakja a gyökérbe, majd kiegyensúlyozza a fát.</p></li>
+<li><p>Keresett kulcs a gyökérben, és a jobboldali részfa nem mélyebb. Ekkor a baloldali részfából kiveszi a legnagyobb kulcsú elemet, és berakja a gyökérbe, majd kiegyensúlyozza a fát.</p></li>
+<li><p>Keresett kulcs kisebb a gyökér kulcsánál. Rekurzív törlés a bal részfában, utána kiegyensúlyozás.</p></li>
+<li><p>Keresett kulcs nagyobb a gyökér kulcsánál. Rekurzív törlés a jobb részfában, utána kiegyensúlyozás.</p></li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>deladjust(no<span class="kw">,</span> <span class="dt">OldTree</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">OldTree</span><span class="kw">,</span> no)<span class="kw">.</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>deladjust(yes<span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B0</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">LoR</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">RealChange</span>) <span class="kw">:-</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    deltable(<span class="dt">B0</span><span class="kw">,</span> <span class="dt">LoR</span><span class="kw">,</span> <span class="dt">B1</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span><span class="kw">,</span> <span class="dt">ToBeRebalanced</span>)<span class="kw">,</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    rebalance(<span class="dt">ToBeRebalanced</span><span class="kw">,</span> t(<span class="dt">Key</span><span class="kw">,</span><span class="dt">Val</span><span class="kw">,</span><span class="dt">B0</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">B1</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">WhatHasChanged</span><span class="kw">,</span> <span class="dt">RealChange</span>)<span class="kw">.</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">%     balance  where     balance  whole tree  to be</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">%     before   deleted   after    changed   rebalanced</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>deltable(<span class="fu">-</span>      <span class="kw">,</span> right   <span class="kw">,</span> <span class="dt">&lt;</span>      <span class="kw">,</span> no        <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>deltable(<span class="fu">-</span>      <span class="kw">,</span> left    <span class="kw">,</span> <span class="dt">&gt;</span>      <span class="kw">,</span> no        <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>deltable(<span class="dt">&lt;</span>      <span class="kw">,</span> right   <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> yes       <span class="kw">,</span> yes   ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>deltable(<span class="dt">&lt;</span>      <span class="kw">,</span> left    <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> yes       <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>deltable(<span class="dt">&gt;</span>      <span class="kw">,</span> right   <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> yes       <span class="kw">,</span> no    ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>deltable(<span class="dt">&gt;</span>      <span class="kw">,</span> left    <span class="kw">,</span> <span class="fu">-</span>      <span class="kw">,</span> yes       <span class="kw">,</span> yes   ) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">% It depends on the tree pattern in avl_geq whether it really decreases.</span></span></code></pre></div>
+<p>Teljesen hasonló a beszúrás utáni <code>adjust</code> szabályhoz, csak törlés után.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Single and double tree rotations - these are common for insert and delete.</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">/* The patterns (&gt;)-(&gt;), (&gt;)-( &lt;), ( &lt;)-( &lt;) and ( &lt;)-(&gt;) on the LHS</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">   always change the tree height and these are the only patterns which can</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">   happen after an insertion. That&#39;s the reason why we can use a table only to</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">   decide the needed changes.</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">   The patterns (&gt;)-( -) and ( &lt;)-( -) do not change the tree height. After a</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">   deletion any pattern can occur and so we return yes or no as a flag of a</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">   height change.  */</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>rebalance(no<span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">_</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">B</span><span class="kw">,</span> t(<span class="dt">K</span><span class="kw">,</span><span class="dt">V</span><span class="kw">,</span><span class="dt">B</span><span class="kw">,</span><span class="dt">L</span><span class="kw">,</span><span class="dt">R</span>)<span class="kw">,</span> <span class="dt">Changed</span><span class="kw">,</span> <span class="dt">Changed</span>)<span class="kw">.</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>rebalance(yes<span class="kw">,</span> <span class="dt">OldTree</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">RealChange</span>) <span class="kw">:-</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    avl_geq(<span class="dt">OldTree</span><span class="kw">,</span> <span class="dt">NewTree</span><span class="kw">,</span> <span class="dt">RealChange</span>)<span class="kw">.</span></span></code></pre></div>
+<p>Elérkeztünk az AVL-fák lelkéhez, a forgató <code>rebalance</code> szabályhoz. Az első argumentum azt mondja meg, hogy szükség van-e forgatásra. Ha ez <code>no</code>, akkor a fa lényegileg nem változik, csak az egyensúly-szimbólumot állítja be a harmadik argumentumban kapott értékre (ami a megfelelő táblázatból lett kiolvasva). Az utolsó argumentum azt mutatja, hogy a fa mélysége megváltozott-e, és ha nem történik forgatás, akkor csak átmásolja a beszúrás/törlés során megállapított értéket.</p>
+<p>A tényleges forgatást az <code>avl_geq</code> végzi, aminek mindössze 3 argumentuma van: a régi fa, a forgatás után keletkező új fa, és hogy a forgatás során változott-e a fa mélysége.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>avl_geq(t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span>t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">Beta</span><span class="kw">,</span><span class="dt">Gamma</span>))<span class="kw">,</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>        t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span><span class="dt">Beta</span>)<span class="kw">,</span><span class="dt">Gamma</span>)<span class="kw">,</span> yes) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>avl_geq(t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span>t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span><span class="dt">Beta</span><span class="kw">,</span><span class="dt">Gamma</span>))<span class="kw">,</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span>t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span><span class="dt">Beta</span>)<span class="kw">,</span><span class="dt">Gamma</span>)<span class="kw">,</span> no) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>avl_geq(t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span>t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span><span class="dt">Beta</span>)<span class="kw">,</span><span class="dt">Gamma</span>)<span class="kw">,</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>        t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span>t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span><span class="dt">Beta</span><span class="kw">,</span><span class="dt">Gamma</span>))<span class="kw">,</span> yes) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>avl_geq(t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span>t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span><span class="dt">Beta</span>)<span class="kw">,</span><span class="dt">Gamma</span>)<span class="kw">,</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span>t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span><span class="dt">Beta</span><span class="kw">,</span><span class="dt">Gamma</span>))<span class="kw">,</span> no) <span class="kw">:-</span> <span class="kw">!.</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>avl_geq(t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span>t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span>t(<span class="dt">X</span><span class="kw">,</span><span class="dt">VX</span><span class="kw">,</span><span class="dt">B1</span><span class="kw">,</span><span class="dt">Beta</span><span class="kw">,</span><span class="dt">Gamma</span>)<span class="kw">,</span><span class="dt">Delta</span>))<span class="kw">,</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>        t(<span class="dt">X</span><span class="kw">,</span><span class="dt">VX</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">B2</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span><span class="dt">Beta</span>)<span class="kw">,</span>t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">B3</span><span class="kw">,</span><span class="dt">Gamma</span><span class="kw">,</span><span class="dt">Delta</span>))<span class="kw">,</span> yes) <span class="kw">:-</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    table2(<span class="dt">B1</span><span class="kw">,</span> <span class="dt">B2</span><span class="kw">,</span> <span class="dt">B3</span>)<span class="kw">.</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>avl_geq(t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">&lt;</span><span class="kw">,</span>t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">&gt;</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span>t(<span class="dt">X</span><span class="kw">,</span><span class="dt">VX</span><span class="kw">,</span><span class="dt">B1</span><span class="kw">,</span><span class="dt">Beta</span><span class="kw">,</span><span class="dt">Gamma</span>))<span class="kw">,</span><span class="dt">Delta</span>)<span class="kw">,</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>        t(<span class="dt">X</span><span class="kw">,</span><span class="dt">VX</span><span class="kw">,</span><span class="fu">-</span><span class="kw">,</span>t(<span class="dt">A</span><span class="kw">,</span><span class="dt">VA</span><span class="kw">,</span><span class="dt">B2</span><span class="kw">,</span><span class="dt">Alpha</span><span class="kw">,</span><span class="dt">Beta</span>)<span class="kw">,</span>t(<span class="dt">B</span><span class="kw">,</span><span class="dt">VB</span><span class="kw">,</span><span class="dt">B3</span><span class="kw">,</span><span class="dt">Gamma</span><span class="kw">,</span><span class="dt">Delta</span>))<span class="kw">,</span> yes) <span class="kw">:-</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">!,</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    table2(<span class="dt">B1</span><span class="kw">,</span> <span class="dt">B2</span><span class="kw">,</span> <span class="dt">B3</span>)<span class="kw">.</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>table2(<span class="dt">&lt;</span> <span class="kw">,</span><span class="fu">-</span> <span class="kw">,</span><span class="dt">&gt;</span> )<span class="kw">.</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>table2(<span class="dt">&gt;</span> <span class="kw">,</span><span class="dt">&lt;</span> <span class="kw">,</span><span class="fu">-</span> )<span class="kw">.</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>table2(<span class="fu">-</span> <span class="kw">,</span><span class="fu">-</span> <span class="kw">,</span><span class="fu">-</span> )<span class="kw">.</span></span></code></pre></div>
+<p>Nézzük végig az egyes eseteket!</p>
+<ol>
+<li><p><code>&gt;/&gt;</code>: a jobboldali részfa túl mély, és annak a jobboldali részfája a mélyebb. A forgatás hatására a mélység csökken.</p>
+<pre><code>    A                  B
+   / \                / \
+  /   \              /   \
+ α     B    ---&gt;    A     γ
+      / \          / \
+     β   γ        α   β</code></pre></li>
+<li><p><code>&gt;/-</code>: a jobboldali részfa túl mély, és az egyensúlyban van. Ez csak baloldali törlés után jöhet létre. A forgatás megegyezik az előzővel, de ilyenkor a mélység nem változik.</p></li>
+<li><p><code>&lt;/&lt;</code>: az 1-es tükrözve.</p></li>
+<li><p><code>&lt;/-</code>: a 2-es tükrözve.</p></li>
+<li><p><code>&gt;/&lt;</code>: a jobboldali részfa túl mély, és annak a baloldali részfája a mélyebb. A forgatás hatására a mélység csökken. Az <code>A</code>-nál és <code>B</code>-nél levő egyensúly-szimbólumokat az <code>X</code>-nél levő alapján a <code>table2</code> táblázat adja meg.</p>
+<pre><code>     A                      X
+    / \                    / \
+   /   \                  /   \
+  /     \                /     \
+ α       B     ---&gt;     A       B
+        / \            / \     / \
+       /   \          /   \   /   \
+      X     δ        α     β γ     δ
+     / \
+    β   γ</code></pre></li>
+<li><p><code>&lt;/&gt;</code>: az 5-ös tükrözve (ilyen volt a fenti beszúrásos példa).</p></li>
+</ol>
+<p>Itt érdemes megjegyezni, hogy a mélységcsökkenést jelző utolsó argumentumot csak a <code>deladjust</code> veszi figyelembe, az <code>adjust</code> nem. Ennek az az oka, hogy ha beszúráskor nőne a mélység, akkor a forgatás azt mindig kompenzálja, tehát végül az eredeti állapothoz képest a mélység nem változik. Ezzel szemben törlésnél ha forgatásra van szükség, akkor csak ettől függ, hogy a mélység csökken-e.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>                 <span class="co">/*******************************</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">                 *            ERRORS            *</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">                 *******************************/</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="kw">:-</span> <span class="fu">multifile</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    error<span class="fu">:</span>has_type<span class="fu">/</span><span class="dv">2</span><span class="kw">.</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>error<span class="fu">:</span>has_type(assoc<span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    (   <span class="dt">X</span> <span class="fu">==</span> t</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">-&gt;</span>  <span class="kw">true</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span>   <span class="dt">compound</span>(<span class="dt">X</span>)<span class="kw">,</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">functor</span>(<span class="dt">X</span><span class="kw">,</span> t<span class="kw">,</span> <span class="dv">5</span>)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    )<span class="kw">.</span></span></code></pre></div>
+<p>A <code>:- multifile</code> figyelmezteti a fordítót, hogy az utána következő szabály részei több fájlban találhatóak. Az <code>error:</code> azt mondja meg, hogy bár most az <code>assoc</code> modulban vagyunk, a <code>has_type</code> szabály az <code>error</code> modulhoz tartozik.</p>
+<p>Maga a <code>has_type</code> szabály, ahogy arról röviden már szó volt, azt ellenőrzi, hogy <code>X</code> egy AVL-fa-e. Mivel ez gyakran meghívódik, itt nem történik olyan részletes ellenőrzés, mint az <code>is_assoc</code> esetén. Az <code>X</code> megfelel, ha üres fa (a <code>t</code> atom), vagy ha egy 5-elemű struktúra, aminek a feje <code>t</code>.</p>
+<p>Ezzel vége a könyvtár forráskódjának. Ez szerintem egy szép, jól érthető program, ami kevés külső definíciót használ, ugyanakkor rendkívül tanulságos.</p>
+<h2 id="megjegyzések">Megjegyzések</h2>
+<p>Egy másik, kicsit bonyolultabb keresőfa a <em>piros-fekete fa</em>, ami az egyes elemekhez (piros vagy fekete) színt rendel, és ennek segítségével még hatékonyabb beszúrást/törlést tesz lehetővé, mint az AVL-fa. Cserébe viszont a keresés egy kicsit lassabb lehet. (Az SWI Prolog piros-fekete fákat használ <em>tömb</em>-jellegű adatstruktúra megvalósítására.)</p>
+<p>A kulcs szerinti keresés problémájára még egy nagyon érdekes megoldást adnak a <em>hash táblák</em>, melyeknek rengeteg variánsa létezik. Ezek általában sokkal gyorsabbak, mint a keresőfák (<em>O</em>(1) átlagosan), de időnként lassabbak is lehetnek (<em>O</em>(<em>n</em>) legrosszabb esetben), valamint az elemeket nem rendezetten tárolják.</p>
+<p>Kereséssel kapcsolatos témákról a klasszikus hivatkozás:</p>
+<p>D.E. Knuth, <em>The Art of Computer Programming, Vol. 3 - Sorting and Searching</em>, 2nd Ed., Addison-Wesley, 1998.</p>
+<p>Az első kiadás megjelent magyarul is:</p>
+<p>D.E. Knuth, <em>A számítógép-programozás művészete 3 - Keresés és rendezés</em>, Műszaki Könyvkiadó, 1988.</p>
+<p>Egy modern, olvasmányos könyv algoritmusokról és adatszerkezetekről:</p>
+<p>R. Sedgewick, K. Wayne, <em>Algorithms</em>, 4th Ed., Addison-Wesley, 2011.</p>
+</body>
+</html>

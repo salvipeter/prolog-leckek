@@ -15,4 +15,6 @@
 6. [Különbség-listák, struktúrák kezelése, magasabb rendű szabályok, vezérlés](prolog006.html)
    - [Projekt: Kalah](prolog006-project.html)
 
+[Extra: Prolog mélyvíz](wild.html)
+
 [Hova tovább? - Könyvajánló](books.html)
