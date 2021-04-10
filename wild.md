@@ -1,6 +1,6 @@
 # Prolog mélyvíz
 
-Most, hogy már tisztában vagyunk a Prolog alapjaival, nézzük meg, hogy hogy néz ki egy "igazi" Prolog program: az asszociációs listákat megvalósító könyvtár SWI Prologban.
+Most, hogy már tisztában vagyunk a Prolog alapjaival, nézzük meg, hogy hogy néz ki egy "igazi" Prolog program: az asszociációs struktúrát megvalósító könyvtár SWI Prologban.
 
 Az alábbiakban a [forráskódot](https://github.com/SWI-Prolog/swipl-devel/blob/97a77e76b2013d65cf34e5ea31f6330ca42660f9/library/assoc.pl) *teljesen változatlan formában* közlöm, csak közbeszúrok magyarázatokat.
 
