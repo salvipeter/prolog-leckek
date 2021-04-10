@@ -832,6 +832,10 @@ Az első kiadás megjelent magyarul is:
 
 D.E. Knuth, *A számítógép-programozás művészete 3 - Keresés és rendezés*, Műszaki Könyvkiadó, 1988.
 
-Egy modern, olvasmányos könyv algoritmusokról és adatszerkezetekről:
+Egy modern, átfogó könyv algoritmusokról és adatszerkezetekről:
 
 R. Sedgewick, K. Wayne, *Algorithms*, 4th Ed., Addison-Wesley, 2011.
+
+Végül pedig egy rövid, képekkel teli, olvasmányos könyv ugyanerről:
+
+A.Y. Bhargava, *Grokking Algorithms*, Manning, 2016.
