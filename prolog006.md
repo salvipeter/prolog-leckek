@@ -197,7 +197,7 @@ behelyettesít(K, [A=N|M], K2) :-
 
 ### Feladatok
 
-1. Írjatok szabályt, ami egy összeadásokat tartalmazó kifejezést egyszerűsít úgy, hogy az ismeretleneket (ha lehet) összevonja és előre rakja, a többi összeadást pedig elvégzi!
+1. (*) Írjatok szabályt, ami egy összeadásokat tartalmazó kifejezést egyszerűsít úgy, hogy az ismeretleneket (ha lehet) összevonja és előre rakja, a többi összeadást pedig elvégzi!
 
        ?- egyszerűsít(1+1+a, E).
        E = a+2
@@ -206,7 +206,7 @@ behelyettesít(K, [A=N|M], K2) :-
        ?- egyszerűsít(3+x+x, E).
        E = 2*x+3
 
-2. Írjatok szabályt, ami eldönti, hogy egy kifejezés általánosabb-e egy másiknál!
+2. (*) Írjatok szabályt, ami eldönti, hogy egy kifejezés általánosabb-e egy másiknál!
 
        ?- általánosabb(X, c).
        true
@@ -322,7 +322,7 @@ Ezek segítségével például definiálhatjuk magunk is a `findall` szabályt:
 L = [lica, mimi, dusa, zsófi, juli]
 ```
 
-Ez a megoldás feltételezi, hogy a `tároló` szabály még nem létezett, és hogy a keresett értékek közt nem szerepelhet a `nincs_több` atom. Ezt elkerülendő, ezeket a `$` prefix operátorral szokás megkülönböztetni, tehát `tároló(X)` helyett `$tároló(X)` és `nincs_több` helyett `$nincs_több` (vagy a zárójelet kiírva`$(tároló(X))` és `$(nincs_több)`).
+Ez a megoldás feltételezi, hogy a `tároló` szabály még nem létezett, és hogy a keresett értékek közt nem szerepelhet a `nincs_több` atom. Ezt elkerülendő, ezeket a `$` prefix operátorral szokás megkülönböztetni, tehát `tároló(X)` helyett `$tároló(X)` és `nincs_több` helyett `$nincs_több` (vagy a zárójelet kiírva `$(tároló(X))` és `$(nincs_több)`).
 
 Az önmagát módosító programok megértése nehéz, ezért az ilyen jellegű technikákat csak jól elkülönített programrészekben ajánlott alkalmazni.
 

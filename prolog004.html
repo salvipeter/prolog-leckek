@@ -429,7 +429,7 @@ true
 X = 2
 X = 3
 ...</code></pre></li>
-<li><p>Írjatok <code>ha</code>, <code>akkor</code>, <code>egyébként</code> és <code>:=</code> operátorokat, hogy lehessen ilyeneket írni:</p>
+<li><p>(*) Írjatok <code>ha</code>, <code>akkor</code>, <code>egyébként</code> és <code>:=</code> operátorokat, hogy lehessen ilyeneket írni:</p>
 <pre><code>ha X &gt; Y akkor Z := X egyébként Z := Y</code></pre>
 <p>Ehhez az kell, hogy a kifejezés így zárójeleződjön:</p>
 <pre><code>ha(akkor(&gt;(X, Y), egyébként(:=(Z, X), :=(Z, Y))))</code></pre>

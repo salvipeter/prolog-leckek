@@ -333,14 +333,14 @@ X = 0.9999996829318346</code></pre>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    behelyettesít(<span class="dt">K1</span><span class="kw">,</span> <span class="dt">M</span><span class="kw">,</span> <span class="dt">K2</span>)<span class="kw">.</span></span></code></pre></div>
 <h3 id="feladatok-1">Feladatok</h3>
 <ol>
-<li><p>Írjatok szabályt, ami egy összeadásokat tartalmazó kifejezést egyszerűsít úgy, hogy az ismeretleneket (ha lehet) összevonja és előre rakja, a többi összeadást pedig elvégzi!</p>
+<li><p>(*) Írjatok szabályt, ami egy összeadásokat tartalmazó kifejezést egyszerűsít úgy, hogy az ismeretleneket (ha lehet) összevonja és előre rakja, a többi összeadást pedig elvégzi!</p>
 <pre><code>?- egyszerűsít(1+1+a, E).
 E = a+2
 ?- egyszerűsít(1+a+4+2+b+c, E).
 E = a+b+c+7
 ?- egyszerűsít(3+x+x, E).
 E = 2*x+3</code></pre></li>
-<li><p>Írjatok szabályt, ami eldönti, hogy egy kifejezés általánosabb-e egy másiknál!</p>
+<li><p>(*) Írjatok szabályt, ami eldönti, hogy egy kifejezés általánosabb-e egy másiknál!</p>
 <pre><code>?- általánosabb(X, c).
 true
 ?- általánosabb(g(X), g(t(Y))).
@@ -412,7 +412,7 @@ false</code></pre>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">?-</span> összes(<span class="dt">X</span><span class="kw">,</span> életkor(<span class="dt">X</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">,</span> <span class="dt">L</span>)<span class="kw">.</span></span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="dt">L</span> <span class="kw">=</span> [lica, mimi, dusa, zsófi, juli]</span></code></pre></div>
-<p>Ez a megoldás feltételezi, hogy a <code>tároló</code> szabály még nem létezett, és hogy a keresett értékek közt nem szerepelhet a <code>nincs_több</code> atom. Ezt elkerülendő, ezeket a <code>$</code> prefix operátorral szokás megkülönböztetni, tehát <code>tároló(X)</code> helyett <code>$tároló(X)</code> és <code>nincs_több</code> helyett <code>$nincs_több</code> (vagy a zárójelet kiírva<code>$(tároló(X))</code> és <code>$(nincs_több)</code>).</p>
+<p>Ez a megoldás feltételezi, hogy a <code>tároló</code> szabály még nem létezett, és hogy a keresett értékek közt nem szerepelhet a <code>nincs_több</code> atom. Ezt elkerülendő, ezeket a <code>$</code> prefix operátorral szokás megkülönböztetni, tehát <code>tároló(X)</code> helyett <code>$tároló(X)</code> és <code>nincs_több</code> helyett <code>$nincs_több</code> (vagy a zárójelet kiírva <code>$(tároló(X))</code> és <code>$(nincs_több)</code>).</p>
 <p>Az önmagát módosító programok megértése nehéz, ezért az ilyen jellegű technikákat csak jól elkülönített programrészekben ajánlott alkalmazni.</p>
 <h2 id="vezérlés">Vezérlés</h2>
 <p>A program folyásának vezérlésére már láttunk néhány módszert, mint a vágás (<code>!</code>) vagy a mindig igaz ill. hamis célok (<code>true</code>, <code>false</code> / <code>fail</code>). Itt van néhány további:</p>

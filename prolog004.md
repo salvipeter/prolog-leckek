@@ -310,7 +310,7 @@ Nézzük meg, mit csinál! Először beállítja `K1`-et és `K2`-t 1-re, majd m
        X = 3
        ...
 
-7. Írjatok `ha`, `akkor`, `egyébként` és `:=` operátorokat, hogy lehessen ilyeneket írni:
+7. (*) Írjatok `ha`, `akkor`, `egyébként` és `:=` operátorokat, hogy lehessen ilyeneket írni:
 
        ha X > Y akkor Z := X egyébként Z := Y
 
