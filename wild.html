@@ -363,7 +363,16 @@
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Is true if Assoc is the empty association list.</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>empty_assoc(t)<span class="kw">.</span></span></code></pre></div>
-<p>A <code>%!</code>-el kezdődő megjegyzések szintén dokumentáció-generálásra valók, és az azt követő szabályra vonatkoznak. Az üres AVL-fát itt a <code>t</code> atom fogja jelölni (nem a <code>-</code>, mint fent).</p>
+<p>A <code>%!</code>-el kezdődő megjegyzések szintén dokumentáció-generálásra valók, és az azt követő szabályra vonatkoznak. A <code>semidet</code> egyike a szabályok öt lehetséges kategóriájának:</p>
+<ul>
+<li><p><code>det</code> (determinisztikus): mindig pontosan egyszer teljesül, pl. <code>összeg(+L, -Ö)</code></p></li>
+<li><p><code>semidet</code> (félig determinisztikus): legfeljebb egyszer teljesül, pl. <code>maximum(+L, -M)</code> [üres listára sikertelen]</p></li>
+<li><p><code>multi</code> (többszörös): legalább egyszer teljesül, pl. <code>permutáció(+L, -P)</code></p></li>
+<li><p><code>nondet</code> (nemdeterminisztikus): többször teljesülhet, de lehet sikertelen is, pl. <code>tartalmaz(?E, ?L)</code></p></li>
+<li><p><code>failure</code> (sikertelen): sosem teljesül, pl. <code>fail</code></p></li>
+</ul>
+<p>Ezeket mind úgy kell érteni, hogy “ha a dokumentációjának megfelelően adjuk meg a paramétereket”.</p>
+<p>Visszatérve az AVL-fára, az üres fát itt a <code>t</code> atom fogja jelölni (nem a <code>-</code>, mint fent a bináris fánál).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">%!  assoc_to_list(+Assoc, -Pairs) is det.</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Translate Assoc to a list Pairs of Key-Value pairs.  The keys</span></span>
@@ -845,6 +854,42 @@
 <p>A <code>:- multifile</code> figyelmezteti a fordítót, hogy az utána következő szabály részei több fájlban találhatóak. Az <code>error:</code> azt mondja meg, hogy bár most az <code>assoc</code> modulban vagyunk, a <code>has_type</code> szabály az <code>error</code> modulhoz tartozik.</p>
 <p>Maga a <code>has_type</code> szabály, ahogy arról röviden már szó volt, azt ellenőrzi, hogy <code>X</code> egy AVL-fa-e. Mivel ez gyakran meghívódik, itt nem történik olyan részletes ellenőrzés, mint az <code>is_assoc</code> esetén. Az <code>X</code> megfelel, ha üres fa (a <code>t</code> atom), vagy ha egy 5-elemű struktúra, aminek a feje <code>t</code>.</p>
 <p>Ezzel vége a könyvtár forráskódjának. Ez szerintem egy szép, jól érthető program, ami kevés külső definíciót használ, ugyanakkor rendkívül tanulságos.</p>
+<h2 id="feladat">Feladat</h2>
+<p>Egy másik gyakran szükséges adatszerkezet a <em>prioritásos sor</em>, amiben minden elemhez egy prioritást rendelünk, és mindig a legmagasabb prioritásút vesszük ki belőle. A következő szabályokkal kezelhető:</p>
+<ul>
+<li><p><code>üres_sor(?Sor)</code> [semidet]</p></li>
+<li><p><code>sorba_tesz(+Sor, +Prioritás, ?Elem, -Sor1)</code> [det]</p></li>
+<li><p><code>maximum_elem(+Sor, ?Elem)</code> [semidet]</p></li>
+<li><p><code>maximumot_kivesz(+Sor, -Prioritás, ?Elem, -Sor1)</code> [semidet]</p></li>
+</ul>
+<p>A kényelmes használat kedvéért még érdemes listából/listává átváltó szabáyokat is készíteni:</p>
+<ul>
+<li><p><code>listából_sor(+Lista, -Sor)</code> [det]</p></li>
+<li><p><code>sorból_lista(+Sor, -Lista)</code> [det]</p></li>
+</ul>
+<p>Ennek egy egyszerű megoldása az, hogy a betevés sorrendjében egy listában tároljuk az elemeket - ebben az esetben a maximum megkeresése ill. a sorból kivétel <em>O</em>(<em>n</em>) műveletigényű lesz. Egy másik lehetőség, hogy az elemeket mindig csökkenő sorrendben tároljuk; ekkor az új elem betevése lesz <em>O</em>(<em>n</em>)-es komplexitású.</p>
+<p>Egy hatékonyabb módszert kapunk, ha itt is egy fát használunk. Ebben a fában a csúcsokból nem csak kettő, hanem több ág is indulhat, és csak azt várjuk el, hogy a csúcsban levő prioritás legalább akkora legyen, mint az alatta levő részfák maximum prioritása, így a maximum mindig a gyökérben lesz. Ezt “párosító kupacnak” (<em>pairing heap</em>) nevezik.</p>
+<p>Két ilyen fa egybeolvasztása (<em>meld</em>) nagyon egyszerű: megnézzük, hogy melyik gyökerének nagyobb a prioritása, és az marad a gyökér, a másik pedig ez alá kerül új részfaként. A beszúrás is ennek egy speciális esete, ahol a beszúrt elem egy olyan fa, aminek csak gyökere van.</p>
+<p>Az egyetlen bonyolultabb - <em>O</em>(log <em>n</em>) komplexitású - művelet a maximális prioritású elem kivétele. Ilyenkor az összes alatta levő részfát egybe kell olvasztani, amíg csak egy nem marad. Ez sokféleképp megtehető, és a különböző módszerek más jellegű fákat eredményeznek. A klasszikus megoldás az, hogy a részfákat először balról jobbra páronként egybeolvasztjuk (innen a nevében a <em>párosító</em>), és utána a jobboldalitól elindulva a már egybeolvasztott párokat egyenként hozzáolvasztjuk. (Ez rekurzív módon nagyon egyszerűen megfogalmazható.)</p>
+<p>Nézzünk egy példát! Jelölje <code>P-[P1,P2,..,Pn]</code> azt a fát, aminek a gyökerében <code>P</code>, az alatta levő részfák gyökerében pedig <code>Pi</code> prioritások vannak (a további, érdektelen részfákat <code>..</code>-al jelöltem):</p>
+<pre><code>10-[5,8,2,8,10,1,3]
+
+(maximumkivétel =&gt; 7 különálló fa)
+
+5-[..] 8-[..] 2-[..] 8-[..] 10-[..] 1-[..] 3-[..]
+
+(párosítás balról jobbra =&gt; 4 különálló fa)
+
+8-[5,..] 8-[2,..] 10-[1,..] 3-[..]
+
+(egyesítés jobbról balra, amíg csak 1 marad)
+
+8-[5,..] 8-[2,..] 10-[3,1,..]
+
+8-[5,..] 10-[8-[2,..],3,1,..]
+
+10-[8-[5,..],8-[2,..],3,1,..]</code></pre>
+<p>Készítsetek egy prioritásos sor adatszerkezetet párosító kupaccal, és aztán hasonlítsátok össze a megoldást az <a href="https://github.com/SWI-Prolog/swipl-devel/blob/master/library/heaps.pl">SWI Prologban levővel</a>!</p>
 <h2 id="megjegyzések">Megjegyzések</h2>
 <p>Egy másik, kicsit bonyolultabb keresőfa a <em>piros-fekete fa</em>, ami az egyes elemekhez (piros vagy fekete) színt rendel, és ennek segítségével még hatékonyabb beszúrást/törlést tesz lehetővé, mint az AVL-fa. Cserébe viszont a keresés egy kicsit lassabb lehet. (Az SWI Prolog piros-fekete fákat használ <em>tömb</em>-jellegű adatstruktúra megvalósítására.)</p>
 <p>A kulcs szerinti keresés problémájára még egy nagyon érdekes megoldást adnak a <em>hash táblák</em>, melyeknek rengeteg variánsa létezik. Ezek általában sokkal gyorsabbak, mint a keresőfák (<em>O</em>(1) átlagosan), de időnként lassabbak is lehetnek (<em>O</em>(<em>n</em>) legrosszabb esetben), valamint az elemeket nem rendezetten tárolják.</p>

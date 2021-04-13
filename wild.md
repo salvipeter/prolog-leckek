@@ -214,7 +214,21 @@ Például a 6. leckében látott `maplist/2` és `maplist/3` is pontosan így de
 empty_assoc(t).
 ```
 
-A `%!`-el kezdődő megjegyzések szintén dokumentáció-generálásra valók, és az azt követő szabályra vonatkoznak. Az üres AVL-fát itt a `t` atom fogja jelölni (nem a `-`, mint fent).
+A `%!`-el kezdődő megjegyzések szintén dokumentáció-generálásra valók, és az azt követő szabályra vonatkoznak. A `semidet` egyike a szabályok öt lehetséges kategóriájának:
+
+- `det` (determinisztikus): mindig pontosan egyszer teljesül, pl. `összeg(+L, -Ö)`
+
+- `semidet` (félig determinisztikus): legfeljebb egyszer teljesül, pl. `maximum(+L, -M)` [üres listára sikertelen]
+
+- `multi` (többszörös): legalább egyszer teljesül, pl. `permutáció(+L, -P)`
+
+- `nondet` (nemdeterminisztikus): többször teljesülhet, de lehet sikertelen is, pl. `tartalmaz(?E, ?L)`
+
+- `failure` (sikertelen): sosem teljesül, pl. `fail`
+
+Ezeket mind úgy kell érteni, hogy "ha a dokumentációjának megfelelően adjuk meg a paramétereket".
+
+Visszatérve az AVL-fára, az üres fát itt a `t` atom fogja jelölni (nem a `-`, mint fent a bináris fánál).
 
 ```prolog
 %!  assoc_to_list(+Assoc, -Pairs) is det.
@@ -817,6 +831,56 @@ A `:- multifile` figyelmezteti a fordítót, hogy az utána következő szabály
 Maga a `has_type` szabály, ahogy arról röviden már szó volt, azt ellenőrzi, hogy `X` egy AVL-fa-e. Mivel ez gyakran meghívódik, itt nem történik olyan részletes ellenőrzés, mint az `is_assoc` esetén. Az `X` megfelel, ha üres fa (a `t` atom), vagy ha egy 5-elemű struktúra, aminek a feje `t`.
 
 Ezzel vége a könyvtár forráskódjának. Ez szerintem egy szép, jól érthető program, ami kevés külső definíciót használ, ugyanakkor rendkívül tanulságos.
+
+## Feladat
+
+Egy másik gyakran szükséges adatszerkezet a *prioritásos sor*, amiben minden elemhez egy prioritást rendelünk, és mindig a legmagasabb prioritásút vesszük ki belőle. A következő szabályokkal kezelhető:
+
+- `üres_sor(?Sor)` [semidet]
+
+- `sorba_tesz(+Sor, +Prioritás, ?Elem, -Sor1)` [det]
+
+- `maximum_elem(+Sor, ?Elem)` [semidet]
+
+- `maximumot_kivesz(+Sor, -Prioritás, ?Elem, -Sor1)` [semidet]
+
+A kényelmes használat kedvéért még érdemes listából/listává átváltó szabáyokat is készíteni:
+
+- `listából_sor(+Lista, -Sor)` [det]
+
+- `sorból_lista(+Sor, -Lista)` [det]
+
+Ennek egy egyszerű megoldása az, hogy a betevés sorrendjében egy listában tároljuk az elemeket - ebben az esetben a maximum megkeresése ill. a sorból kivétel *O*(*n*) műveletigényű lesz. Egy másik lehetőség, hogy az elemeket mindig csökkenő sorrendben tároljuk; ekkor az új elem betevése lesz *O*(*n*)-es komplexitású.
+
+Egy hatékonyabb módszert kapunk, ha itt is egy fát használunk. Ebben a fában a csúcsokból nem csak kettő, hanem több ág is indulhat, és csak azt várjuk el, hogy a csúcsban levő prioritás legalább akkora legyen, mint az alatta levő részfák maximum prioritása, így a maximum mindig a gyökérben lesz. Ezt "párosító kupacnak" (*pairing heap*) nevezik.
+
+Két ilyen fa egybeolvasztása (*meld*) nagyon egyszerű: megnézzük, hogy melyik gyökerének nagyobb a prioritása, és az marad a gyökér, a másik pedig ez alá kerül új részfaként. A beszúrás is ennek egy speciális esete, ahol a beszúrt elem egy olyan fa, aminek csak gyökere van.
+
+Az egyetlen bonyolultabb - *O*(log *n*) komplexitású - művelet a maximális prioritású elem kivétele. Ilyenkor az összes alatta levő részfát egybe kell olvasztani, amíg csak egy nem marad. Ez sokféleképp megtehető, és a különböző módszerek más jellegű fákat eredményeznek. A klasszikus megoldás az, hogy a részfákat először balról jobbra páronként egybeolvasztjuk (innen a nevében a *párosító*), és utána a jobboldalitól elindulva a már egybeolvasztott párokat egyenként hozzáolvasztjuk. (Ez rekurzív módon nagyon egyszerűen megfogalmazható.)
+
+Nézzünk egy példát! Jelölje `P-[P1,P2,..,Pn]` azt a fát, aminek a gyökerében `P`, az alatta levő részfák gyökerében pedig `Pi` prioritások vannak (a további, érdektelen részfákat `..`-al jelöltem):
+
+```
+10-[5,8,2,8,10,1,3]
+
+(maximumkivétel => 7 különálló fa)
+
+5-[..] 8-[..] 2-[..] 8-[..] 10-[..] 1-[..] 3-[..]
+
+(párosítás balról jobbra => 4 különálló fa)
+
+8-[5,..] 8-[2,..] 10-[1,..] 3-[..]
+
+(egyesítés jobbról balra, amíg csak 1 marad)
+
+8-[5,..] 8-[2,..] 10-[3,1,..]
+
+8-[5,..] 10-[8-[2,..],3,1,..]
+
+10-[8-[5,..],8-[2,..],3,1,..]
+```
+
+Készítsetek egy prioritásos sor adatszerkezetet párosító kupaccal, és aztán hasonlítsátok össze a megoldást az [SWI Prologban levővel](https://github.com/SWI-Prolog/swipl-devel/blob/master/library/heaps.pl)!
 
 ## Megjegyzések
 
