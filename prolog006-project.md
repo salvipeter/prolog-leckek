@@ -712,9 +712,9 @@ Nyertem.
 
 2. Készítsetek szigorúbb ellenőrzést az emberi játékos lépéseihez, ami (i) nem enged üres lyukat választani, és (ii) akkor és csak akkor enged több lépést, ha az utolsó kő a kalahba kerül!
 
-3. Írjátok át a programot úgy, hogy a bonyolultabb (de izgalmasabb) [Oware](https://boardgamegeek.com/boardgame/28302/oware) játék szabályait kövesse!
+3. (*) Írjátok át a programot úgy, hogy a bonyolultabb (de izgalmasabb) [Oware](https://boardgamegeek.com/boardgame/28302/oware) játék szabályait kövesse!
 
-4. Írjatok dámajátékot! A játék kerete legyen ugyanaz, és a számítógép használja a fenti alfa-béta nyírás algoritmust.
+4. (**) Írjatok dámajátékot! A játék kerete legyen ugyanaz, és a számítógép használja a fenti alfa-béta nyírás algoritmust.
 
 ### A teljes program
 
