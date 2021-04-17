@@ -844,7 +844,7 @@ Egy másik gyakran szükséges adatszerkezet a *prioritásos sor*, amiben minden
 
 - `maximumot_kivesz(+Sor, -Prioritás, ?Elem, -Sor1)` [semidet]
 
-A kényelmes használat kedvéért még érdemes listából/listává átváltó szabáyokat is készíteni:
+A kényelmes használat kedvéért még érdemes listából/listává átváltó szabáyokat is készíteni (ahol a lista `Prioritás-Elem` párokból áll):
 
 - `listából_sor(+Lista, -Sor)` [det]
 
