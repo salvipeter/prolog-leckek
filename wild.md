@@ -900,6 +900,10 @@ Egy modern, átfogó könyv algoritmusokról és adatszerkezetekről:
 
 R. Sedgewick, K. Wayne, *Algorithms*, 4th Ed., Addison-Wesley, 2011.
 
-Végül pedig egy rövid, képekkel teli, olvasmányos könyv ugyanerről:
+Illetve egy rövid, képekkel teli, olvasmányos könyv ugyanerről:
 
 A.Y. Bhargava, *Grokking Algorithms*, Manning, 2016.
+
+A fentiek mind általános referenciák, és a bennük szereplő adatszerkezetek (pl. hash táblák) nem mind alkalmazhatóak közvetlenül Prologban, ahol nincs mód egy adat *megváltoztatására*, csak egy módosított változat készítésére (tehát az adatok *perzisztensek*). Ilyen megkötések mellett a hatékonysághoz időnként trükkök kellenek - erről szól az alábbi könyv:
+
+Ch. Okasaki, *Purely Functional Data Structures*, Cambridge, 1996.
