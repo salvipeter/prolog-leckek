@@ -334,7 +334,12 @@ A program folyásának vezérlésére már láttunk néhány módszert, mint a v
 
        once(P) :- P, !.
 
-2. Amikor egy `P` változót célként használunk, mint a `once` vagy a tagadás definíciójában, akkor valójában a háttérben a `call(P)` ("hív") hívódik meg; ezt időnként ki is írják, hogy egyértelműbb legyen, mi történik.
+2. Amikor egy `P` változót célként használunk, mint a `once` vagy a tagadás definíciójában, akkor valójában a háttérben a `call(P)` ("hív") hívódik meg; ezt időnként ki is írják, hogy egyértelműbb legyen, mi történik. Amikor a `call`-nak több argumentuma van, ezeket a célhoz kapcsolandó további paraméterekként értelmezi, tehát pl.:
+
+       ?- P = hozzáfűz([a,b]), call(P, [c,d], X), call(P, [x,y], Y).
+       P = hozzáfűz([a, b]),
+       X = [a, b, c, d],
+       Y = [a, b, x, y].
 
 3. A `(P -> Q; R)` jelentése: ha `P`, akkor `Q`, különben `R`. Tehát pl. az alábbi kettő ekvivalens:
 

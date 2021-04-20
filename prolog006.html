@@ -419,7 +419,11 @@ false</code></pre>
 <ol>
 <li><p>Ha egy szabály több megoldást is vissza tud adni, de mi csak az elsőt szeretnénk, a vágással le tudjuk tiltani a továbbiakat. Ez elég gyakori ahhoz, hogy van rá egy beépített szabály, a <code>once</code> (“egyszer”):</p>
 <pre><code>once(P) :- P, !.</code></pre></li>
-<li><p>Amikor egy <code>P</code> változót célként használunk, mint a <code>once</code> vagy a tagadás definíciójában, akkor valójában a háttérben a <code>call(P)</code> (“hív”) hívódik meg; ezt időnként ki is írják, hogy egyértelműbb legyen, mi történik.</p></li>
+<li><p>Amikor egy <code>P</code> változót célként használunk, mint a <code>once</code> vagy a tagadás definíciójában, akkor valójában a háttérben a <code>call(P)</code> (“hív”) hívódik meg; ezt időnként ki is írják, hogy egyértelműbb legyen, mi történik. Amikor a <code>call</code>-nak több argumentuma van, ezeket a célhoz kapcsolandó további paraméterekként értelmezi, tehát pl.:</p>
+<pre><code>?- P = hozzáfűz([a,b]), call(P, [c,d], X), call(P, [x,y], Y).
+P = hozzáfűz([a, b]),
+X = [a, b, c, d],
+Y = [a, b, x, y].</code></pre></li>
 <li><p>A <code>(P -&gt; Q; R)</code> jelentése: ha <code>P</code>, akkor <code>Q</code>, különben <code>R</code>. Tehát pl. az alábbi kettő ekvivalens:</p>
 <pre><code>implikáció(X) :- foo(X) -&gt; bar(X); baz(X).</code></pre>
 <p>és</p>
