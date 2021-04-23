@@ -55,7 +55,7 @@ A `fordított` szabállyal már találkoztunk a 3. lecke 5. feladatában. Egy le
 
 ```prolog
 fordított([], []).
-fordított([X|M], Y) :-  fordított(M, M1), hozzáfűz(M1, [X], Y).
+fordított([X|M], Y) :- fordított(M, M1), hozzáfűz(M1, [X], Y).
 ```
 
 Ez így nem túl hatékony. Ezt is megpróbálhatjuk vég-rekurziós formára hozni egy plusz (ún. *akkumulátor*) argumentum segítségével:
