@@ -218,10 +218,23 @@
 <p>Egy egyszerű példa erre a hozzáfűzés:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hozzáfűz_kl(<span class="dt">X</span><span class="fu">-</span><span class="dt">Y</span><span class="kw">,</span> <span class="dt">Y</span><span class="fu">-</span><span class="dt">Z</span><span class="kw">,</span> <span class="dt">X</span><span class="fu">-</span><span class="dt">Z</span>)<span class="kw">.</span></span></code></pre></div>
 <p>Ehhez persze az kell, hogy argumentumként különbség-listákat kapjon:</p>
-<pre><code>?- hozzáfűz_kl([a,b,c|M]-M, [1,2]-[], X-[]).
+<pre><code>?- hozzáfűz_kl([a,b,c|M]-M, [1,2]-[], L-[]).
 M = [1, 2],
-X = [a, b, c, 1, 2]</code></pre>
-<p>Ennek a változatnak az összefüggését - mivel annyira egyszerű - a programba közvetlenül be szokás építeni, ahogy azt mindjárt látni fogjuk a gyorsrendezésnél.</p>
+L = [a, b, c, 1, 2]</code></pre>
+<p>Mi is történik itt pontosan? Legjobban talán akkor látszik, ha a <a href="prolog003.html">3. leckében</a> a listák bevezetésénél használt prefix jelöléssel írjuk fel:</p>
+<pre><code>?- hozzáfűz_kl(lista(a, lista(b, lista(c, M)))-M,
+               lista(1, lista(2, vége))-vége,
+               X-vége).</code></pre>
+<p>A szabály alapján az <code>M</code> és <code>lista(1, lista(2, vége))</code> egyesül, tehát a <code>hozzáfűz_kl</code> szabályban szereplő <code>X</code> értéke</p>
+<pre><code>lista(a, lista(b, lista(c, lista(1, lista(2, vége)))))</code></pre>
+<p>lesz, ami éppen a két lista összefűzése. Ugyanez többszörös összefűzésre is használható, pl.</p>
+<pre><code>?- hozzáfűz_kl([a,b|M1]-M1, [c,d|M2]-M2, L-M),
+   hozzáfűz_kl(L-M, [e,f|M3]-M3, X-[]).
+L = X, X = [a, b, c, d, e, f],
+M = M2, M2 = [e, f],
+M1 = [c, d, e, f],
+M3 = []</code></pre>
+<p>A hozzáfűzésnek ezt a módját - mivel annyira egyszerű - nem szokás így külön szabályként felírni, hanem általában a programba közvetlenül építik be, ahogy azt mindjárt látni fogjuk a gyorsrendezésnél.</p>
 <h3 id="gyorsrendezés">Gyorsrendezés</h3>
 <p>Az előző leckében látott gyorsrendezés is sokkal hatékonyabbá tehető ezzel a technikával. Eredetileg így nézett ki:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode prolog"><code class="sourceCode prolog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rendez2([]<span class="kw">,</span> [])<span class="kw">.</span></span>

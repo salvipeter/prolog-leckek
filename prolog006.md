@@ -15,12 +15,37 @@ hozzáfűz_kl(X-Y, Y-Z, X-Z).
 Ehhez persze az kell, hogy argumentumként különbség-listákat kapjon:
 
 ```
-?- hozzáfűz_kl([a,b,c|M]-M, [1,2]-[], X-[]).
+?- hozzáfűz_kl([a,b,c|M]-M, [1,2]-[], L-[]).
 M = [1, 2],
-X = [a, b, c, 1, 2]
+L = [a, b, c, 1, 2]
 ```
 
-Ennek a változatnak az összefüggését - mivel annyira egyszerű - a programba közvetlenül be szokás építeni, ahogy azt mindjárt látni fogjuk a gyorsrendezésnél.
+Mi is történik itt pontosan? Legjobban talán akkor látszik, ha a [3. leckében](prolog003.html) a listák bevezetésénél használt prefix jelöléssel írjuk fel:
+
+```
+?- hozzáfűz_kl(lista(a, lista(b, lista(c, M)))-M,
+               lista(1, lista(2, vége))-vége,
+               L-vége).
+```
+
+A szabály alapján az `M` és `lista(1, lista(2, vége))` egyesül, tehát a `hozzáfűz_kl` szabályban szereplő `X` értéke
+
+```
+lista(a, lista(b, lista(c, lista(1, lista(2, vége)))))
+```
+
+lesz, ami éppen a két lista összefűzése. Ugyanez többszörös összefűzésre is használható, pl.
+
+```
+?- hozzáfűz_kl([a,b|M1]-M1, [c,d|M2]-M2, L-M),
+   hozzáfűz_kl(L-M, [e,f|M3]-M3, X-[]).
+L = X, X = [a, b, c, d, e, f],
+M = M2, M2 = [e, f],
+M1 = [c, d, e, f],
+M3 = []
+```
+
+A hozzáfűzésnek ezt a módját - mivel annyira egyszerű - nem szokás így külön szabályként felírni, hanem általában a programba közvetlenül építik be, ahogy azt mindjárt látni fogjuk a gyorsrendezésnél.
 
 ### Gyorsrendezés
 
