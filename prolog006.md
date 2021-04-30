@@ -311,6 +311,13 @@ L = [lica, mimi, dusa, zsófi, juli]
 L = [lica, mimi, dusa, zsófi, juli]
 ```
 
+Ezeknél a szabályoknál a cél lehet egy zárójelben levő összetett kifejezés is. Az első 10 háromszögszámot pl. így számíthatjuk ki:
+
+```prolog
+?- findall(Y, (között(1, 10, X), Y is X * (X + 1) // 2), L).
+L = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55].
+```
+
 ### Feladat
 
 Írjatok szabályt, ami a `bagof` segítségével megkeresi egy halmaz (lista) összes részhalmazát!
@@ -374,6 +381,20 @@ A program folyásának vezérlésére már láttunk néhány módszert, mint a v
 
        implikáció(X) :- foo(X), !, bar(X).
        implikáció(X) :- baz(X).
+
+   Egy kicsit érdekesebb, ha a `->` előtt is vannak célok, pl.:
+
+       ?- között(1, 2, X), (X = 1 -> write(egy) ; write(kettő)), fail.
+       egykettő
+       false
+
+   (A zárójelezésre szükség van, mert a `->` precedenciája nagyobb, mint a vessző operátoré.) Ugyanakkor
+
+       ?- között(1, 2, X), (X = 1, !, write(egy) ; write(kettő)), fail.
+       egy
+       false
+       
+   A különbséget az okozza, hogy a vágás (`!`) az egész kérdésre vonatkozik, míg a `->` engedi, hogy a program visszamenjen a `között`-ig és újabb értékkel próbálkozzon.
 
 4. A felhasználóval való kommunikációhoz gyakran van szükség végtelen ciklusra, ezt segíti a `repeat` ("ismétel"), amit így lehet definiálni:
 
