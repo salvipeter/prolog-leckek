@@ -231,13 +231,15 @@ behelyettesít(K, [A=N|M], K2) :-
        ?- egyszerűsít(3+x+x, E).
        E = 2*x+3
 
-2. (*) Írjatok szabályt, ami eldönti, hogy egy kifejezés általánosabb-e egy másiknál!
+2. (*) Írjatok szabályt, ami eldönti, hogy egy kifejezés általánosabb-e egy másiknál! Az első argumentum akkor általánosítása a másodiknak, ha az első kifejezésben levő változóknak van olyan helyettesítési értéke, amivel pont a második kifejezést kapjuk meg.
 
-       ?- általánosabb(X, c).
+       ?- általánosabb(X, c).           % X = c
        true
-       ?- általánosabb(g(X), g(t(Y))).
+       ?- általánosabb(g(X), g(t(Y))).  % X = t(Y)
        true
-       ?- általánosabb(f(X,X), f(a,b)).
+       ?- általánosabb(g(t(Y)), g(X)).  % nincs Y, hogy t(Y) = X
+       false
+       ?- általánosabb(f(X,X), f(a,b)). % ellentmondás: X = a és X = b
        false
 
    (Feltehetjük, hogy a két kifejezés nem tartalmazza ugyanazt a változót.)
