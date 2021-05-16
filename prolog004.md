@@ -126,6 +126,16 @@ false
 
 A matematikai kiértékelésnél feltétel, hogy a kifejezésben ne szerepeljen változó. Tehát a rendszer nem tudja azt megválaszolni, hogy `?- X + 2 < X + 3.`, bármennyire is nyilvánvalónak tűnik nekünk.
 
+Az `is` és az `=:=` időnként ugyan felcserélhető, de általában nem:
+```prolog
+X is 1 + 2.  % OK, X = 3
+X =:= 1 + 2. % Nem jó, nem lehet benne ismeretlen
+3 is 1 + 2.  % OK, baloldalt lehet szám
+3 =:= 1 + 2. % OK
+1 + 2 is 3.  % Nem jó, baloldalt nem lehet kifejezés
+1 + 2 =:= 3. % OK
+```
+
 ### Legnagyobb közös osztó
 
 Két szám legnagyobb közös osztójának megkeresése klasszikus probléma. Az alábbi megoldás ötlete Euklidész *Elemek* c. művéből származik (i.e. 300 körül).
