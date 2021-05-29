@@ -34,7 +34,7 @@ Itt az üres szótár egyszerűen egy üres lista; a `put_assoc` egy asszociáci
 
 Amíg nincsen nagyon sok adatunk, ez a megoldás elég jól működik. Az egyszerűségnek azonban ára van: mind a keresés, mind a törlés általános esetben az elemek számával arányos. Ezt úgy szokás megfogalmazni, hogy a keresés és törlés komplexitása *O*(*n*), ahol *n* az elemek száma. Ez az *O* (kiolvasva *ordó*) azt mondja, hogy nem biztos, hogy pontosan *n* művelet, lehet hogy *n*+2, vagy *5n*, de ha az *n*-et 100-szor akkorára választom, akkor a műveletigény is körülbelül 100-szor akkorára nő. (Egy *O*(*n*^2)-es algoritmus esetén ilyenkor a műveletigény kb. a 10 000-szeresére változna.)
 
-A következőkben bemutatott módszer olyan, hogy mindhárom művelet (beszúrás, keresés, törlés) egyaránt *O*(log *n*) komplexitású, tehát ha az *n* a 100-szorosára nő, akkor a műveletigény kb. 6-7-szeresére változik. A beszúrás a fenti egyszerű verzióban gyorsabb - *O*(1) -, de a keresés és törlés hatkékonysága miatt érdemesebb az alábbi adatstruktúrákat alkalmazni.
+A következőkben bemutatott módszer olyan, hogy mindhárom művelet (beszúrás, keresés, törlés) egyaránt *O*(log *n*) komplexitású, tehát ha az *n* a 100-szorosára nő, akkor a műveletigény kb. 6-7-szeresére változik. A beszúrás a fenti egyszerű verzióban gyorsabb - *O*(1) -, de a keresés és törlés hatékonysága miatt érdemesebb az alábbi adatstruktúrákat alkalmazni.
 
 ### Bináris keresőfák
 
